@@ -1,0 +1,100 @@
+div.wapper {
+    width:1176px;
+    height:832px;
+    margin:auto;
+    position:relative;
+    overflow:hidden;
+}
+
+div.wapper div.header {
+	width:100%;
+    height:100px;
+    overflow:hidden;	
+    background:url(../image/yldHeader.png) no-repeat;
+    position:relative;
+}
+
+div.wapper div.header div.logo {
+    width:307px;
+    height:80px;
+    margin:20px 0 0 20px;
+    float:left;
+    background:url(../image/logoCfc.png) no-repeat;
+}
+
+div.wapper div.header div.menu {
+    width:800px;
+    height:52px;
+    border:1px solid #a8dd55;
+    margin:40px 40px 0 0;
+    border-radius:5px;
+    background:url(../image/menuBg.png) repeat-x;
+    float:right;
+}
+
+div.wapper div.header div.menu table td {
+    text-align:center;
+}
+
+div.wapper div.header div.menu table td a {
+    line-height:52px;
+    cursor:pointer;
+    font-size:16px;
+    color:#459f09;
+    text-decoration:none;
+}
+
+div.wapper div.header div.login {
+    position:absolute;
+    right:50px;
+    top:10px;
+}
+
+div.wapper div.header div.login a {
+    color:#484848;	
+    padding:0 10px;
+    font-size:14px;
+    cursor:pointer;
+}
+
+div.wapper div.bodyer {
+    width:100%;
+    height:652px;
+    background:url(../image/yldBodyer2.png) no-repeat;
+    overflow:hidden;
+    position:relative;
+}
+
+div.wapper div.footer {
+    width:100%;
+    height:80px;
+    background:url(../image/yldFooter.png) no-repeat;
+}
+
+div.wapper div.footer div.info {
+    width:530px;
+    overflow:hidden;
+    margin:auto;
+}
+
+div.wapper div.footer div.info a {
+	width:120px;
+	height:30px;
+	line-height:28px;
+	float:left;
+	display:block;
+    font-size:14px;
+    color:#666;
+    margin:0 5px;
+    text-align:center;
+    text-decoration:none;
+    cursor:pointer;
+} 
+
+div.wapper div.footer div.copy {
+	height:30px;
+	line-height:28px;
+	font-size:14px;
+	color:#888;
+    text-align:center;
+}

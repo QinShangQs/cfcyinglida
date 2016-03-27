@@ -1,0 +1,49 @@
+div.bodyer div.login {
+	overflow:hidden;
+    width:310px;
+    margin:100px auto 0 auto;
+}
+
+div.bodyer div.login table span {
+    opacity:0;
+    filter:alpha(opacity=0); 
+}
+
+div.bodyer div.login table td {
+    padding:10px 0;
+}
+
+div.bodyer div.login table td.one {
+
+}
+
+div.bodyer div.login table td.two input {
+    width:200px;
+    height:24px;
+    line-height:24px;
+}
+
+div.bodyer div.login table td.two select {
+    padding:6px 0;
+    font-size:14px;
+}
+
+div.bodyer div.login table div.pop {
+    font-size:12px;	
+    padding:3px 0 0 0;
+    color:red;
+}
+
+div.bodyer div.login a.submit {
+    display:block;
+    width:100px;
+    height:32px;
+    line-height:30px;
+    background:#1f6754;
+    text-align:center;
+    text-decoration:none;
+    color:#fff;
+    border-radius:5px;
+    margin:18px 0 0 2px;
+    cursor:pointer;
+}

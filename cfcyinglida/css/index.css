@@ -1,0 +1,44 @@
+div.wapper div.bodyer {
+    background:url(../image/yldBodyer.png) no-repeat;
+}
+
+div.wapper div.bodyer div.oper {
+    width:1096px;
+    height:140px;
+    overflow:hidden;
+    margin:auto;
+    padding:472px 0 0 0;
+}
+
+div.wapper div.bodyer a {
+	width:250px;
+	height:140px;
+	line-height:140px;
+    display:block;
+    float:left;
+    font-size:32px;
+    color:#fff;
+    text-align:center;
+    text-decoration:none;
+    cursor:pointer;
+}
+
+div.wapper div.bodyer a.one {
+    background:url(../image/bg01.png);
+    margin:0 32px 0 0;
+}
+
+div.wapper div.bodyer a.two {
+    background:url(../image/bg02.png);
+    margin:0 32px 0 0;
+}
+
+div.wapper div.bodyer a.thr {
+    background:url(../image/bg03.png);
+    margin:0 32px 0 0;
+}
+
+div.wapper div.bodyer a.fou {
+    background:url(../image/bg04.png);
+}
+
