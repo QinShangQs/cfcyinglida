@@ -16,7 +16,7 @@ class DB
 
 
 	//构造方法
-	function __construct($db='cfcyinglida',$host="127.0.0.1",$user="root",$password='cfc.201511'){ //cfc.201511
+	function __construct($db='cfcyinglida',$host="127.0.0.1",$user="root",$password='root'){ //cfc.201511
 	  $this->host=$host;
 	  $this->user=$user;
 	  $this->password=$password;
