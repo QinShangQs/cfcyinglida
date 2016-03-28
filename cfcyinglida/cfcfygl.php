@@ -24,8 +24,10 @@ if ($_GET[page]) {
 }
 if ($_GET[guanjianci] != "") {
     $guanjianci = $_GET[guanjianci];
-    if (substr($guanjianci, 0, 1) == 's' || substr($guanjianci, 0, 1) == 'S') {
-        $guanjianci = str_ireplace('s-', '', $guanjianci, $i);
+//     if (substr($guanjianci, 0, 1) == 's' || substr($guanjianci, 0, 1) == 'S') {
+//         $guanjianci = str_ireplace('s-', '', $guanjianci, $i);
+    if (substr($guanjianci, 0, 1) == 'i' || substr($guanjianci, 0, 1) == 'I') {
+    	$guanjianci = str_ireplace('i-', '', $guanjianci, $i);
         $hzhrzid = $guanjianci;
     } else {
         $guanjianci = preg_replace('/^0*/', '', $guanjianci);
@@ -104,7 +106,7 @@ include('spap_head.php');
                             <div class="insinsins">
                   <span>
 <input type="text" id="Guanjianci" name="Guanjianci" class="grd-white" value="<?php echo $_GET[guanjianci]; ?>"
-       placeholder="患者姓名,编码s" style="width:280px"/>
+       placeholder="患者姓名,编码i" style="width:280px"/>
 <input type="text" id="KaishiRiqi" name="KaishiRiqi" readonly="readonly" placeholder="请输入开始日期" size="12" value=""
        class="grd-white" style="width:120px"/>
 -
@@ -178,7 +180,7 @@ include('spap_head.php');
                         $lynum = mysql_num_rows($lynumq);//获取总条数
                         // echo $lynum;
                         echo "<td align=\"center\" bgcolor=\"#FFFFFF\">" . $hzhRecord[1] . "</td>";
-                        echo "<td align=\"center\" bgcolor=\"#FFFFFF\">S-" . $hzhRecord[0] . "</td>";
+                        echo "<td align=\"center\" bgcolor=\"#FFFFFF\">I-" . $hzhRecord[0] . "</td>";
 
                         echo "<td align=\"center\" bgcolor=\"#FFFFFF\">" . $hzhRecord[3] . "</td>";
                     }

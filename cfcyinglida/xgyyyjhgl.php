@@ -162,7 +162,7 @@ $sql .=" order by id DESC limit $page $pagesize ";
   $hzhQuery_ID = mysql_query($hzhsql);
   while($hzhRecord = mysql_fetch_array($hzhQuery_ID)){
   $hzhshj=$hzhRecord[2];
-    echo "<tr style=\"color:#1f4248; font-size:12px;\"><tdalign=\"center\" bgcolor=\"#FFFFFF\">S-".$hzhRecord[0]."</td><td align=\"center\" bgcolor=\"#FFFFFF\">".$hzhRecord[1]."</td><td align=\"center\" bgcolor=\"#FFFFFF\">肺癌</td><td align=\"center\" bgcolor=\"#FFFFFF\">".$Record[20]."</td><td>";
+    echo "<tr style=\"color:#1f4248; font-size:12px;\"><tdalign=\"center\" bgcolor=\"#FFFFFF\">I-".$hzhRecord[0]."</td><td align=\"center\" bgcolor=\"#FFFFFF\">".$hzhRecord[1]."</td><td align=\"center\" bgcolor=\"#FFFFFF\">肺癌</td><td align=\"center\" bgcolor=\"#FFFFFF\">".$Record[20]."</td><td>";
     if($Record[8]!=""){echo $Record[8]."粒";}else{echo "0粒";}
   /*$jbrsql = "select `yhyl1` from `manager` where `id`='".$Record[18]."'";
   $jbrQuery_ID = mysql_query($jbrsql);

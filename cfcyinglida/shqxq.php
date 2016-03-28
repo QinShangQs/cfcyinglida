@@ -182,7 +182,7 @@ include('spap_head.php');
              <td align="center" bgcolor="#FFFFFF"><?php echo $Record[6];?></td>
               <?php if($Record[2]!=""){?>
              <td align="center" bgcolor="#FFFFFF">患者编码：</td>
-             <td align="center" bgcolor="#FFFFFF">S-<?php echo $Record[2];?>
+             <td align="center" bgcolor="#FFFFFF">I-<?php echo $Record[2];?>
              </td><?php }else{echo "<td align=\"center\" bgcolor=\"#FFFFFF\" ></td><td align=\"center\" bgcolor=\"#FFFFFF\" ></td>";}?>
             </tr>
             <tr style="color:#1f4248; font-size:12px;">

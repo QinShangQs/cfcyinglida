@@ -21,8 +21,10 @@ if($_GET[page]){
 if($_GET[guanjianci]!=""){
 $guanjiancinr=$_GET[guanjianci];
 
-if(substr( $guanjiancinr, 0, 1 )=='s'||substr( $guanjiancinr, 0, 1 )=='S'){
-$guanjiancinr=str_ireplace('s','',$guanjiancinr,$i);
+// if(substr( $guanjiancinr, 0, 1 )=='s'||substr( $guanjiancinr, 0, 1 )=='S'){
+// $guanjiancinr=str_ireplace('s','',$guanjiancinr,$i);
+if(substr( $guanjiancinr, 0, 1 )=='i'||substr( $guanjiancinr, 0, 1 )=='I'){
+	$guanjiancinr=str_ireplace('i','',$guanjiancinr,$i);
 $hzhrzid=$guanjiancinr;
 }else{
 //$guanjiancinr=preg_replace('/^0*/', '', $guanjiancinr);
@@ -225,7 +227,7 @@ if($lynum==""){$lynum="0";}
         <tr style="color:#1f4248; font-size:12px;">
 
             <td width="8%" align="center" bgcolor="#FFFFFF"><?php echo $Record[4];?></td>
-            <td width="8%" align="center" bgcolor="#FFFFFF">S-<?php echo $Record[2];?></td>
+            <td width="8%" align="center" bgcolor="#FFFFFF">I-<?php echo $Record[2];?></td>
             <td width="12%" align="center" bgcolor="#FFFFFF"><a href="yshfyxx.php?id=<?php echo $Record[0];?>"><?php
 $lyshlnumq=mysql_query("SELECT SUM(fyshl) FROM `zyff` where `tshqk`='0' and `hzhid`='".$Record[0]."'");
   while($lyshlnum = mysql_fetch_array($lyshlnumq)){if($lyshlnum[0]!=""){echo $lyshlnum[0];}else{echo "0";}}
@@ -375,7 +377,7 @@ if($lynum==""){$lynum="0";}
         <tr style="color:#1f4248; font-size:12px;">
 
             <td align="center" bgcolor="#FFFFFF"><a href="yshfyzhxqsh.php?id=<?php echo $Record[0];?>"><?php echo $Record[4];?></a></td>
-            <td align="center" bgcolor="#FFFFFF">S-<?php echo $Record[2];?></td>
+            <td align="center" bgcolor="#FFFFFF">I-<?php echo $Record[2];?></td>
             <td align="center" bgcolor="#FFFFFF"><a href="yshfyxx.php?id=<?php echo $Record[0];?>"><?php
 $lyshlnumq=mysql_query("SELECT SUM(fyshl) FROM `zyff` where `tshqk`='0' and `hzhid`='".$Record[0]."'");
   while($lyshlnum = mysql_fetch_array($lyshlnumq)){if($lyshlnum[0]!=""){echo $lyshlnum[0];}else{echo "0";}}

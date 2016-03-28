@@ -35,8 +35,10 @@ if($_GET[page]){
 if($_GET[guanjianci]!=""){
     $guanjianci=$_GET[guanjianci];
     
-    if(substr( $guanjianci, 0, 1 )=='s'||substr( $guanjianci, 0, 1 )=='S'){
-    $guanjianci=str_ireplace('s','',$guanjianci,$i);
+//     if(substr( $guanjianci, 0, 1 )=='s'||substr( $guanjianci, 0, 1 )=='S'){
+//     $guanjianci=str_ireplace('s','',$guanjianci,$i);
+    if(substr( $guanjianci, 0, 1 )=='i'||substr( $guanjianci, 0, 1 )=='I'){
+    	$guanjianci=str_ireplace('i','',$guanjianci,$i);
     $guanjiancisql="(`hzhid`='".$guanjianci."')";
     
     }else{
@@ -312,7 +314,7 @@ include('spap_head.php');
      if($Record[50]==2){echo "<font color='red'>重</font>";}
      echo "  ";
      if($Record[2]!=""){
-     echo "S-".$Record[2];}
+     echo "I-".$Record[2];}
      echo "<br />".$Record[5].$Record[6]."</td>";
     echo "<td align=\"center\" bgcolor=\"#FFFFFF\">";
 if($Record[3]=="申诉审核"||$Record[3]=="申诉待审核"){echo "审核";}else{echo $Record[3];}

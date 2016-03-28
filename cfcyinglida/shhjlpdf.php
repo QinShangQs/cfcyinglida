@@ -20,8 +20,8 @@ include('newdb.php');
     $jjyy=str_ireplace('http://',' http://',$shhejlRecord[5]);
     
     }
-    if($hzhid!=''){$hzhwyid='S-'.$hzhid;}
-    if($hzhid!=''){$hzhid='S-'.$hzhid;$hzhbmmch="患者唯一编码：";}else {$hzhid=sprintf("%05d", $id); $hzhbmmch="患者申请号：";}
+    if($hzhid!=''){$hzhwyid='I-'.$hzhid;}
+    if($hzhid!=''){$hzhid='I-'.$hzhid;$hzhbmmch="患者唯一编码：";}else {$hzhid=sprintf("%05d", $id); $hzhbmmch="患者申请号：";}
     if($hzhzz!=''){$yyid=$hzhzz;}else if($hzhyy!=""){$yyid=$hzhyy;}else{$yyid=$hzhshqyy;}
     $yysql = "select yymch,zhdysh,yyzhdyf from `yyyshdq` where `id`='".$yyid."'";
     $yyQuery_ID = mysql_query($yysql);

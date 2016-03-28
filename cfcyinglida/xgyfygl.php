@@ -166,7 +166,7 @@ while($zshRecord = mysql_fetch_array($zsh)){$zshjs=$zshRecord[0];$jhkpshl=$zshRe
   $lynumq=mysql_query("SELECT * FROM `zyff` where `hzhid`='".$hzhRecord[0]."' and `tshqk`<>'1'");
 $lynum = mysql_num_rows($lynumq);//获取总条数
            // echo $lynum;
-    echo "<td align=\"center\" bgcolor=\"#FFFFFF\">S-".$hzhRecord[0]."</td><td align=\"center\" bgcolor=\"#FFFFFF\">".$hzhRecord[1]."</td><td align=\"center\" bgcolor=\"#FFFFFF\">";
+    echo "<td align=\"center\" bgcolor=\"#FFFFFF\">I-".$hzhRecord[0]."</td><td align=\"center\" bgcolor=\"#FFFFFF\">".$hzhRecord[1]."</td><td align=\"center\" bgcolor=\"#FFFFFF\">";
     if($hzhRecord[3]=="RCC"&&$lynum>1&&$lynum<4&&$hzhRecord[4]=='1+1+1'){
       echo "是";
     }else{

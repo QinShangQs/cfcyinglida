@@ -416,7 +416,7 @@ include('spap_head.php');
      if($Record[50]==2){echo "<font color='red'>重</font>";}
      echo "  ";
      if($Record[2]!=""){
-     echo "S-".$Record[2];}
+     echo "I-".$Record[2];}
      echo "<br />".$Record[5].$Record[6]."</td>";
     echo "<td align=\"center\" bgcolor=\"#FFFFFF\">";
 if($Record[3]=="申诉审核"||$Record[3]=="申诉待审核"){echo "审核";}else{echo $Record[3];}

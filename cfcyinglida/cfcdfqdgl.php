@@ -209,7 +209,7 @@ if($lynum==""){$lynum="0";}
       echo $hzhlyyf;
  
             ?></td>
-            <td align="center" bgcolor="#FFFFFF">S-<?php echo $Record[2];?></td>
+            <td align="center" bgcolor="#FFFFFF">I-<?php echo $Record[2];?></td>
             <td align="center" bgcolor="#FFFFFF"><a href="shqxq.php?id=<?php echo $Record[0];?>"><?php echo $Record[4];?></a></td>
             <td align="center" bgcolor="#FFFFFF"><?php echo $Record[15];?></td>
             <td align="center" bgcolor="#FFFFFF"><a href="cfcfyxx.php?id=<?php echo $Record[0];?>"><?php

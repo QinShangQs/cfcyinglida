@@ -121,7 +121,7 @@ include('pagefy.php');
   $hzhQuery_ID = mysql_query($hzhsql);
   while($hzhRecord = mysql_fetch_array($hzhQuery_ID)){
   $hzhshj=$hzhRecord[2];
-    echo "<td align=\"center\" bgcolor=\"#FFFFFF\">S-".$hzhRecord[0]."</td><td align=\"center\" bgcolor=\"#FFFFFF\">".$hzhRecord[1]."</td>";
+    echo "<td align=\"center\" bgcolor=\"#FFFFFF\">I-".$hzhRecord[0]."</td><td align=\"center\" bgcolor=\"#FFFFFF\">".$hzhRecord[1]."</td>";
     echo "<td align=\"center\" bgcolor=\"#FFFFFF\">".$hzhRecord[3]."</td>";
   } 
   $zhxqshsql = "select `xm`,`lxfsh` from `zhxqsh` where `id`='".$Record[9]."'";

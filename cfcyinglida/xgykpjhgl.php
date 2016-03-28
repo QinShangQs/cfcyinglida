@@ -34,8 +34,10 @@ if($_GET[page]){
 }
 if($_GET[guanjianci]!=""){
 $guanjiancinr=$_GET[guanjianci];
-if(substr( $guanjiancinr, 0, 1 )=='s'||substr( $guanjiancinr, 0, 1 )=='S'){
-$guanjiancinr=str_ireplace('s','',$guanjiancinr,$i);
+// if(substr( $guanjiancinr, 0, 1 )=='s'||substr( $guanjiancinr, 0, 1 )=='S'){
+// $guanjiancinr=str_ireplace('s','',$guanjiancinr,$i);
+if(substr( $guanjiancinr, 0, 1 )=='i'||substr( $guanjiancinr, 0, 1 )=='I'){
+	$guanjiancinr=str_ireplace('i','',$guanjiancinr,$i);
 $hzhrzid=$guanjiancinr;
 }else{
 $guanjiancinr=preg_replace('/^0*/', '', $guanjiancinr);

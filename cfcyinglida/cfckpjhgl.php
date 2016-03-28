@@ -23,8 +23,10 @@ if ($_GET[page]) {
 }
 if ($_GET[guanjianci] != "") {
     $guanjianci = $_GET[guanjianci];
-    if (substr($guanjianci, 0, 1) == 's' || substr($guanjianci, 0, 1) == 'S') {
-        $guanjianci = str_ireplace('s-', '', $guanjianci, $i);
+//     if (substr($guanjianci, 0, 1) == 's' || substr($guanjianci, 0, 1) == 'S') {
+//         $guanjianci = str_ireplace('s-', '', $guanjianci, $i);
+    if (substr($guanjianci, 0, 1) == 'i' || substr($guanjianci, 0, 1) == 'I') {
+    	$guanjianci = str_ireplace('i-', '', $guanjianci, $i);
         $hzhrzid = $guanjianci;
     } else {
         $guanjianci = preg_replace('/^0*/', '', $guanjianci);
@@ -194,7 +196,7 @@ include('spap_head.php');
                             echo "</td>";
 
                             echo "<td align=\"center\" bgcolor=\"#FFFFFF\">" . $hzhRecord[1] . "</td>";
-                            echo "<td align=\"center\" bgcolor=\"#FFFFFF\">S-" . $hzhRecord[0] . "</td>";
+                            echo "<td align=\"center\" bgcolor=\"#FFFFFF\">I-" . $hzhRecord[0] . "</td>";
                             echo "<td align=\"center\" bgcolor=\"#FFFFFF\">" . $Record[20] . "</td>";
                             echo "<td align=\"center\" bgcolor=\"#FFFFFF\">";
                             if ($Record[7] != "") {

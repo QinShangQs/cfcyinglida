@@ -99,7 +99,7 @@ if($Record[8]!=""){$jhkpyyshl.=$Record[8];}else{$jhkpyyshl.="0";}
   $hzhQuery_ID = mysql_query($hzhsql);
   while($hzhRecord = mysql_fetch_array($hzhQuery_ID)){
   $hzhshj=$hzhRecord[2];
-    $hzhrzbm="S-".$hzhRecord[0];
+    $hzhrzbm="I-".$hzhRecord[0];
     $hzhxm=$hzhRecord[1];
   } 
     $objExcel->getActiveSheet()->setCellValue('e'.$jshi, $hzhrzbm);  

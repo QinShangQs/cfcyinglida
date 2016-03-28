@@ -28,7 +28,7 @@ while($Record = mysql_fetch_array($Query_ID)){
   $hzhzhjhm=$hzhRecord[5].":".$hzhRecord[6];
 ?> 
     <div>
-        患者姓名:<?php echo $hzhxm;?>&nbsp;&nbsp;患者身份号码:<?php echo $hzhzhjhm;?>&nbsp;&nbsp;患者编码：<?php echo "S-".$hzhRecord[2];?>&nbsp;&nbsp;病种：<?php echo $hzhRecord[7];?>
+        患者姓名:<?php echo $hzhxm;?>&nbsp;&nbsp;患者身份号码:<?php echo $hzhzhjhm;?>&nbsp;&nbsp;患者编码：<?php echo "I-".$hzhRecord[2];?>&nbsp;&nbsp;病种：<?php echo $hzhRecord[7];?>
 <?php
   }
 ?>

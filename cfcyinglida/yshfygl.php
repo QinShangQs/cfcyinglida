@@ -34,8 +34,10 @@ if($_GET[page]){
 
 if($_GET[guanjianci]!=""){ 
 $guanjiancinr=$_GET[guanjianci];
-if(substr( $guanjiancinr, 0, 1 )=='s'||substr( $guanjiancinr, 0, 1 )=='S'){
-$guanjiancinr=str_ireplace('s','',$guanjiancinr,$i);
+// if(substr( $guanjiancinr, 0, 1 )=='s'||substr( $guanjiancinr, 0, 1 )=='S'){
+// $guanjiancinr=str_ireplace('s','',$guanjiancinr,$i);
+if(substr( $guanjiancinr, 0, 1 )=='i'||substr( $guanjiancinr, 0, 1 )=='I'){
+	$guanjiancinr=str_ireplace('i','',$guanjiancinr,$i);
 $hzhrzid=$guanjiancinr;
 }else{
 $guanjiancinr=preg_replace('/^0*/', '', $guanjiancinr);
@@ -206,7 +208,7 @@ $sql .= " order by id DESC limit $page $pagesize ";
       while($hzhRecord = mysql_fetch_array($hzhQuery_ID)) {
           $hzhshj = $hzhRecord[2];
           echo "<td width=\"8%\" align=\"center\" bgcolor=\"#FFFFFF\">" . $hzhRecord[1] . "</td>";
-          echo "<td width=\"10%\" align=\"center\" bgcolor=\"#FFFFFF\">S-" . $hzhRecord[0] . "</td>";
+          echo "<td width=\"10%\" align=\"center\" bgcolor=\"#FFFFFF\">I-" . $hzhRecord[0] . "</td>";
           echo "<td width=\"10%\" align=\"center\" bgcolor=\"#FFFFFF\">" . $hzhRecord[4] . "</td>";
 
 
