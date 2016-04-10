@@ -408,6 +408,10 @@ if ($_SESSION[yhshf] == '10' || $_SESSION[yhshf] == '2') {
         <div class="topico"><img src="./images/icon01.gif"/></div>
         <div class="istext"><a href="kfkcpdhfgl.php" title="暂停库存盘点恢复">暂停库存..</a></div>
     </div>
+    <div class="infowraps">
+        <div class="topico"><img src="./images/icon01.gif"/></div>
+        <div class="istext"><a href="sqfyjlgl.php" title="授权发药记录">授权发药记录</a></div>
+    </div>
 
     <!--数据导入开始-->
     <?php

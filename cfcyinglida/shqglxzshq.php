@@ -174,13 +174,37 @@ if( v.length!=11||!v.match(a) ){
   <label>手机：</label><span>
     <input class="grd-white" id="shj" name="shouji" type="text" value=""  onblur="yzshj(this.value)" size='19'/>
   </span>
-  <label>联系电话1：</label><span>
-  <input class="grd-white" id="dh1" name="dianhua2" type="text" value="" size='19' placeholder="项目办将优先与该电话联系"/>
+</div>
+<div class="insinsins" style="width:100%;">
+  <label>第一联系人姓名：</label>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+  <input class="grd-white" id="dh1xm" name="dianhua2xm" type="text" value="" size='19' placeholder="项目办将优先与该电话联系"/>
   </span>
-  <label>联系电话2：</label><span>
+  <label>与患者关系：</label>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+  <input class="grd-white" id="dh1gx" name="dianhua2gx" type="text" value="" size='19' />
+  </span>
+  <label>联系方式：</label><span>
+  <input class="grd-white" id="dh1" name="dianhua2" type="text" value="" size='19' />
+  </span>
+</div>
+<div class="insinsins" style="width:100%;">
+ <label>第二联系人姓名：</label>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+  <input class="grd-white" id="dh2xm" name="dianhua3xm" type="text" value="" size='17'/>
+  </span>
+   <label>与患者关系：</label>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+  <input class="grd-white" id="dh2gx" name="dianhua3gx" type="text" value="" size='17'/>
+  </span>
+  <label>联系方式：</label><span>
   <input class="grd-white" id="dh2" name="dianhua3" type="text" value="" size='17'/>
   </span>
-  <label>联系电话3：</label><span>
+</div>
+<div class="insinsins" style="width:100%;">
+  <label>第三联系人姓名：</label><span>
+  <input class="grd-white" id="dh3xm" name="dh3xm" type="text" value="" size='17'/>
+  </span>
+  <label>与患者关系：</label><span>
+  <input class="grd-white" id="dh3gx" name="dh3gx" type="text" value="" size='17'/>
+  </span>
+  <label>联系方式：</label><span>
   <input class="grd-white" id="dh3" name="dh3" type="text" value="" size='17'/>
   </span>
 </div>

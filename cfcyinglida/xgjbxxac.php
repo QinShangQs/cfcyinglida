@@ -28,10 +28,19 @@ $Zhuzhi = $_POST['Zhuzhi'];
 $hzhtxdzh = $sheng.$shi.$qu.$Zhuzhi;
 ///手机
 $hzhshj = $_POST['shouji'];
+
+$dylxrxm = $_POST["dianhua2xm"];
+$dylxrgx = $_POST["dianhua2gx"];
 //联系电话1
 $dylxrdh = $_POST['dianhua2'];
+$derlxrxm = $_POST["dianhua3xm"];
+$derlxrgx = $_POST["dianhua3gx"];
 //联系电话2
 $derlxrdh = $_POST['dianhua3'];
+$dslxrxm = $_POST["dh3xm"];
+$dslxrgx = $_POST["dh3gx"];
+//联系电话3
+$dslxrdh = $_POST["dh3"];
 //诊断类型：
 $zhdlx = $_POST['Zhengduan'];
 //户籍类型
@@ -53,7 +62,7 @@ $cbdqqu = $_POST['cbdqqu'];
     if($cbdqshi=="地级市"){$cbdqshi="";}
     if($cbdqqu=="市、县级市"){$cbdqqu="";}
 //捐助类型：
-$jzhlx = $_POST['jzhlx'];
+// $jzhlx = $_POST['jzhlx'];
 //捐助数量：
 //$jzhshl = $_POST['JuanZengShuLiang'];
 //用药剂量：
@@ -69,6 +78,12 @@ $shcyyshj = $_POST['ShouciYongyaoRiqi'];
 $zhxqsh[] = $_POST['ZhixiQinshusJson'];
 
 $ygshcyyrq = $_POST['ygShouciYongyaoRiqi'];
+#患者家庭人口
+$hzhjtrk = $_POST["JiatingRenkou"];
+#家庭年收入 
+$jtnshr = $_POST["NianShouru"];
+#人均收入 
+$rjshr = $_POST["hzhjtrjshr"];
 
 /*新增用户时药房必须是医院制定药房*/
   $yfsql = "select yyzhdyf from `yyyshdq` where `id` = '".$shqyy."'";
@@ -80,7 +95,14 @@ $ygshcyyrq = $_POST['ygShouciYongyaoRiqi'];
 //最新要求性别以下内容不填写可用录入
 //if($hzhxm!=""&&$zhjlx!=""&&$zhjhm!=""&&$shqbzh!=""&&$shqyy!=""&&$hzhtxdzh!=""&&$hzhshj!=""&&$zhdlx!=""&&$hzhhj!=""&&$hzhjtrk!=""&&$jtnshr!=""&&$cblx!=""&&$cbdqsheng!=""&&$jzhlx!=""&&$jzhshl!=""&&$ypgg!=""&&$ypyl!=""&&$xmshqbtxrq!=""&&$hzhchshrq!=""&&$hzhxb!=""&&$cbdqshi!=""&&$cbdqqu!=""&&$rjshr!=""){
 if($hzhxm!=""&&$zhjlx!=""&&$zhjhm!=""&&$hzhchshrq!=""&&$hzhxb!=""){
-  $query="UPDATE `hzh` SET `hzhxm`='$hzhxm' ,`zhjlx`='$zhjlx',`zhjhm`='$zhjhm',`shqbzh`='$shqbzh',`shqyy`='$shqyy',`hzhtxdzh`='$hzhtxdzh',`hzhshj`='$hzhshj',`dylxrdh`='$dylxrdh',`derlxrdh`='$derlxrdh',`zhdlx`='$zhdlx',`hzhhj`='$hzhhj',`hzhjtrk`='$hzhjtrk',`jtnshr`='$jtnshr',`cblx`='$cblx',`cbdqsheng`='$cbdqsheng',`jzhlx`='$jzhlx',`ypgg`='$ypgg',`ypyl`='$ypyl',`xmshqbtxrq`='$xmshqbtxrq',`shcyyshj`='$shcyyshj',`hzhchshrq`='$hzhchshrq',`hzhxb`='$hzhxb',`cbdqshi` ='$cbdqshi',`cbdqqu`='$cbdqqu',`rjshr`='$rjshr',`lyyf`='$lyyf',`jtnshr`='$jtnshr',`hzhnshr` = '$hzhnshr',`ygshcyyrq`='$ygshcyyrq' WHERE `id` = '$hzhid'";
+  $query="UPDATE `hzh` SET `hzhxm`='$hzhxm' ,`zhjlx`='$zhjlx',`zhjhm`='$zhjhm',`shqbzh`='$shqbzh',`shqyy`='$shqyy',`hzhtxdzh`='$hzhtxdzh',`hzhshj`='$hzhshj',`dylxrdh`='$dylxrdh',`derlxrdh`='$derlxrdh',`zhdlx`='$zhdlx',`hzhhj`='$hzhhj',`hzhjtrk`='$hzhjtrk',`jtnshr`='$jtnshr',`cblx`='$cblx',`cbdqsheng`='$cbdqsheng',`ypgg`='$ypgg',`ypyl`='$ypyl',`xmshqbtxrq`='$xmshqbtxrq',`shcyyshj`='$shcyyshj',`hzhchshrq`='$hzhchshrq',`hzhxb`='$hzhxb',`cbdqshi` ='$cbdqshi',`cbdqqu`='$cbdqqu',`rjshr`='$rjshr',`lyyf`='$lyyf',`jtnshr`='$jtnshr',`hzhnshr` = '$hzhnshr',`ygshcyyrq`='$ygshcyyrq',`dslxrdh` = '$dslxrdh' "
+  	." ,`dylxrxm`='$dylxrxm'"	
+  	." ,`dylxrgx`='$dylxrgx'"
+  	." ,`derlxrxm`='$derlxrxm'"
+  	." ,`derlxrgx`='$derlxrgx'"
+  	." ,`dslxrxm`='$dslxrxm'"
+  	." ,`dslxrgx`='$dslxrgx'"
+  	." WHERE `id` = '$hzhid'";
   $result=mysql_query($query);
   if(!$result)
   {
@@ -118,7 +140,7 @@ if($hzhxm!=""&&$zhjlx!=""&&$zhjhm!=""&&$hzhchshrq!=""&&$hzhxb!=""){
       $zhxjgzh = $jsonsj->军官证;
       $zhxgx = $jsonsj->与患者关系;
       $zhxlx = $jsonsj->联系方式;
-      $txtnshr = $jsonsj->年收入;
+      $txtnshr = $jsonsj->上年度收入;
       if($zhxxm!=''&&($zhxzhjhm!=''||$zhxjgzh!='')&&$zhxgx!=''){
 
           $zhxquery="INSERT INTO `zhxqsh` (`hzhid` ,`xm` ,`zhjhm` ,`yhzhgx` ,`lxfsh`,`jgzh`,`gxzf`,`nshr`)VALUES ( '$hzhid',  '$zhxxm',  '$zhxzhjhm',  '$zhxgx',  '$zhxlx',  '$zhxjgzh',  '1','$txtnshr')";

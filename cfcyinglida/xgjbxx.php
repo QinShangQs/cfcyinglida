@@ -1,380 +1,403 @@
-<?php session_start();
-@header('Content-type: text/html;charset=utf-8');
-include('newdb.php');
-$hzhid = $_GET["id"];
-$html_title="修改患者基本信息";
-include('spap_head.php');
+<?php
+
+session_start ();
+@header ( 'Content-type: text/html;charset=utf-8' );
+include ('newdb.php');
+$hzhid = $_GET ["id"];
+$html_title = "修改患者基本信息";
+include ('spap_head.php');
+include('wdb.php');
+$db = new DB();
 ?>
 <div class="main">
-<div class="insmain">
-<div class="thislink">当前位置：<a href="shqgl.php">申请管理</a> > <?php echo $html_title;?></div>
-<div class="inwrap flt top">
-<div class="title w977 flt">
-    <strong><?php echo $html_title;?></strong>
-</div>
-<form action="xgjbxxac.php" method="post">
-<input id="hzhid" name="hzhid" type="hidden" value="<?php echo $hzhid;?>" />
-<div class="incontact w955 flt">
+	<div class="insmain">
+		<div class="thislink">
+			当前位置：<a href="shqgl.php">申请管理</a> > <?php echo $html_title;?></div>
+		<div class="inwrap flt top">
+			<div class="title w977 flt">
+				<strong><?php echo $html_title;?></strong>
+			</div>
+			<form action="xgjbxxac.php" method="post">
+				<input id="hzhid" name="hzhid" type="hidden"
+					value="<?php echo $hzhid;?>" />
+				<div class="incontact w955 flt">
 <?php
-$hzhsql = "select * from `hzh` where `id` = '".$hzhid."'";
+$hzhsql = "select * from `hzh` where `id` = '" . $hzhid . "'";
 
-$hzhQuery_ID = mysql_query($hzhsql);
-while($hzhRecord = mysql_fetch_array($hzhQuery_ID)){
-?>
+$hzhQuery_ID = mysql_query ( $hzhsql );
+while ( $hzhRecord = mysql_fetch_array ( $hzhQuery_ID ) ) {
+	?>
 <table width="100%" border="0" cellspacing="0" cellpadding="5">
-<tr>
-<td>
-<fieldset class="top">
-<legend>申请信息</legend>
-<table width="100%" cellspacing="1" cellpadding="5" border="0" bgcolor="#cdcdcd">
-<tbody>
-<tr style="color:#1f4248; font-size:12px;">
-    <td bgcolor="#FFFFFF" align="center">姓名：</td>
-    <td bgcolor="#FFFFFF" align="left" colspan="3">
-        <input style="width:200px; margin-left: 10px;" class="grd-white" id="Xingming" name="Xingming" type="text" value="<?php echo $hzhRecord[4];?>" />
-        <font color="red">*</font></td>
-    <td bgcolor="#FFFFFF" align="center">证件类型：</td>
-    <td bgcolor="#FFFFFF" align="center" colspan="3">
-        <select class="grd-white2" id="zhjlx" name="zhjlx">
-            <option <?php if($hzhRecord[5]=="身份证"){echo "selected=\"selected\"";}?> value="身份证">身份证</option>
-            <option <?php if($hzhRecord[5]=="军官证"){echo "selected=\"selected\"";}?> value="军官证">军官证</option>
-        </select>
-        <input class="grd-white" id="ShenfenHaoma" name="ShenfenHaoma" type="text" value="<?php echo $hzhRecord[6];?>" />
-        <font color="red">*</font>
-        <span style="color:red;" id="zhjhmtx" name="zhjhmtx"></span>
-    </td>
-
-</tr>
-<tr style="color:#1f4248; font-size:12px;">
-    <td bgcolor="#FFFFFF" align="center">申请病种：</td>
-    <td bgcolor="#FFFFFF" align="center">
-        <select class="grd-white2" id="shqlx" name="shqlx">
-            <option selected="selected" value="<?php echo $hzhRecord[7];?>"><?php echo $hzhRecord[7];?></option>
-        </select><font color="red">*</font>
-    </td>
-    <td bgcolor="#FFFFFF" align="center">出生日期：</td>
-    <td bgcolor="#FFFFFF" align="center">
-        <input class="grd-white" id="hzhchshrq"  onClick="javascript:ShowCalendar(this.id)" name="hzhchshrq"  readonly type="text" value="<?php echo $hzhRecord[38];?>" /><font color="red">*</font>
-    </td>
-    <td bgcolor="#FFFFFF" align="center">性别：</td>
-    <td bgcolor="#FFFFFF" align="left" colspan="3">
-        <select style="margin-left: 18px;" id="hzhxingbie" name="hzhxingbie"class="grd-white2"><option value="">--请选择--</option>
-            <option <?php if($hzhRecord[37]=="男"){echo "selected=\"selected\"";}?> value="男">男</option>
-            <option <?php if($hzhRecord[37]=="女"){echo "selected=\"selected\"";}?> value="女">女</option>
-        </select>
-        <font color="red">*</font>
-    </td>
-</tr>
-<tr style="color:#1f4248; font-size:12px;">
-    <td bgcolor="#FFFFFF" align="center" colspan="3">申请的医院/医生：</td>
-    <td bgcolor="#FFFFFF" align="center" colspan="6">
-        <select id="ShenqingYishengId" name="ShenqingYishengId" style="width: 500px;" class="grd-white2" onchange="qzyzh()">
+						<tr>
+							<td>
+		<!-- begin -->
+		<div class="incontact w955 flt">
+		  <table width="100%" border="0" cellspacing="0" cellpadding="5">
+            <tr>
+              <td>
+        	<fieldset class="incontact flt">
+	            <legend>申请信息</legend>
+				<div class="insinsins" style="width:100%;">
+				  <label>姓名：</label><span>
+				  <input style="width: 200px; margin-left: 10px;" class="grd-white"
+						id="Xingming" name="Xingming" type="text"
+						value="<?php echo $hzhRecord[4];?>" /> 
+				  <font color="red">*</font></span>
+				  <label>证件类型：</label><span>
+				  <select class="grd-white2" id="zhjlx" name="zhjlx">
+						<option	<?php if($hzhRecord[5]=="身份证"){echo "selected=\"selected\"";}?>
+								value="身份证">身份证</option>
+						<option	<?php if($hzhRecord[5]=="军官证"){echo "selected=\"selected\"";}?>
+						value="军官证">军官证</option>
+				  </select> 
+				  <input class="grd-white" id="ShenfenHaoma" name="ShenfenHaoma" type="text"
+						value="<?php echo $hzhRecord[6];?>" /> <font color="red">*</font>
+					<span style="color: red;" id="zhjhmtx" name="zhjhmtx"></span></span>
+				  </span>
+				</div>
+				<div class="insinsins" style="width:100%;">
+				  <label>申请病种：</label><span>
+				  <select class="grd-white2" id="shqlx" name="shqlx">
+					<option selected="selected"
+							value="<?php echo $hzhRecord[7];?>"><?php echo $hzhRecord[7];?></option>
+				  </select><font color="red">*</font>
+				  </span>
+				  <label>出生日期：</label><span>
+				    <input class="grd-white" id="hzhchshrq"
+						onClick="javascript:ShowCalendar(this.id)" name="hzhchshrq"
+						readonly type="text" value="<?php echo $hzhRecord[38];?>" /><font
+					color="red">*</font>
+				  </span>
+				  <label>性别：</label><span>
+				  <select style="margin-left: 18px;" id="hzhxingbie"
+						name="hzhxingbie" class="grd-white2">
+						<option value="">--请选择--</option>
+						<option <?php if($hzhRecord[37]=="男"){echo "selected=\"selected\"";}?>
+							value="男">男</option>
+						<option	<?php if($hzhRecord[37]=="女"){echo "selected=\"selected\"";}?>
+							value="女">女</option>
+					</select> <font color="red">*</font>
+				  </span>
+				</div>
+				<div class="insinsins" style="width:100%;">
+					<label>选择医生省：</label>
+					<span>
+					<select
+													id="ShenqingYishengId" name="ShenqingYishengId"
+													style="width: 500px;" class="grd-white2" onchange="qzyzh()">
             <?php
-            $yyqzyzh=array();
-            $yshshq=array();
-
-            $yysql = "select id,shengjx,sheng,yymch,zhdysh,zhdyshyzh,shqysh1,shqysh2,shqysh3 from `yyyshdq` where `id`='".$hzhRecord[9]."'";
-            $yyQuery_ID = mysql_query($yysql);
-
-            while($yyRecord = mysql_fetch_array($yyQuery_ID)){
-
-                $yyqzyzh[$yyRecord[0]]=$yyRecord[5];
-                $shqyshshl=0;
-                if($yyRecord[6]!=''){$shqyshshl++;}
-                if($yyRecord[7]!=''){$shqyshshl++;}
-                if($yyRecord[8]!=''){$shqyshshl++;}
-                $yshshq[$yyRecord[0]]=$shqyshshl;
-                echo "<option value=\"".$yyRecord[0]."\"> ".$yyRecord[1]." ".$yyRecord[2]." ".$yyRecord[3]." ".$yyRecord[4]."</option>";
-            }
-            echo "<option value=\"\">请选择医院医生</option>";
-            $yy2sql = "select id,shengjx,sheng,yymch,zhdysh,zhdyshyzh,shqysh1,shqysh2,shqysh3 from `yyyshdq` where `yhszht`='1' order by shengjx ASC";
-
-            $yy2Query_ID = mysql_query($yy2sql);
-
-            while($yy2Record = mysql_fetch_array($yy2Query_ID)){
-                if($yy2Record[0]==$hzhRecord[9]){}
-                else{
-                    $yyqzyzh[$yy2Record[0]]=$yy2Record[5];
-                    $shqyshshl=0;
-                    if($yy2Record[6]!=''){$shqyshshl++;}
-                    if($yy2Record[7]!=''){$shqyshshl++;}
-                    if($yy2Record[8]!=''){$shqyshshl++;}
-                    $yshshq[$yy2Record[0]]=$shqyshshl;
-                    echo "<option value=\"".$yy2Record[0]."\"> ".$yy2Record[1]." ".$yy2Record[2]." ".$yy2Record[3]." ".$yy2Record[4]."</option>";
-                }
-            }
-            ?>
-        </select>
-        <font color="red">*</font>
-    </td>
-</tr>
-<tr style="color:#1f4248; font-size:12px;">
-    <td bgcolor="#FFFFFF" align="center" colspan="3">患者通讯住址：</td>
-    <td bgcolor="#FFFFFF" align="center" colspan="6">
-        <input class="grd-white" id="Zhuzhi" name="Zhuzhi" style="width:500px" type="text" value="<?php echo $hzhRecord[14];?>" />
-        <font color="red">*</font>
-    </td>
-</tr>
-<tr style="color:#1f4248; font-size:12px;">
-    <td bgcolor="#FFFFFF" align="center">患者手机：</td>
-    <td bgcolor="#FFFFFF" align="center">
-        <input style="width:100px" class="grd-white" id="shouji" name="shouji" type="text" value="<?php echo $hzhRecord[15];?>"  onblur="yzshj(this.value)"/><font color="red">*</font>
-    </td>
-    <script>
-        function yzshj(v){
-            var a = /^((\(\d{3}\))|(\d{3}\-))?13\d{9}|15\d{9}|18\d{9}|14\d{9}$/ ;
-            if( v.length!=11||!v.match(a) ){
-                alert("手机号错误!");
-                return false;
-            }else{return true;}
-        }
-    </script>
-    <td bgcolor="#FFFFFF" align="center">联系电话1：</td>
-    <td bgcolor="#FFFFFF" align="center">
-        <input style="width:117px" class="grd-white" id="dianhua2" name="dianhua2" type="text" value="<?php echo $hzhRecord[16];?>" />
-    </td>
-    <td bgcolor="#FFFFFF" align="center">联系电话2：</td>
-    <td bgcolor="#FFFFFF" align="center">
-        <input style="width:117px" class="grd-white" id="dianhua3" name="dianhua3" type="text" value="<?php echo $hzhRecord[17];?>" />
-    </td>
-    <td bgcolor="#FFFFFF" align="center">联系电话3：</td>
-    <td bgcolor="#FFFFFF" align="center">
-        <input style="width:117px" class="grd-white" id="dianhua3" name="dianhua3" type="text" value="<?php echo $hzhRecord[51];?>" />
-    </td>
-</tr>
-<tr style="color:#1f4248; font-size:12px;">
-    <td bgcolor="#FFFFFF" align="center">户籍类型：</td>
-    <td bgcolor="#FFFFFF" align="center">
-        <select name="hzhhj" id="hzhhj" style="width: 103px;" class="grd-white2">
-            <option <?php if($hzhRecord[19]=='非农业户口'){echo "selected=\"selected\"";}?> value="非农业户口">非农业户口</option>
-            <option <?php if($hzhRecord[19]=='农业户口'){echo "selected=\"selected\"";}?>  value="农业户口">农业户口</option>
-        </select><font color="red">*</font>
-    </td>
-    <td bgcolor="#FFFFFF" align="center">患者年收入：</td>
-    <td bgcolor="#FFFFFF" align="center">
-        <input class="grd-white" style="width: 60px; " id="hzhnshr" name="hzhnshr"  type="text" value="<?php
-        $hzhnshrsql = "select * from `zhxqsh` where hzhid='$hzhid' and gxzf='1' and zhjhm='$hzhRecord[6]'";
-        $hzhnshrQuery_ID = mysql_query($hzhnshrsql);
-        while($hzhnshrRecord = mysql_fetch_array($hzhnshrQuery_ID)){
-            echo $hzhnshrRecord[9];
-        }
-        ?>" onkeyup="this.value=this.value.replace(/^([^0-9]*)(?:0(?=[1-9]))?([1-9][0-9]*|0|)(([^0-9]*)([0-9]*))*$/,'$2')" onafterpaste="this.value=this.value.replace(/^([^0-9]*)(?:0(?=[1-9]))?([1-9][0-9]*|0|)(([^0-9]*)([0-9]*))*$/,'$2')" />元
-        <font color="red">*</font>
-    </td>
-    <td bgcolor="#FFFFFF" align="center">家庭人口：</td>
-    <td bgcolor="#FFFFFF" align="center">
-        <select id="JiatingRenkou" name="JiatingRenkou" class="grd-white2" readonly >
-            <?php
-            for($i=1;$i<20;$i++)
-            {
-                echo "<option ";
-                if($hzhRecord[20]==$i)
-                {echo "selected=\"selected\"";}
-                echo"value=\"$i\">$i</option>";
-            }
-            ?><font color="red">*</font>
-    </td>
-    <td bgcolor="#FFFFFF" align="center">家庭年收入：</td>
-    <td bgcolor="#FFFFFF" align="center">
-        <input class="grd-white" id="NianShouru" name="NianShouru" style="width:97px" type="text" value="<?php if($hzhRecord[21]!=''){echo $hzhRecord[21];}else {echo "0";}?>" />元
-        <font color="red">*</font>
-    </td>
-</tr>
-<tr style="color:#1f4248; font-size:12px;">
-    <td bgcolor="#FFFFFF" align="center" colspan="3">参保类型：</td>
-    <td bgcolor="#FFFFFF" align="left" colspan="6">
-                        <span style="float: left; margin-left: 14px;">
-                            <select name="CanBaoLeiXing" id="CanBaoLeiXing" style="width:100px;" onchange="cblxxz()" class="grd-white2">
-                                <option <?php if($hzhRecord[23]=='无'){echo "selected=\"selected\"";}?> value="无">无</option>
-                                <option <?php if($hzhRecord[23]=='城镇职工（含离退休人员）医疗保险'){echo "selected=\"selected\"";}?>  value="城镇职工（含离退休人员）医疗保险">城镇职工（含离退休人员）医疗保险</option>
-                                <option <?php if($hzhRecord[23]=='城镇居民医疗保险'){echo "selected=\"selected\"";}?>  value="城镇居民医疗保险">城镇居民医疗保险</option>
-                                <option <?php if($hzhRecord[23]=='新农合医疗保险'){echo "selected=\"selected\"";}?>  value="新农合医疗保险">新农合医疗保险</option>
-                                <option <?php if($hzhRecord[23]=='公费医疗'){echo "selected=\"selected\"";}?>  value="公费医疗">公费医疗</option>
-                                <option <?php if($hzhRecord[23]=='现役军人医疗体系'){echo "selected=\"selected\"";}?>  value="现役军人医疗体系">现役军人医疗体系</option>
-                            </select><font color="red">*</font>
+	$yyqzyzh = array ();
+	$yshshq = array ();
+	
+	$yysql = "select id,shengjx,sheng,yymch,zhdysh,zhdyshyzh,shqysh1,shqysh2,shqysh3 from `yyyshdq` where `id`='" . $hzhRecord [9] . "'";
+	$yyQuery_ID = mysql_query ( $yysql );
+	
+	while ( $yyRecord = mysql_fetch_array ( $yyQuery_ID ) ) {
+		
+		$yyqzyzh [$yyRecord [0]] = $yyRecord [5];
+		$shqyshshl = 0;
+		if ($yyRecord [6] != '') {
+			$shqyshshl ++;
+		}
+		if ($yyRecord [7] != '') {
+			$shqyshshl ++;
+		}
+		if ($yyRecord [8] != '') {
+			$shqyshshl ++;
+		}
+		$yshshq [$yyRecord [0]] = $shqyshshl;
+		echo "<option value=\"" . $yyRecord [0] . "\"> " . $yyRecord [1] . " " . $yyRecord [2] . " " . $yyRecord [3] . " " . $yyRecord [4] . "</option>";
+	}
+	echo "<option value=\"\">请选择医院医生</option>";
+	$yy2sql = "select id,shengjx,sheng,yymch,zhdysh,zhdyshyzh,shqysh1,shqysh2,shqysh3 from `yyyshdq` where `yhszht`='1' order by shengjx ASC";
+	
+	$yy2Query_ID = mysql_query ( $yy2sql );
+	
+	while ( $yy2Record = mysql_fetch_array ( $yy2Query_ID ) ) {
+		if ($yy2Record [0] == $hzhRecord [9]) {
+		} else {
+			$yyqzyzh [$yy2Record [0]] = $yy2Record [5];
+			$shqyshshl = 0;
+			if ($yy2Record [6] != '') {
+				$shqyshshl ++;
+			}
+			if ($yy2Record [7] != '') {
+				$shqyshshl ++;
+			}
+			if ($yy2Record [8] != '') {
+				$shqyshshl ++;
+			}
+			$yshshq [$yy2Record [0]] = $shqyshshl;
+			echo "<option value=\"" . $yy2Record [0] . "\"> " . $yy2Record [1] . " " . $yy2Record [2] . " " . $yy2Record [3] . " " . $yy2Record [4] . "</option>";
+		}
+	}
+	?>
+        </select> <font color="red">*</font>
+					</span>
+				</div>
+				<div class="insinsins" style="width:100%;">
+				  <label>患者通讯住址：</label><span>
+				   <input class="grd-white" id="Zhuzhi" name="Zhuzhi"
+						style="width: 500px" type="text" value="<?php echo $hzhRecord[14];?>" /> 
+					<font color="red">*	</font>
+				</span>
+				</div>
+				<script>  
+					var yyqzyzh=eval(<?php echo json_encode($yyqzyzh);?>);
+					var yshshq=eval(<?php echo json_encode($yshshq);?>);
+					//alert(yyqzyzh[25]);
+					function yzshj(v){  
+					var a = /^((\(\d{3}\))|(\d{3}\-))?13\d{9}|15\d{9}|18\d{9}|14\d{9}$/ ;  
+					if( v.length!=11||!v.match(a) ){  
+					  alert("手机号错误!");
+					  return false;
+					}else{return true;}  
+					}
+					</script>
+					<div class="insinsins" style="width:100%;">
+					  <label>手机：</label><span>
+					  <input style="width: 100px" class="grd-white" id="shouji"
+							name="shouji" type="text"	value="<?php echo $hzhRecord[15];?>"
+							onblur="yzshj(this.value)" /><font color="red">*</font>
+					  </span>
+					</div>
+					<div class="insinsins" style="width:100%;">
+					  <label>第一联系人姓名：</label>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+					  <input class="grd-white" id="dh1xm" name="dianhua2xm" type="text"  value="<?php echo $hzhRecord[59];?>" size='19' placeholder="项目办将优先与该电话联系"/>
+					  </span>
+					  <label>与患者关系：</label>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+					  <input class="grd-white" id="dh1gx" name="dianhua2gx" type="text" value="<?php echo $hzhRecord[60];?>" size='19' />
+					  </span>
+					  <label>联系方式：</label><span>
+					  <input style="width: 117px" class="grd-white" id="dianhua2"
+							name="dianhua2" type="text"
+							value="<?php echo $hzhRecord[16];?>" />
+					  </span>
+					</div>
+					<div class="insinsins" style="width:100%;">
+					 <label>第二联系人姓名：</label>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+					  <input class="grd-white" id="dh2xm" name="dianhua3xm" type="text" value="<?php echo $hzhRecord[61];?>" size='17'/>
+					  </span>
+					   <label>与患者关系：</label>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+					  <input class="grd-white" id="dh2gx" name="dianhua3gx" type="text" value="<?php echo $hzhRecord[62];?>" size='17'/>
+					  </span>
+					  <label>联系方式：</label><span>
+					  <input style="width: 117px" class="grd-white" id="dianhua3"
+								name="dianhua3" type="text"
+								value="<?php echo $hzhRecord[17];?>" />
+					  </span>
+					</div>
+					<div class="insinsins" style="width:100%;">
+					  <label>第三联系人姓名：</label><span>
+					  <input class="grd-white" id="dh3xm" name="dh3xm" type="text" value="<?php echo $hzhRecord[63];?>" size='17'/>
+					  </span>
+					  <label>与患者关系：</label><span>
+					  <input class="grd-white" id="dh3gx" name="dh3gx" type="text" value="<?php echo $hzhRecord[64];?>" size='17'/>
+					  </span>
+					  <label>联系方式：</label><span>
+					  <input style="width: 117px" class="grd-white" id="dh3" name="dh3"
+							type="text" value="<?php echo $hzhRecord[51];?>" />
+					  </span>
+					</div>
+					<div class="insinsins" style="width:100%;">
+					  <label>户籍类型：</label>
+					  <select name="hzhhj"
+							id="hzhhj" style="width: 103px;" class="grd-white2">
+							<option	<?php if($hzhRecord[19]=='非农业户口'){echo "selected=\"selected\"";}?>
+							value="非农业户口">非农业户口</option>
+							<option <?php if($hzhRecord[19]=='农业户口'){echo "selected=\"selected\"";}?>
+									value="农业户口">农业户口</option>
+							</select><font color="red">*</font>
+					</div>
+					<div class="insinsins" style="width:100%;">
+					  <label>参保类型：</label><span>
+					  <select name="CanBaoLeiXing" id="CanBaoLeiXing"
+							style="width: 100px;" onchange="cblxxz()" class="grd-white2">
+							<option	<?php if($hzhRecord[23]=='无'){echo "selected=\"selected\"";}?>
+							value="无">无</option>
+							<option <?php if($hzhRecord[23]=='城镇职工（含离退休人员）医疗保险'){echo "selected=\"selected\"";}?>
+							value="城镇职工（含离退休人员）医疗保险">城镇职工（含离退休人员）医疗保险</option>
+							<option <?php if($hzhRecord[23]=='城镇居民医疗保险'){echo "selected=\"selected\"";}?>
+							value="城镇居民医疗保险">城镇居民医疗保险</option>
+							<option <?php if($hzhRecord[23]=='新农合医疗保险'){echo "selected=\"selected\"";}?>
+							value="新农合医疗保险">新农合医疗保险</option>
+							<option <?php if($hzhRecord[23]=='公费医疗'){echo "selected=\"selected\"";}?>
+							value="公费医疗">公费医疗</option>
+							<option <?php if($hzhRecord[23]=='现役军人医疗体系'){echo "selected=\"selected\"";}?>
+							value="现役军人医疗体系">现役军人医疗体系</option>
+					</select><font color="red">*</font>
+					</span>
+					<div id="cbdqxz" Style="display: none; float: left; margin-left: 10px;">
+						<label style="line-height: 24px;">参保地区：</label> 
+						<span style="line-height: 24px;"> 
+						<select class="grd-white2" id="cbdqs_province" name="cbdqsheng"></select>&nbsp;&nbsp;
+						<select class="grd-white2" id="cbdqs_city" name="cbdqshi"></select>
+						<font color="red">*</font> <script src="js/areaa.js" type="text/javascript"></script>
+						<script	type="text/javascript">_init_areaa();</script>
+	                       <?php
+							$cbdqsheng = $hzhRecord [24];
+							$cbdqshi = $hzhRecord [39];
+							?>
                         </span>
-        <div id="cbdqxz" Style="display:none; float: left; margin-left: 10px;">
-            <label style="line-height: 24px;">参保地区：</label>
-                            <span style="line-height: 24px;">
-                              <select class="grd-white2" id="cbdqs_province" name="cbdqsheng"></select>&nbsp;&nbsp;
-                              <select class="grd-white2" id="cbdqs_city" name="cbdqshi" ></select><font color="red">*</font>
-                              <script src="js/areaa.js" type="text/javascript"></script>
-                              <script type="text/javascript">_init_areaa();</script>
-                                <?php
-                                $cbdqsheng=$hzhRecord[24];
-                                $cbdqshi=$hzhRecord[39];
-                                ?>
-                            </span>
-        </div>
-    </td>
-</tr>
-<tr style="color:#1f4248; font-size:12px;">
-    <td bgcolor="#FFFFFF" align="center">捐助类型：</td>
-    <td bgcolor="#FFFFFF" align="center" colspan="2">
-        <input id="jzhlx" name="jzhlx" type="radio" <?php if($hzhRecord[25]=="全部"){echo "checked=\"true\"";}?> value="全部" /><label for="jzhlx">全部</label>
-        <?php if($hzhRecord[7]=='RCC'){?>
-            <input id="jzhlx" name="jzhlx" <?php if($hzhRecord[25]=="原部分"){echo "checked=\"true\"";}?> type="radio" value="原部分" /><label for="jzhlx">原部分</label>
-            <input id="jzhlx" name="jzhlx" <?php if($hzhRecord[25]=="1+1+1"){echo "checked=\"true\"";}?> type="radio" value="1+1+1" /><label for="jzhlx">1+1+1</label>
-        <?php
-        }else{
-            ?>
-            <input id="jzhlx" name="jzhlx" <?php if($hzhRecord[25]=="部分"){echo "checked=\"true\"";}?> type="radio" value="部分" /><label for="jzhlx">部分</label>
-        <?php
-        }
-        ?>*
-    </td>
-    <td bgcolor="#FFFFFF" align="center">用法：</td>
-    <td bgcolor="#FFFFFF" align="center" colspan="4">
-        <select class="grd-white2" id="yfjl" name="yfjl">
-            <option value="12.5mg" <?php if($hzhRecord[28]=="12.5mg"){echo "selected=\"selected\"";}?> >12.5mg</option>
-            <option value="25mg" <?php if($hzhRecord[28]=="25mg"){echo "selected=\"selected\"";}?> >25mg</option>
-            <option value="37.5mg" <?php if($hzhRecord[28]=="37.5mg"){echo "selected=\"selected\"";}?> >37.5mg</option>
-            <option value="50mg" <?php if($hzhRecord[28]=="50mg"){echo "selected=\"selected\"";}?> >50mg</option>
-            <option value="62.5mg" <?php if($hzhRecord[28]=="62.5mg"){echo "selected=\"selected\"";}?> >62.5mg</option>
-            <option value="75mg" <?php if($hzhRecord[28]=="75mg"){echo "selected=\"selected\"";}?> >75mg</option>
-            <option value="87.5mg" <?php if($hzhRecord[28]=="87.5mg"){echo "selected=\"selected\"";}?> >87.5mg</option>
-            <option value="100mg" <?php if($hzhRecord[28]=="100mg"){echo "selected=\"selected\"";}?> >100mg</option>
-        </select>*
-        <?php if($hzhRecord[29]!=""){$yfcshzhq=explode(",",$hzhRecord[29]);}?>
-        <select class="grd-white2" id="yfcsh" name="yfcsh">
-            <option value="Qid" <?php if($yfcshzhq[0]=="Qid"){echo "selected=\"selected\"";}?> >Qid</option>
-            <option value="Bid" <?php if($yfcshzhq[0]=="Bid"){echo "selected=\"selected\"";}?> >Bid</option>
-            <option value="Tid" <?php if($yfcshzhq[0]=="Tid"){echo "selected=\"selected\"";}?> >Tid</option>
-        </select>*
-        <select class="grd-white2" id="yfzhq" name="yfzhq">
-            <option value="2/4" <?php if($yfcshzhq[1]=="2/4"){echo "selected=\"selected\"";}?> >2/4</option>
-            <option value="连续服用" <?php if($yfcshzhq[1]=="连续服用"){echo "selected=\"selected\"";}?> >连续服用</option>
-        </select>*
-    </td>
-</tr>
-<tr style="color:#1f4248; font-size:12px;">
-    <td bgcolor="#FFFFFF" align="center" colspan="3">首次材料登记日期：</td>
-    <td bgcolor="#FFFFFF" align="left" colspan="6">
-        <input style="margin-left: 14px;" class="grd-white" id="djrq" name="djrq" type="text" value="<?php echo $hzhRecord[43];?>"  readonly />*
-    </td>
-</tr>
-</tbody>
-</table>
-</fieldset>
-</td>
-</tr>
-</table>
-</div>
-<div class="title w977 flt top">
-    <strong>直系亲属</strong><span></span>
-</div>
-<div class="incontact w955 flt">
-    <input id="ZhixiQinshusJson" name="ZhixiQinshusJson" type="hidden" value="[<?php
-    $qshsql = "select * from `zhxqsh` where hzhid='$hzhid' and gxzf='1'";
-    $qshQuery_ID = mysql_query($qshsql);
-    $num=mysql_num_rows($qshQuery_ID);
-    $i=1;
-    while($qshRecord = mysql_fetch_array($qshQuery_ID)){
-
-        ?>{
+					</div>
+					
+					</div>
+					
+		<!-- end -->		
+							
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="title w977 flt top">
+					<strong>患者及其直系亲属信息和收入情况</strong><span></span>
+				</div>
+				<div class="incontact w955 flt">
+					<input id="ZhixiQinshusJson" name="ZhixiQinshusJson" type="hidden"
+						value="[<?php
+	$qshsql = "select * from `zhxqsh` where hzhid='$hzhid' and gxzf='1'";
+	$qshQuery_ID = mysql_query ( $qshsql );
+	$num = mysql_num_rows ( $qshQuery_ID );
+	$i = 1;
+	while ( $qshRecord = mysql_fetch_array ( $qshQuery_ID ) ) {
+		?>{
     &quot;姓名&quot;: &quot;<?php echo $qshRecord[2];?>&quot;,
     &quot;公民身份号码&quot;: &quot;<?php echo $qshRecord[3];?>&quot;,
     &quot;军官证&quot;: &quot;<?php echo $qshRecord[7];?>&quot;,
     &quot;与患者关系&quot;: &quot;<?php echo $qshRecord[4];?>&quot;,
     &quot;联系方式&quot;: &quot;<?php echo $qshRecord[6];?>&quot;,
-    &quot;年收入&quot;: &quot;<?php echo $qshRecord[9];?>&quot;
-  }<?php if($i!=$num){echo ",";}
-        $i++;
-    }
-    ?>]" />
-    <table id="tb_ZhixiQinshus" class="table" width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#cdcdcd">
-        <tr style="color:#1f4248; font-weight:bold; height:30px;">
-            <td width="9%" align="center" bgcolor="#FFFFFF">姓名</td>
-            <td width="12%" align="center" bgcolor="#FFFFFF">身份号码</td>
-            <td width="12%" align="center" bgcolor="#FFFFFF">军官证</td>
-            <td width="9%" align="center" bgcolor="#FFFFFF">与患者关系</td>
-            <td width="9%" align="center" bgcolor="#FFFFFF">联系方式</td>
-            <td width="9%" align="center" bgcolor="#FFFFFF">年收入</td>
-            <td width="9%" align="center" bgcolor="#FFFFFF">操作</td>
-        </tr>
-        <tr id="tr_action" style="color:#1f4248; font-size:12px;">
-            <td align="center" bgcolor="#FFFFFF">
-                <input style="width:120px;" type="text" id="txtXingming" name="txtXingming" class="grd-white" />
-            </td>
-            <td align="center" bgcolor="#FFFFFF">
-                <input type="text" id="txtShenfenzheng" name="txtShenfenzheng" class="grd-white" />
-            </td>
-            <td align="center" bgcolor="#FFFFFF">
-                <input type="text" id="txtjgzh" name="txtjgzh" class="grd-white" />
-            </td>
-            <td align="center" bgcolor="#FFFFFF">
-                <select Style="width:130px" id="txtGuanxi" name="txtGuanxi" class="grd-white2" >
-                    <option selected="selected" value="父亲">父亲</option>
-                    <option value="母亲">母亲</option>
-                    <option value="配偶">配偶</option>
-                    <option value="儿子">儿子</option>
-                    <option value="女儿">女儿</option>
-                    <option value="其他关系">其他关系</option>
-                </select>
-            </td>
-            <td align="center" bgcolor="#FFFFFF">
-                <input type="text" id="txtLianXiFangShi" name="txtLianXiFangShi" class="grd-white" />
-            </td>
-            <td align="center" bgcolor="#FFFFFF">
-                <input  style="width:80px;" type="text" id="txtnshr" name="txtnshr" class="grd-white" />
-            </td>
-            <td align="center" bgcolor="#FFFFFF">
-                <input type="button" id="btnAdd" value="添加" class="uusub2" />
-            </td>
-        </tr>
-    </table>
-</div>
+    &quot;上年度收入&quot;: &quot;<?php echo $qshRecord[9];?>&quot;
+  }<?php
+		
+if ($i != $num) {
+			echo ",";
+		}
+		$i ++;
+	}
+	?>]" />
+					<table id="tb_ZhixiQinshus" class="table" width="100%" border="0"
+						cellpadding="5" cellspacing="1" bgcolor="#cdcdcd">
+						<tr style="color: #1f4248; font-weight: bold; height: 30px;">
+							<td width="9%" align="center" bgcolor="#FFFFFF">姓名</td>
+							<td width="12%" align="center" bgcolor="#FFFFFF">身份号码</td>
+							<td width="12%" align="center" bgcolor="#FFFFFF">军官证</td>
+							<td width="9%" align="center" bgcolor="#FFFFFF">与患者关系</td>
+							<td width="9%" align="center" bgcolor="#FFFFFF">联系方式</td>
+							<td width="9%" align="center" bgcolor="#FFFFFF">上年度收入</td>
+							<td width="9%" align="center" bgcolor="#FFFFFF">操作</td>
+						</tr>
+						<tr id="tr_action" style="color: #1f4248; font-size: 12px;">
+							<td align="center" bgcolor="#FFFFFF"><input style="width: 120px;"
+								type="text" id="txtXingming" name="txtXingming"
+								class="grd-white" /></td>
+							<td align="center" bgcolor="#FFFFFF"><input type="text"
+								id="txtShenfenzheng" name="txtShenfenzheng" class="grd-white" />
+							</td>
+							<td align="center" bgcolor="#FFFFFF"><input type="text"
+								id="txtjgzh" name="txtjgzh" class="grd-white" /></td>
+							<td align="center" bgcolor="#FFFFFF"><select Style="width: 130px"
+								id="txtGuanxi" name="txtGuanxi" class="grd-white2">
+									<option selected="selected" value="父亲">父亲</option>
+									<option value="母亲">母亲</option>
+									<option value="配偶">配偶</option>
+									<option value="儿子">儿子</option>
+									<option value="女儿">女儿</option>
+									<option value="其他关系">其他关系</option>
+							</select></td>
+							<td align="center" bgcolor="#FFFFFF"><input type="text"
+								id="txtLianXiFangShi" name="txtLianXiFangShi" class="grd-white" />
+							</td>
+							<td align="center" bgcolor="#FFFFFF"><input style="width: 80px;"
+								type="text" id="txtnshr" name="txtnshr" class="grd-white" /></td>
+							<td align="center" bgcolor="#FFFFFF"><input type="button"
+								id="btnAdd" value="添加" class="uusub2" /></td>
+						</tr>
+					</table>
 
-<div class="incontact w955 flt">
-    <input id="submitBtn" type="submit" value="保存" class="uusub" /> <input type="button"  onclick="javascript:{history.go(-1);}" value="返回" class="uusub2" />
-</div>
+						<label>家庭人口：</label>
+					    <input class="grd-white" style="width: 60px; " id="hzhjtrk" name="JiatingRenkou" type="text" value="<?php echo $hzhRecord [20]?>" onchange="jspjnshr()" readonly/>
+					  	<label>家庭年收入：</label>
+					    <span>
+					    	<input	class="grd-white" id="hzhjtnshr" name="NianShouru"	style="width: 97px" type="text"
+								value="<?php if($hzhRecord[21]!=''){echo $hzhRecord[21];}else {echo "0";}?>" onchange="jspjnshr()" readonly/>元
+								<font color="red">*</font>
+					    </span>
+					    <label>家庭人均收入</label>
+					    <span>
+					        <input class="grd-white" id="hzhjtrjshr" name="hzhjtrjshr" type="text" value="<?php echo $hzhRecord [22];?>" onchange="jspjnshr()" readonly>元
+					    </span>
+					    <span style="width: 180px; color: Green;" id="hzhjtpjnshr"></span>
+				</div>
 
-</form>
+
+				<div class="incontact w955 flt">
+					<input id="submitBtn" type="submit" value="保存" class="uusub" /> <input
+						type="button" onclick="javascript:{history.go(-1);}" value="返回"
+						class="uusub2" />
+				</div>
+
+			</form>
 <?php
 }
 ?>
 <style>
-    .mindess {
-        width:966px;
-        font-size:12px;
-        height:auto;
-        position:fixed;
-        z-index:100;
-        left:50%;
-        margin:0 auto 0 -494px; /* margin-left需要是宽度的一半 */
-        top:35%;
-        padding:0px;
-        background:#25679c;
-        border:1px #25679c solid;
-    }
+.mindess {
+	width: 966px;
+	font-size: 12px;
+	height: auto;
+	position: fixed;
+	z-index: 100;
+	left: 50%;
+	margin: 0 auto 0 -494px; /* margin-left需要是宽度的一半 */
+	top: 35%;
+	padding: 0px;
+	background: #25679c;
+	border: 1px #25679c solid;
+}
 </style>
-<div class="mindess" id="qzyzh" style="width:325px;  padding-top:5px; margin:0 auto 0 -181px; display:none;">
-    <div style="position:absolute; right:15px;	background:#25679c;"><a style="color:#ffffff; cursor:pointer;" onclick="qzyzh(0)">关闭</a></div>
-    <table style="margin-top:30px;" width="100%" border="1" cellpadding="10" cellspacing="1">
-        <tr>
-            <td width="30%" bgcolor="#FFFFFF" align="center">指定医生<br/><span id='zhdyshxsh'></span></td>
-            <td width="70%" bgcolor="#FFFFFF" align="center">
-                <img id="zhdyshyzh" width="100"/>
-                <img id="zhdyshqzh" width="100"/></td>
-        </tr>
+			<div class="mindess" id="qzyzh"
+				style="width: 325px; padding-top: 5px; margin: 0 auto 0 -181px; display: none;">
+				<div style="position: absolute; right: 15px; background: #25679c;">
+					<a style="color: #ffffff; cursor: pointer;" onclick="qzyzh(0)">关闭</a>
+				</div>
+				<table style="margin-top: 30px;" width="100%" border="1"
+					cellpadding="10" cellspacing="1">
+					<tr>
+						<td width="30%" bgcolor="#FFFFFF" align="center">指定医生<br />
+						<span id='zhdyshxsh'></span></td>
+						<td width="70%" bgcolor="#FFFFFF" align="center"><img
+							id="zhdyshyzh" width="100" /> <img id="zhdyshqzh" width="100" /></td>
+					</tr>
 
-        <tr id="qzyzhshq" style="display:none;">
-            <td width="30%"  bgcolor="#FFFFFF" align="center">授权医生<br/><span id='shqyshxsh'></span></td>
-            <td width="70%"  bgcolor="#FFFFFF" align="center"><div id="qzyzhshqysh"></div></td>
-        </tr>
-    </table>
-</div>
+					<tr id="qzyzhshq" style="display: none;">
+						<td width="30%" bgcolor="#FFFFFF" align="center">授权医生<br />
+						<span id='shqyshxsh'></span></td>
+						<td width="70%" bgcolor="#FFFFFF" align="center"><div
+								id="qzyzhshqysh"></div></td>
+					</tr>
+				</table>
+			</div>
 
-</div>
-</div>
+		</div>
+	</div>
 </div>
 </div>
 <script type="text/javascript">
 chooseDate('djrq', true); //首次登记日期
 chooseDateOld('ygShouciYongyaoRiqi1', true);
 chooseDateOld('ygShouciYongyaoRiqi2', true);
-function cblxxz(){
+cblxxz();
+var sheng = '<?php echo $cbdqsheng?>';
+var shi = '<?php echo $cbdqshi?>'
+if(sheng.length > 0){
+	$("#cbdqs_province").val(sheng);
+	$("#cbdqs_province").change();
+	if(shi.length > 0){
+		$("#cbdqs_city").val(shi);
+	}
+}
 
+function cblxxz(){
     if($("#CanBaoLeiXing").val()!='无'&&$("#CanBaoLeiXing").val()!='现役军人医疗体系'){
         document.getElementById('cbdqxz').style.display='block';
     }else{
@@ -562,7 +585,7 @@ function AddRow(index, xingming, shenfenzheng ,jgzh, guanxi,lianxidianhua,nshr, 
     }
     $("#tr_action").before(
         "<tr id=" + index + ">" +
-        "<td align=\'center\' bgcolor=\'#FFFFFF\'><input type='text' class='grd-white' style='width:120px;' value=" + xingming + "></td>" +
+        "<td align=\'center\' bgcolor=\'#FFFFFF\'>"+xingming+"</td>" +
         "<td align=\'center\' bgcolor=\'#FFFFFF\'>" + shenfenzheng + "</td>" +
         "<td align=\'center\' bgcolor=\'#FFFFFF\'>" + jgzh + "</td>" +
         "<td align=\'center\' bgcolor=\'#FFFFFF\'>" + guanxi + "</td>" +
@@ -576,7 +599,7 @@ function InitZhixiQinshus() {
     var len = $tr.length;
     var json = eval($("#ZhixiQinshusJson").val());
     for (var i = 0; i < json.length; i++) {
-        AddRow(len + i, json[i]["姓名"], json[i]["公民身份号码"], json[i]["军官证"], json[i]["与患者关系"], json[i]["联系方式"], json[i]["年收入"], false);
+        AddRow(len + i, json[i]["姓名"], json[i]["公民身份号码"], json[i]["军官证"], json[i]["与患者关系"], json[i]["联系方式"], json[i]["上年度收入"], false);
     }
     return true;
 }
@@ -596,9 +619,12 @@ function deltr(index) {
         $("#hzhjtrk").val($rknshrjson.length);
         var hzhjtnshr=0;
         for (var i = 0; i < $rknshrjson.length; i++) {
-            hzhjtnshr=parseInt(hzhjtnshr)+parseInt($rknshrjson[i]["年收入"]);
+            hzhjtnshr=parseInt(hzhjtnshr)+parseInt($rknshrjson[i]["上年度收入"]);
         }
         $("#hzhjtnshr").val(hzhjtnshr);
+
+        var hzhjtrjshr = hzhjtnshr/$rknshrjson.length;
+        $("#hzhjtrjshr").val(hzhjtrjshr);
     }
 }
 
@@ -715,7 +741,7 @@ $(function () {
 
                             for(var i = 0; i < hzhjson.length; i++) {
                                 if(hzhjson[i]["姓名"] == hzhXingming && hzhjson[i]["与患者关系"] == hzhGuanxi) {
-                                    hzhjson[i]["年收入"] = hzhnshr;
+                                    hzhjson[i]["上年度收入"] = hzhnshr;
                                 }
                             }
 
@@ -726,7 +752,7 @@ $(function () {
                             $("#JiatingRenkou").val($rknshrjson.length);
                             var hzhjtnshr=0;
                             for (var i = 0; i < $rknshrjson.length; i++) {
-                                hzhjtnshr=parseInt(hzhjtnshr)+parseInt($rknshrjson[i]["年收入"]);
+                                hzhjtnshr=parseInt(hzhjtnshr)+parseInt($rknshrjson[i]["上年度收入"]);
                             }
                             $("#JiatingRenkou").val(hzhjtnshr);
                         }
@@ -801,7 +827,7 @@ $(function () {
         $("#txtnshr").val('');
 
         var json = eval($("#ZhixiQinshusJson").val());
-        var assignment = { "姓名": txtXingming, "公民身份号码": txtShenfenzheng, "军官证": txtjgzh, "与患者关系": txtGuanxi, "联系方式": txtLianXiFangShi, "年收入": txtnshr };
+        var assignment = { "姓名": txtXingming, "公民身份号码": txtShenfenzheng, "军官证": txtjgzh, "与患者关系": txtGuanxi, "联系方式": txtLianXiFangShi, "上年度收入": txtnshr };
         json.push(assignment);
         var str = JSON.stringify(json);
         $("#ZhixiQinshusJson").val(str);
@@ -809,9 +835,11 @@ $(function () {
         $("#hzhjtrk").val($rknshrjson.length);
         var hzhjtnshr=0;
         for (var i = 0; i < $rknshrjson.length; i++) {
-            hzhjtnshr=parseInt(hzhjtnshr)+parseInt($rknshrjson[i]["年收入"]);
+            hzhjtnshr=parseInt(hzhjtnshr)+parseInt($rknshrjson[i]["上年度收入"]);
         }
         $("#hzhjtnshr").val(hzhjtnshr);
+        var hzhjtrjshr = hzhjtnshr/$rknshrjson.length;
+        $("#hzhjtrjshr").val(hzhjtrjshr);
     });
 });
 
@@ -865,6 +893,51 @@ function qzyzh(v,i){
         document.getElementById('qzyzh').style.display='block';
     }
 }
+</script>
+<script type="text/javascript">
+//显示辉瑞公司随访
+function PD() {
+    $val = $("#pd").val();
+    if($val == 'PD') {
+        document.getElementById('yldsf').style.display='block';
+    } else {
+    	document.getElementById('yldsf').style.display='none';
+    }
+}
+
+//医学条件诊断
+function jbfz() {
+    $val = $('#jbfzs').val();
+    if($val == '不能耐受') {
+        document.getElementById('xbzlsbkaos').style.display='block';
+    } else {
+    	document.getElementById('xbzlsbkaos').style.display='none';
+    }
+}
+
+
+chooseDate('ygShouciYongyaoRiqi', true);
+chooseDate('stkshfyshj', true); //索坦开始服用日期
+chooseDate('tbrq', true); //填表日期
+chooseDate('pgtime2', true); //填表日期
+chooseDate('quetime', true); //填表日期
+chooseDate('zl1', true); //填表日期
+chooseDate('zl2', true); //填表日期
+function alertyes(){
+	$val = $("#yxypname").val();
+    if($val == '索坦') {
+        $seltrue = confirm("是否接受过索坦患者援助项目（非1+1+1模式）");
+        if($seltrue == true) {
+            document.getElementById('sthsw').style.display='block';
+        } else {
+            document.getElementById('ttps').style.display='block';
+        }
+    } else {
+    	document.getElementById('sthsw').style.display='none';
+    	document.getElementById('ttps').style.display='none';
+    }
+}
+
 </script>
 </body>
 </html>
