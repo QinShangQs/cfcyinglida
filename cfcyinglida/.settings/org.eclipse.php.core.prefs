@@ -1,2 +1,4 @@
 eclipse.preferences.version=1
 include_path=0;/cfcyinglida
+phpVersion=php5
+useShortTags=true
