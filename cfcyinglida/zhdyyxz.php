@@ -12,7 +12,7 @@ include('spap_head.php');
 				<div class="title w977 flt">
 				<strong>新增指定医院</strong><span></span>
 				</div>
-              <form action="zhdyyxzac.php" method="post" enctype="multipart/form-data">
+              <form action="zhdyyxzac.php" method="post" onsubmit="return validate()" enctype="multipart/form-data">
 				<div class="incontact w955 flt">
 				  <table width="100%" border="0" cellspacing="0" cellpadding="5">
                     <tr>
@@ -54,12 +54,15 @@ include('spap_head.php');
         <input type="button" onclick="tjyzh(1)" value="上传" class="uusub2" id="upload_button1">
 <!--        <input class="grd-white" id="zhdyshyzh" name="shqyshyzh1" style="width: 460px;" type="file" value="" />*-->
     </span>
+    <div class="insinsins" style="width:100%;"><label>指定医生签字：</label><span>
+        <p id="img_div2"><img id="img_path2" width='100' height='100'/></p>
+            <input type="button" onclick="tjyzh(2)" value="上传" class="uusub2" id="upload_button2">
+    </span></div>
 </div>
 <div class="insinsins" style="width:100%;"><label>授权一医生：</label><span><input class="grd-white" id="shqysh1" name="shqysh1" style="width: 460px;" type="text" value="" /></span></div>
 <div class="insinsins" style="width:100%;"><label>授权一医生样张：</label><span>
-<!--        <input class="grd-white" id="shqyshyzh1" name="shqyshyzh2" style="width: 460px;" type="file" value="" />-->
-        <p id="img_div2"><img id="img_path2" width='100' height='100'/></p>
-            <input type="button" onclick="tjyzh(2)" value="上传" class="uusub2" id="upload_button2">
+        <p id="img_div8"><img id="img_path8" width='100' height='100'/></p>
+            <input type="button" onclick="tjyzh(8)" value="上传" class="uusub2" id="upload_button8">
     </span></div>
 <div class="insinsins" style="width:100%;">
     <label>授权一联系方式：</label>
@@ -110,6 +113,7 @@ include('spap_head.php');
         upload('2');
         upload('3');
         upload('4');
+        upload('8');
     }
 
     //新增上传功能,当填写完成医院名称，生成新的医院数据，然后后续操作执行修改功能
@@ -129,7 +133,7 @@ include('spap_head.php');
             1024,  //允许上传的文件大小（单位：kb）
             'ajaxupload.php?form_name=userfile&file_size=1024&name_f='+yyid+'-'+v, //提交服务器端地址
             'userfile', //提交服务器文件表单名称
-            "$(\".img_div"+v+"\").show();$(\"#img_path"+v+"\").attr('src', obj.filename);$(\"#is_upload\").val('1');", //上传成功后执行的 js callback
+            "$(\".img_div"+v+"\").show();$(\"#img_path"+v+"\").attr('src', obj.filename+'?'+Math.random());$(\"#is_upload\").val('1');", //上传成功后执行的 js callback
             'loadimg'  //loading 图片id
         );
     }
@@ -205,16 +209,20 @@ include('spap_head.php');
 
     //点击取消功能时，删除新加的医院数据
     function removeyy(){
-        $.ajax({
-            url: '/zhdyyxzac.php',
-            type: 'post',
-            async: false,
-            data: {ajaxremove: 'ajaxremove', yyid:$('#yymch_id').val()},
-            dataType: 'json',
-            success: function(data){
-                window.location.href='../manager.php'
-            }
-        })
+		if($.trim($('#yymch_id').val()).length == 0){
+			window.location.href='../manager.php'
+		}else{
+			$.ajax({
+	            url: '/zhdyyxzac.php',
+	            type: 'post',
+	            async: false,
+	            data: {ajaxremove: 'ajaxremove', yyid:$('#yymch_id').val()},
+	            dataType: 'json',
+	            success: function(data){
+	                window.location.href='../manager.php'
+	            }
+	        })
+		}
     }
 
     $(document).ready(function(){
@@ -243,6 +251,53 @@ include('spap_head.php');
         $("#zhdyyyfac").html(data);//alert(data);
       });
     });
+
+    function validate(){
+		if($.trim($("#yymch").val()).length == 0){
+			alert('请填写医院名称!');
+			return false;
+		}
+		if($("#s_county").val() == "市、县级市"){
+			alert('请选择医院所在城市!');
+			return false;
+		}
+
+		if($.trim($("#yydhz").val()).length == 0){
+			alert('请填写医院地址!');
+			return false;
+		}
+
+		if($.trim($("#yyksh").val()).length == 0){
+			alert('请填写医院科室!');
+			return false;
+		}
+
+		if($.trim($("#zhdysh").val()).length == 0){
+			alert('请填写指定医生!');
+			return false;
+		}
+
+		if($.trim($("#zhdyshdh").val()).length == 0){
+			alert('请填写医生联系方式!');
+			return false;
+		}
+
+		if($.trim($("#zhdyshemail").val()).length == 0){
+			alert('请填写电子邮箱!');
+			return false;
+		}
+		if($.trim($("#zhdyshdh2").val()).length == 0){
+			alert('请填写医生联系方式2!');
+			return false;
+		}
+
+		if($("input[name='yyzhdyfs[]']:checked").length == 0){
+			alert('请选择医院指定药房	!');
+			return false;
+		}
+		
+		return true;
+    }
 </script> 
 					  </td>
                     </tr>

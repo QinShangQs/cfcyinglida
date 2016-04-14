@@ -871,7 +871,8 @@ function qzyzh(v,i){
     else{
         v=yyqzyzh[$('#ShenqingYishengId').val()];
         i=yshshq[$('#ShenqingYishengId').val()];
-        imgsrc=padLeft(v,3);
+        //imgsrc=padLeft(v,3);
+        imgsrc = $('#ShenqingYishengId').val()
         document.getElementById('zhdyshyzh').src='./qzyzh/'+imgsrc+'-1.jpg';
         document.getElementById('zhdyshqzh').src='./qzyzh/'+imgsrc+'-2.jpg';
         $('#zhdyshxsh').html($('#zhdysh'+v).val());
@@ -883,6 +884,7 @@ function qzyzh(v,i){
             for(j=0;j<i;j++){
                 shqimg = shqimg+'<img src="./qzyzh/'+imgsrc+'-'+(j+3)+'.jpg"  width="100"/>';
             }
+            shqimg = shqimg.replace('-5','-8');
             if(shqimg!=""){
                 $('#qzyzhshqysh').html(shqimg);
             }

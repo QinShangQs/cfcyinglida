@@ -3,6 +3,13 @@
 include('newdb.php');
 $html_title="新增指定医生";
 include('spap_head.php');
+
+$newidsql = "select MAX(id+1) from yyyshdq;";
+$Query_ID = mysql_query($newidsql);
+$newid = 0;
+while($Record = mysql_fetch_array($Query_ID)){
+	$newid = $Record[0];
+}
 ?>
      <div class="main">
 		<div class="insmain">
@@ -69,11 +76,17 @@ include('spap_head.php');
             <input type="button" onclick="tjyzh(1)" value="上传" class="uusub2" id="upload_button1">
         </div>
         <div class="top">
+            <span class="label">指定医生签字：</span>
+            <img src="/images/loading.gif" style="display:none;" id="loadimg" />
+            <p id="img_div1"><img id="img_path2" width='100' height='100' /></p>
+            <input type="button" onclick="tjyzh(2)" value="上传" class="uusub2" id="upload_button2">
+        </div>
+        <div class="top">
             <span class="label">授权一医生：</span><input class="grd-white2" id="shqysh1" name="shqysh1" style="width: 460px;" type="text" value="" /></div>
         <div class="top">
             <span class="label">授权一医生样张：</span>
-            <p id="img_div2"><img id="img_path2" width='100' height='100'/></p>
-            <input type="button" onclick="tjyzh(2)" value="上传" class="uusub2" id="upload_button2">
+            <p id="img_div8"><img id="img_path8" width='100' height='100'/></p>
+            <input type="button" onclick="tjyzh(8)" value="上传" class="uusub2" id="upload_button8">
         </div>
         <div class="top">
             <span class="label">授权一联系方式：</span><input class="grd-white2" id="shqyshdh1" name="shqyshdh1" style="width: 460px;" type="text" value="" /></div>
@@ -140,6 +153,7 @@ include('spap_head.php');
     	upload('2');
     	upload('3');
     	upload('4');
+    	upload('8');
     }
     
     //上传附件
@@ -152,13 +166,14 @@ include('spap_head.php');
     }
     //上传方法
     function upload(v) {
-    	var yyid = $('#yyid').val();
+    	//var yyid = $('#yyid').val();
+    	var newid = '<?php echo $newid?>'
     	ajaxUpload(
             'upload_button'+v, //上传的按钮id名称
             1024,  //允许上传的文件大小（单位：kb）
-            'ajaxupload.php?form_name=userfile&file_size=1024&name_f='+yyid+'-'+v, //提交服务器端地址
+            'ajaxupload.php?form_name=userfile&file_size=1024&name_f='+newid+'-'+v, //提交服务器端地址
             'userfile', //提交服务器文件表单名称
-            "$(\".img_div"+v+"\").show();$(\"#img_path"+v+"\").attr('src', obj.filename);$(\"#is_upload\").val('1');", //上传成功后执行的 js callback
+            "$(\".img_div"+v+"\").show();$(\"#img_path"+v+"\").removeAttr('src');$(\"#img_path"+v+"\").attr('src', obj.filename + '?'+Math.random());$(\"#is_upload\").val('1');", //上传成功后执行的 js callback
             'loadimg'  //loading 图片id
         );
     }

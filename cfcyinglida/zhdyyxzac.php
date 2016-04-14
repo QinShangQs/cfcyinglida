@@ -84,6 +84,7 @@ $qujx = chinesechfen($qu);
     if($sheng=="省份"){$sheng="";}
     if($shi=="地级市"){$shi="";}
     if($qu=="市、县级市"){$qu="";}
+
 //医院地址
 $yydhz = $_POST['yydhz'];
 //医院科室
@@ -158,7 +159,11 @@ function chinesechfen($str)
 
 if($yymch_id !="") {
     if($yyzhdyf !=""){
-        $query = "UPDATE `yyyshdq` SET `sheng` = '$sheng' ,`shengjx` = '$shengjx' ,`yymch` = '$yymch'  ,`yymchjx` = '$yymchjx'  ,`yyksh` = '$yyksh'  ,`zhdysh` = '$zhdysh'  ,`zhdyshdh` = '$zhdyshdh'  ,`zhdyshyzh` = '$zhdyshyzh'  ,`shqysh1` = '$shqysh1'  ,`shqyshyzh1` = '$shqyshyzh1'  ,`shqyshdh1` = '$shqyshdh1'  ,`shqysh2` = '$shqysh2'  ,`shqyshyzh2` = '$shqyshyzh2'  ,`shqyshdh2` = '$shqyshdh2'  ,`shqysh3` = '$shqysh3'  ,`shqyshyzh3` = '$shqyshyzh3'  ,`shqyshdh3` = '$shqyshdh3'  ,`yshpxqsh` = '$yshpxqsh'  ,`yshpxrq` = '$yshpxrq'  ,`yydhz` = '$yydhz'  ,`yhszht` = '$yhszht'  ,`yyzhdyf` = '$yyzhdyf'  ,`shfjshhf` = '$shfjshhf'  ,`shi` = '$shi'  ,`shijx` = '$shijx'  ,`qu` = '$qu'  ,`qujx` = '$qujx' ,`zhlbzh` = '$shchbzh' WHERE `id` ='$yymch_id'";
+        $query = "UPDATE `yyyshdq` SET `sheng` = '$sheng' ,`shengjx` = '$shengjx' ,`yymch` = '$yymch'  ,`yymchjx` = '$yymchjx'  ,`yyksh` = '$yyksh'  ,`zhdysh` = '$zhdysh'  ,`zhdyshdh` = '$zhdyshdh'  ,`zhdyshyzh` = '$zhdyshyzh'  ,`shqysh1` = '$shqysh1'  ,`shqyshyzh1` = '$shqyshyzh1'  ,`shqyshdh1` = '$shqyshdh1'  ,`shqysh2` = '$shqysh2'  ,`shqyshyzh2` = '$shqyshyzh2'  ,`shqyshdh2` = '$shqyshdh2'  ,`shqysh3` = '$shqysh3'  ,`shqyshyzh3` = '$shqyshyzh3'  ,`shqyshdh3` = '$shqyshdh3'  ,`yshpxqsh` = '$yshpxqsh'  ,`yshpxrq` = '$yshpxrq'  ,`yydhz` = '$yydhz'  ,`yhszht` = '$yhszht'  ,`yyzhdyf` = '$yyzhdyf'  ,`shfjshhf` = '$shfjshhf'  ,`shi` = '$shi'  ,`shijx` = '$shijx'  ,`qu` = '$qu'  ,`qujx` = '$qujx' ,`zhlbzh` = '$shchbzh' "
+        ." ,`zhdyshdh2` = '$zhdyshdh2'"
+        ." ,`zhdyshemail` = '$zhdyshemail'"
+        ." ,`shqyshemail` = '$shqyshemail'"
+        	." WHERE `id` ='$yymch_id'";
 
         $result = mysql_query($query);
         if(!$result) {
@@ -176,7 +181,6 @@ if($yymch_id !="") {
     if($yyzhdyf!=""){
       $query="insert into `yyyshdq`(sheng,shengjx,yymch,yymchjx,yyksh,zhdysh,zhdyshdh,zhdyshyzh,shqysh1,shqyshyzh1,shqyshdh1,shqysh2,shqyshyzh2,shqyshdh2,shqysh3,shqyshyzh3,shqyshdh3,yshpxqsh,yshpxrq,yydhz,yhszht,yyzhdyf,shfjshhf,shi,shijx,qu,qujx,zhlbzh,zhdyshdh2,zhdyshemail,shqyshemail)values('$sheng','$shengjx','$yymch','$yymchjx','$yyksh','$zhdysh','$zhdyshdh','$zhdyshyzh','$shqysh1','$shqyshyzh1','$shqyshdh1','$shqysh2','$shqyshyzh2','$shqyshdh2','$shqysh3','$shqyshyzh3','$shqyshdh3','$yshpxqsh','$yshpxrq','$yydhz','$yhszht','$yyzhdyf','$shfjshhf','$shi','$shijx','$qu','$qujx','$shchbzh','$zhdyshdh2','$zhdyshemail','$shqyshemail')";
       $result=mysql_query($query);
-
       if(!$result)
       {
         echo mysql_error();

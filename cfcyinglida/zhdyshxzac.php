@@ -43,7 +43,8 @@ $zhdyshemail = $_POST['zhdyshemail'];
 
 //擅长病种
 $shchbzhs=$_POST[shchbzh];
-$shchbzh = implode(",",$shchbzhs);
+//$shchbzh = implode(",",$shchbzhs);
+$$shchbzh = '';
 if($yyid!=""){
   $sql = "select yymch,yymchjx,sheng,shengjx,yydhz,yyksh,yyzhdyf,shi,shijx,qu,qujx from `yyyshdq` where `id` = '".$yyid."' ";
 
@@ -118,7 +119,7 @@ $query="insert into `manager`(`names`,`pwds`,`yhyl1`,`phones`,`yhzht`,`gldw`,`yh
   
 
     $query="insert into `yyyshdq`(sheng,shengjx,yymch,yymchjx,yyksh,zhdysh,zhdyshdh,zhdyshyzh,shqysh1,shqyshyzh1,shqyshdh1,shqysh2,shqyshyzh2,shqyshdh2,shqysh3,shqyshyzh3,shqyshdh3,yshpxqsh,yshpxrq,yydhz,yhszht,yyzhdyf,shfjshhf,shi,shijx,qu,qujx,zhlbzh,zhdyshdh2,zhdyshemail)values('$sheng','$shengjx','$yymch','$yymchjx','$yyksh','$zhdysh','$zhdyshdh','$zhdyshyzh','$shqysh1','$shqyshyzh1','$shqyshdh1','$shqysh2','$shqyshyzh2','$shqyshdh2','$shqysh3','$shqyshyzh3','$shqyshdh3','$yshpxqsh','$yshpxrq','$yydhz','$yhszht','$yyzhdyf','$shfjshhf','$shi','$shijx','$qu','$qujx','$shchbzh','$zhdyshdh2','$zhdyshemail')";
-
+	
   $result=mysql_query($query);
   if(!$result)
   {

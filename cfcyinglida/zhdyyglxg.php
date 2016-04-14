@@ -82,8 +82,8 @@ $(function () {
         <div>
             <span class="label">授权一联系方式：</span><input class="grd-white2" id="shqyshdh1" name="shqyshdh1" style="width: 460px;" type="text" value="<?php echo $Record[11];?>" /></div>
         <div>
-            <span class="label">授权一医生样章：</span><img src="qzyzh/<?php echo sprintf("%03d", $Record[0]);?>-2.jpg" width="105" height="45"/>  
-  <input type="button" onclick="tjyzh(2)" value="上传" class="uusub2"></div>
+            <span class="label">授权一医生样章：</span><img src="qzyzh/<?php echo sprintf("%03d", $Record[0]);?>-8.jpg" width="105" height="45"/>  
+  <input type="button" onclick="tjyzh(8)" value="上传" class="uusub2"></div>
         <div>
             <span class="label">授权二医生：</span><input class="grd-white2" id="shqysh2" name="shqysh2" style="width: 460px;" type="text" value="<?php echo $Record[12];?>" /></div>
 
