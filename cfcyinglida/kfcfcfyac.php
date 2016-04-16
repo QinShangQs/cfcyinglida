@@ -18,17 +18,18 @@ $fyrq=date('Y-m-d');
 
 $fyr=$_SESSION[yhid];
 
-$kfrksql = "select SUM(bjshl) from `kfrk` where `gg`='$gg'";
+$kfrksql = "select SUM(bjshl) from `kfrk` where `gg`like'%$gg%'";
 
 $kfrkQuery_ID = mysql_query($kfrksql);
 while($kfrkRecord = mysql_fetch_array($kfrkQuery_ID)){
 $rkzsh1=$kfrkRecord[0];
 }
-$kfchksql = "select SUM(pfshl1) from `yfshqzy` where `shqzht`>='2'";
+$kfchksql = "select SUM(pfshl1) from `yfshqzy` where `shqzht`>='2'  and `gg1` like '$gg%'";
 $kfchkQuery_ID = mysql_query($kfchksql);
 while($kfchkRecord = mysql_fetch_array($kfchkQuery_ID)){
 $chkzsh1=$kfchkRecord[0];
 }
+
 if(($rkzsh1-$chkzsh1)>$pfshl1||$pfshl1==0)
 {
     $query="UPDATE `yfshqzy` SET `shqzht`='2',`fyrq`='$fyrq',`ph1`='$ph1',`ydh`='$ydh',`fyr`='$fyr'  WHERE `id` ='$shqid'";

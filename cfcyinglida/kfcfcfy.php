@@ -7,7 +7,7 @@ include('spap_head.php');
 <div class="main">
     <div class="insmain">
         <div class="thislink">当前位置：<a href="kfcfcfy.php"><?php echo $html_title; ?></a></div>
-        <form method=post action="kfcfcfyac.php">
+        <form method=post action="kfcfcfyac.php" onsubmit="return check();">
             <?php
             $shqid = $_GET['id'];
             $sql = "select * from `yfshqzy` where `id` = '$shqid'";
@@ -81,6 +81,14 @@ include('spap_head.php');
         </form>
         <script type="text/javascript">
             chooseDate('fyrq', true);
+
+            function check(){
+				if($.trim($("#ydh").val()).length == 0){
+					alert('请填写运单号！');
+					return false;
+				}
+				return true;
+            }
         </script>
     </div>
 </div>

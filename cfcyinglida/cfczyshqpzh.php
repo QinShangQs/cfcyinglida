@@ -27,6 +27,7 @@ include('spap_head.php');
             <tr>
               <td>
         <form action="cfczyshqpzhac.php" method="post">
+        <input type="hidden" name="id" value="<?php echo $_GET['id'];?>" />
 <?php     
 $shqid = $_GET['id'];   
     $sql = "select * from `yfshqzy` where `id` = '".$shqid."'";
@@ -35,11 +36,11 @@ $shqid = $_GET['id'];
     while($Record = mysql_fetch_array($Query_ID)){
         
     $yfsql = "select * from `yf` where  `yfmch`='".$Record[25]."' and `yfzhdysh`='".$Record[1]."'";
-
     $yfQuery_ID = mysql_query($yfsql);
     while($yfRecord = mysql_fetch_array($yfQuery_ID)){
    
 ?>
+
 <div class="insinsins" style="width: 100%">
 <label>药房名称：<input type="hidden" name="id" value="<?php echo $shqid;?>" /></label><span><?php echo $yfRecord[1];?></span>
 </div>
@@ -53,11 +54,13 @@ $shqid = $_GET['id'];
     }
     if($Record[4]>"0"){
 $pfshl1ztsql="SELECT SUM(pfshl1) FROM `yfshqzy` where `shqzht`='2' and `yfmch`='".$Record[25]."'" ;
+
 $pfshl1ztq=mysql_query($pfshl1ztsql);
 while($pfshl1ztRecord = mysql_fetch_array($pfshl1ztq)){$pfshl1zt=$pfshl1ztRecord[0];}
 ?>
 <div class="insinsins" style="width: 100%">
 <label>规格：</label><span><?php echo $Record['gg1'];?></span>
+<input type="hidden" name="gg" value="<?php echo $Record['gg1']; ?>"/>
 </div>
 <div class="insinsins" style="width: 100%">
 <label>当前库存数（盒）：</label><span><?php echo $Record[3];
