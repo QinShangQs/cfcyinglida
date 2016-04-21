@@ -102,7 +102,7 @@ if($shcdjrq==''){
         $sql = "select * from shhdch where hzhid = $hzhid";
         $arr2 = $db->getRow($sql);
         if(empty($arr['shfs']) || empty($arr2)) {
-            $db->update('hzh', array('shqzht' => '审核通过'), 'id='.$hzhid);
+            $db->update('hzh', array('shqzht' => '审核'), 'id='.$hzhid);
         } else {
             $db->update('hzh', array('shqzht' => '代办入组'), 'id='.$hzhid);
         }

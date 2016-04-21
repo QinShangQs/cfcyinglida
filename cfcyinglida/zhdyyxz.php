@@ -295,9 +295,25 @@ include('spap_head.php');
 			alert('请选择医院指定药房	!');
 			return false;
 		}
-		
+		$("#isSubmit").val('save');
 		return true;
     }
+
+    window.onbeforeunload = onbeforeunload_handler;    
+    function onbeforeunload_handler(){   
+    	if($.trim($('#yymch_id').val()).length != 0 && $("#isSubmit").val() != "save"){
+			$.ajax({
+	            url: '/zhdyyxzac.php',
+	            type: 'post',
+	            async: false,
+	            data: {ajaxremove: 'ajaxremove', yyid:$('#yymch_id').val()},
+	            dataType: 'json',
+	            success: function(data){
+	                window.location.href='../manager.php'
+	            }
+	        })
+		}
+    }   	
 </script> 
 					  </td>
                     </tr>
@@ -305,6 +321,7 @@ include('spap_head.php');
 
 				</div>
         <div class="incontact w955 flt">
+        	<input type="hidden" id="isSubmit" value="" />
           <input type="submit" class="uusub" value="提交保存" /> 
           <input type="button" class="uusub2" value="取消" onclick="removeyy();" />
 				</div>

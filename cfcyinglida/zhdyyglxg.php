@@ -165,21 +165,7 @@ $shchbzh = explode(",",$Record[28]);
     
     }
     ?>
-    $("#s_city").click( function () { 
-      //alert('aaaaa');
-      var shimch = $("#s_city").val();
-      //alert(shimch);
-      $.get('zhdyyyfac.php',{'shimch':shimch,'yyid':$("#yyid").val()},function(data){
-        $("#zhdyyyfac").html(data);//alert(data);
-      });
-    });
-    $("#s_city").change(function(){ 
-      //alert('aaaaa');
-      var shimch = $("#s_city").val();
-      $.get('zhdyyyfac.php',{'shimch':shimch,'yyid':yyid},function(data){
-        $("#zhdyyyfac").html(data);//alert(data);
-      });
-    });
+    
 function tjyzh(v){
 if(v>'0'){
 $('#upfile_type').val(v);

@@ -124,7 +124,12 @@ $yhszht = $_POST['yhszht'];
 //$shchbzh = implode(",",$shchbzhs);
 //医院指定药房
 $yyzhdyfs=$_POST['yyzhdyfs'];
-$yyzhdyf = implode(",",$yyzhdyfs);
+if(is_array($yyzhdyfs)){
+	$yyzhdyf = implode(",",$yyzhdyfs);
+}else{
+	$yyzhdyf = '';
+} 
+	
 //是否接收AE回访
 $shfjshhf = $_POST['shfjshhf'];
 //医生联系方式2

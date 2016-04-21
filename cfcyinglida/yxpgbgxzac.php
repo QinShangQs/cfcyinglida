@@ -37,9 +37,10 @@ $fuhe = $_POST['fuhe'];
 $docname = $_POST['docname'];
 //本次就诊时间
 $start_time = $_POST['start_time'];
+$addtime = date ( 'Y-m-d H:i:s' );
 
 $arr = array('hzhid' => $hzhid, 'lrr' => $lrr, 'xbyzzlsb' => $xbzlsb, 'bying' => $bying, 'yuanyin' => $xbzlsbkaos, 'ypname' => $yaoname, 'zltime' => $zhiliaotime, 'yldstarttime' => $starttime, 'yldrpg' => $yldpg, 'pdjssf' => $yldsf, 'pgtime' => $pgtime,
-'isfjxyxd' => $sfyld, 'patzdrcc' => $docmes, 'isrz' => $fuhe, 'docname' => $docname, 'bctime' => $start_time);
+'isfjxyxd' => $sfyld, 'patzdrcc' => $docmes, 'isrz' => $fuhe, 'docname' => $docname, 'bctime' => $start_time,'addtime'=>$addtime);
 $shcpgresult = $db->insert('yxtjpg_new', $arr);
       if(!$shcpgresult) {
         echo mysql_error();die;

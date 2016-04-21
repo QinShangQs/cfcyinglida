@@ -43,9 +43,9 @@ $query = "UPDATE `hzh` SET ";
 if ($shfpzh == 1) {
 	
 	if ($zhshrzshj <= $datenow) {
-		$shqzht = "待办入组";
+		$shqzht = "代办入组";
 	} else {
-		$shqzht = "待办入组";
+		$shqzht = "入组";
 	}
 	
 	/* 验证基础信息是否填写完整 开始 */
@@ -101,20 +101,15 @@ if ($shfpzh == 1) {
 	while ( $Record = mysql_fetch_array ( $Query_ID ) ) {
 		if ($Record [0] == "0") {
 			echo "失败 患者（提供的材料信息）未通过 </br>";
-			// echo "aa". $i ;
-			// echo count($Record) ;
-			// exit();
 			$yzhxx ++;
+			exit();
 		}
 	}
 
 	if (mysql_num_rows ( $Query_ID ) < 1) {
 		echo "失败 患者（提供的材料信息）未填写 </br>";
-		
-		// echo "aa". $i ;
-		// echo count($Record) ;
-		// exit();
 		$yzhxx ++;
+		exit();
 	}
 	// echo $sql;
 	
@@ -135,6 +130,7 @@ if ($shfpzh == 1) {
 		echo "失败 患者（社会调查）未通过  </br>";
 		// exit();
 		$yzhxx ++;
+		exit();
 	}
 	/* 验证社会调查是否属实 结束 */
 	

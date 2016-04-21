@@ -232,7 +232,7 @@ if ($hzhxm != "" && $zhjlx != "" && $zhjhm != "" && $hzhchshrq != "" && $hzhxb !
 		$docname = $_POST ['docname'];
 		// 本次就诊时间
 		$start_time = $_POST ['start_time'];
-		
+		$addtime = date ( 'Y-m-d H:i:s' );
 		$arr = array (
 				'hzhid' => $hzhid,
 				'lrr' => $lrr,
@@ -249,7 +249,8 @@ if ($hzhxm != "" && $zhjlx != "" && $zhjhm != "" && $hzhchshrq != "" && $hzhxb !
 				'patzdrcc' => $docmes,
 				'isrz' => $fuhe,
 				'docname' => $docname,
-				'bctime' => $start_time 
+				'bctime' => $start_time,
+				'addtime'=> $addtime
 		);
 		$db->insert ( 'yxtjpg_new', $arr );
 		if (! $shcpgresult) {

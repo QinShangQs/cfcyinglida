@@ -340,9 +340,9 @@ echo sprintf ( "%05d", $Record [0] );
 								</tr>
 								<tr style="color: #1f4248; font-size: 12px;">
 									<td align="center" bgcolor="#FFFFFF">第三联系人姓名：</td>
-									<td align="center" bgcolor="#FFFFFF"><?php echo $Record[61];?></td>
+									<td align="center" bgcolor="#FFFFFF"><?php echo $Record[63];?></td>
 									<td align="center" bgcolor="#FFFFFF">第三联系人关系：</td>
-									<td align="center" bgcolor="#FFFFFF"><?php echo $Record[62];?></td>
+									<td align="center" bgcolor="#FFFFFF"><?php echo $Record[64];?></td>
 									<td align="center" bgcolor="#FFFFFF">第三联系人电话：</td>
 									<td align="center" bgcolor="#FFFFFF" colspan="3"
 										style="text-align: left"><?php echo $Record[51];?></td>
@@ -444,9 +444,16 @@ echo sprintf ( "%05d", $Record [0] );
 	}
 	str_replace ( '1', '1', $shfshd, $shfshdi );
 	str_replace ( '1', '1', $shfyx, $shfyxi );
+	//var_dump($Record );
 	if ($Record [50] != '2') {
-		// $gxyclshl=11;
-		$gxyclshl = 22;
+		$myclsql = "select mchid from `clshh` where hzhid='$yhid'";		
+		$myclQuery_ID = mysql_query ( $myclsql );
+		$mygxyclshl = 13;
+		while ( $myclRecord = mysql_fetch_array ( $myclQuery_ID ) ) {
+			$mygxyclshl = $myclRecord[0];
+		}
+		$mygxyclshl = preg_match_all('/\d+/', $mygxyclshl, $out);
+		$gxyclshl = $mygxyclshl;
 	} else {
 		// 重新入组
 		// pNET RCC GIST 正常需要6份材料 RCC 1+1+1(3次以上)
