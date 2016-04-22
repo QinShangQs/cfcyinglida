@@ -56,6 +56,27 @@ $query="UPDATE `hzh` SET ";
     while($yfRecord = mysql_fetch_array($yfQuery_ID)){
        $lyyfid=$yfRecord[0];
     }*/
+    /***********************/
+    $cxhzhrzsql = "select * from `hzhrz` where `hzhid`='$id' group by hzhid ";
+    $cxhzhrzQuery_ID = mysql_query($cxhzhrzsql);
+    while($cxhzhrzRecord = mysql_fetch_array($cxhzhrzQuery_ID)){
+    	$cxhzhrz=$cxhzhrzRecord[0];
+    }
+    if($cxhzhrz>0){
+    	$hzhid=sprintf("%05d", $cxhzhrz);//生成4位数，不足前面补0
+    }else{
+    	$hzhrzquery="insert into `hzhrz`(hzhid)values('$id')";
+    	$hzhrzresult=mysql_query($hzhrzquery);
+    	if(!$hzhrzresult)
+    	{
+    		echo mysql_error();
+    		echo "失败 <input type=\"button\" onclick=\"javascript:{history.go(-1);}\" value=\"返回\" class=\"lgSub\" />";
+    	}else{
+    		$getID=mysql_insert_id();
+    		$hzhid=sprintf("%05d", $getID);//生成4位数，不足前面补0
+    	}
+    }
+    /***********************/
 
     $shqzht = " `shqzht`='入组',`lyyf`='$rzyyzhdyf',`rzyy`='$rzyy',`hzhid`='$hzhid',`shhxcl`='0' ";
     if($ygrq=='1'){

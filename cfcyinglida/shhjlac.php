@@ -43,9 +43,9 @@ $query = "UPDATE `hzh` SET ";
 if ($shfpzh == 1) {
 	
 	if ($zhshrzshj <= $datenow) {
-		$shqzht = "代办入组";
+		$shqzht = "待办入组";
 	} else {
-		$shqzht = "入组";
+		$shqzht = "待办入组";
 	}
 	
 	/* 验证基础信息是否填写完整 开始 */
@@ -173,29 +173,29 @@ if ($shfpzh == 1) {
 	
 	// 查询患者是否有入组编码 order by id desc
 	#生成编码
-	  $cxhzhrzsql = "select * from `hzhrz` where `hzhid`='$id' group by hzhid ";
-	  $cxhzhrzQuery_ID = mysql_query($cxhzhrzsql);
-	  while($cxhzhrzRecord = mysql_fetch_array($cxhzhrzQuery_ID)){
-	  	$cxhzhrz=$cxhzhrzRecord[0]; 
-	  }
-	  if($cxhzhrz>0){
-	  	$hzhid=sprintf("%05d", $cxhzhrz);//生成4位数，不足前面补0
-	  }else{
-	  	$hzhrzquery="insert into `hzhrz`(hzhid)values('$id')";
-	  	$hzhrzresult=mysql_query($hzhrzquery);
-		  if(!$hzhrzresult)
-		  {
-		  echo mysql_error();
-		  echo "失败 <input type=\"button\" onclick=\"javascript:{history.go(-1);}\" value=\"返回\" class=\"lgSub\" />";
-		  }else{
-		  $getID=mysql_insert_id();
-		  $hzhid=sprintf("%05d", $getID);//生成4位数，不足前面补0
-		  }
-	  }
+// 	  $cxhzhrzsql = "select * from `hzhrz` where `hzhid`='$id' group by hzhid ";
+// 	  $cxhzhrzQuery_ID = mysql_query($cxhzhrzsql);
+// 	  while($cxhzhrzRecord = mysql_fetch_array($cxhzhrzQuery_ID)){
+// 	  	$cxhzhrz=$cxhzhrzRecord[0]; 
+// 	  }
+// 	  if($cxhzhrz>0){
+// 	  	$hzhid=sprintf("%05d", $cxhzhrz);//生成4位数，不足前面补0
+// 	  }else{
+// 	  	$hzhrzquery="insert into `hzhrz`(hzhid)values('$id')";
+// 	  	$hzhrzresult=mysql_query($hzhrzquery);
+// 		  if(!$hzhrzresult)
+// 		  {
+// 		  echo mysql_error();
+// 		  echo "失败 <input type=\"button\" onclick=\"javascript:{history.go(-1);}\" value=\"返回\" class=\"lgSub\" />";
+// 		  }else{
+// 		  $getID=mysql_insert_id();
+// 		  $hzhid=sprintf("%05d", $getID);//生成4位数，不足前面补0
+// 		  }
+// 	  }
 	/*
 	 * $shqzhtsql = " `shqzht`='$shqzht',`ygshcyyrq`='$zhshrzshj',`hzhid`='$hzhid',`shhxcl`='0',`zhshrzshj`='$zhshrzshj' ";
 	 */
-	$shqzhtsql = " `shqzht`='$shqzht',`ygshcyyrq`='$zhshrzshj',`shhxcl`='0',`zhshrzshj`='$zhshrzshj' ,`hzhid`='$hzhid'";
+	$shqzhtsql = " `shqzht`='$shqzht',`ygshcyyrq`='$zhshrzshj',`shhxcl`='0',`zhshrzshj`='$zhshrzshj'";
 	
 	$xcfyrqquery = "UPDATE `xclyrq` SET `xclyrq`='$zhshrzshj' where `hzhid`='$id'";
 	// echo $xcfyrqquery;

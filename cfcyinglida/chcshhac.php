@@ -104,7 +104,7 @@ if($shcdjrq==''){
         if(empty($arr['shfs']) || empty($arr2)) {
             $db->update('hzh', array('shqzht' => '审核'), 'id='.$hzhid);
         } else {
-            $db->update('hzh', array('shqzht' => '代办入组'), 'id='.$hzhid);
+            $db->update('hzh', array('shqzht' => '待办入组'), 'id='.$hzhid);
         }
         echo "<a href=\"xzshhdch.php?id=".$hzhid."\">点击进入社会调查</a> <a href=\"shqxq.php?id=".$hzhid."\">返回查看详细资料</a> ";
     } else {
