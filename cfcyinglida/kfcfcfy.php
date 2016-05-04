@@ -28,7 +28,7 @@ include('spap_head.php');
                         批号:<select id="ph1" class="grd-white2" name="ph1" style="width:260px;">
                             <option value="未知批号">未知批号</option>
                             <?php
-                            $ph1sql = "select id,ph from `kfrk` where `gg`='" . $Record[2] . "'";
+                            $ph1sql = "select id,ph from `kfrk` where `gg` like'" . $Record[2] . "%'";
 
                             $ph1Query_ID = mysql_query($ph1sql);
                             while ($ph1Record = mysql_fetch_array($ph1Query_ID)) {
