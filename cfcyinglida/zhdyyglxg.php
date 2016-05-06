@@ -28,7 +28,7 @@ include('spap_head.php');
   while($Record = mysql_fetch_array($Query_ID)){
   $yshyzhid=$Record[0];
 ?>
-        <form action="zhdyyglxgac.php" method="post">
+        <form action="zhdyyglxgac.php" method="post" onsubmit="return validate()">
         <div>
             <span class="label">医院名称：</span><input id="yyid" name="yyid" type="hidden" value="<?php echo $Record[0];?>" /><input class="grd-white2" id="yymch" name="yymch" style="width: 460px;" type="text" value="<?php echo $Record[3];?>" /></div>
         <div>
@@ -70,10 +70,10 @@ $(function () {
             <input class="grd-white2" id="zhdyshemail" name="zhdyshemail" style="width: 460px;" type="text" value="<?php echo $Record[30];?>" />
         </div>
         <div>
-            <span class="label">指定医生样章：</span><img src="qzyzh/<?php echo sprintf("%03d", $Record[0]);?>-1.jpg" width="105" height="45"/>   
+            <span class="label">指定医生样章：</span><img src="qzyzh/<?php echo sprintf("%03d", $Record[0]);?>-1.jpg?r=<?php echo rand(0, 100);?>" width="105" height="45"/>   
   <input type="button" onclick="tjyzh(1)" value="上传" class="uusub2"></div>
         <div>
-            <span class="label">指定医生签字：</span><img src="qzyzh/<?php echo sprintf("%03d", $Record[0]);?>-2.jpg" width="105" height="45"/>
+            <span class="label">指定医生签字：</span><img src="qzyzh/<?php echo sprintf("%03d", $Record[0]);?>-2.jpg?r=<?php echo rand(0, 100);?>" width="105" height="45"/>
   <input type="button" onclick="tjyzh(2)" value="上传" class="uusub2"></div>
         <div>
             <span class="label">授权一医生：</span><input class="grd-white2" id="shqysh1" name="shqysh1" style="width: 460px;" type="text" value="<?php echo $Record[9];?>" /></div>
@@ -82,7 +82,7 @@ $(function () {
         <div>
             <span class="label">授权一联系方式：</span><input class="grd-white2" id="shqyshdh1" name="shqyshdh1" style="width: 460px;" type="text" value="<?php echo $Record[11];?>" /></div>
         <div>
-            <span class="label">授权一医生样章：</span><img src="qzyzh/<?php echo sprintf("%03d", $Record[0]);?>-8.jpg" width="105" height="45"/>  
+            <span class="label">授权一医生样章：</span><img src="qzyzh/<?php echo sprintf("%03d", $Record[0]);?>-8.jpg?r=<?php echo rand(0, 100);?>" width="105" height="45"/>  
   <input type="button" onclick="tjyzh(8)" value="上传" class="uusub2"></div>
         <div>
             <span class="label">授权二医生：</span><input class="grd-white2" id="shqysh2" name="shqysh2" style="width: 460px;" type="text" value="<?php echo $Record[12];?>" /></div>
@@ -90,7 +90,7 @@ $(function () {
         <div>
             <span class="label">授权二联系方式：</span><input class="grd-white2" id="shqyshdh2" name="shqyshdh2" style="width: 460px;" type="text" value="<?php echo $Record[14];?>" /></div>
         <div>
-            <span class="label">授权二医生样章：</span><img src="qzyzh/<?php echo sprintf("%03d", $Record[0]);?>-3.jpg" width="105" height="45"/>  
+            <span class="label">授权二医生样章：</span><img src="qzyzh/<?php echo sprintf("%03d", $Record[0]);?>-3.jpg?r=<?php echo rand(0, 100);?>" width="105" height="45"/>  
   <input type="button" onclick="tjyzh(3)" value="上传" class="uusub2"></div>
         <div>
             <span class="label">授权三医生：</span><input class="grd-white2" id="shqysh3" name="shqysh3" style="width: 460px;" type="text" value="<?php echo $Record[15];?>" /></div>
@@ -98,7 +98,7 @@ $(function () {
         <div>
             <span class="label">授权三联系方式：</span><input class="grd-white2" id="shqyshdh3" name="shqyshdh3" style="width: 460px;" type="text" value="<?php echo $Record[17];?>" /></div>
         <div>
-            <span class="label">授权三医生样章：</span><img src="qzyzh/<?php echo sprintf("%03d", $Record[0]);?>-4.jpg" width="105" height="45"/>  
+            <span class="label">授权三医生样章：</span><img src="qzyzh/<?php echo sprintf("%03d", $Record[0]);?>-4.jpg?r=<?php echo rand(0, 100);?>" width="105" height="45"/>  
   <input type="button" onclick="tjyzh(4)" value="上传" class="uusub2"></div>
         <div>
             <span class="label">医生培训期数：</span><input class="grd-white2" id="yshpxqsh" name="yshpxqsh" style="width: 460px;" type="text" value="<?php echo $Record[18];?>" /></div>
@@ -123,7 +123,7 @@ $shchbzh = explode(",",$Record[28]);
     $zhdyyyfs = explode(",",$Record[22]);
     $yfjshi=1;
     foreach($zhdyyyfs as $k => $v){
-      echo "<td align=\"left\" bgcolor=\"#FFFFFF\"><input name='yyzhdyfs[]' type='checkbox' class='np' id='yyzhdyf".$yfjshi."' value='".$v."' checked disabled=true>".$v."</td>";
+      echo "<td align=\"left\" bgcolor=\"#FFFFFF\"><input name='yyzhdyfs[]' type='checkbox' class='np' id='yyzhdyf".$yfjshi."' value='".$v."' checked >".$v."</td>";
       if($yfjshi%3==0){echo "</tr><tr style=\"color:#1f4248; font-size:12px;\">";}
       //echo $yfjshi;
       $yfjshi++;
@@ -145,7 +145,72 @@ $shchbzh = explode(",",$Record[28]);
         </form>
     </div>
 <script language="javascript">  
+
+function validate(){
+	if($.trim($("#yymch").val()).length == 0){
+		alert('请填写医院名称!');
+		return false;
+	}
+	if($("#s_county").val() == "市、县级市"){
+		alert('请选择医院所在城市!');
+		return false;
+	}
+
+	if($.trim($("#s_county").val()).length == 0){
+		alert('请选择医院所在地区!');
+		return false;
+	}
+
+	if($.trim($("#yydhz").val()).length == 0){
+		alert('请填写医院地址!');
+		return false;
+	}
+
+	if($.trim($("#yyksh").val()).length == 0){
+		alert('请填写医院科室!');
+		return false;
+	}
+
+	if($.trim($("#zhdysh").val()).length == 0){
+		alert('请填写指定医生!');
+		return false;
+	}
+
+	if($.trim($("#zhdyshdh").val()).length == 0){
+		alert('请填写医生联系方式!');
+		return false;
+	}
+
+	if($.trim($("#zhdyshemail").val()).length == 0){
+		alert('请填写电子邮箱!');
+		return false;
+	}
+	if($.trim($("#zhdyshdh2").val()).length == 0){
+		alert('请填写医生联系方式2!');
+		return false;
+	}
+
+	if($("input[name='yyzhdyfs[]']:checked").length == 0){
+		alert('请选择医院指定药房	!');
+		return false;
+	}
+	$("#isSubmit").val('save');
+	return true;
+}
+
+
+
     $(document).ready(function(){
+
+        $("#s_city").change(function(){ 
+            //alert('aaaaa');
+            var shimch = $("#s_city").val();
+            $.get('zhdyyyfac.php',{'shimch':shimch},function(data){
+              $("#zhdyyyfac").html(data);//alert(data);
+            });
+          });
+    
+        
     chooseDateNow('yshpxrq', true);
             //绑定提交验证
             $("input:submit").unbind("click");
@@ -199,7 +264,7 @@ document.getElementById("submitBtn").disabled=false;
 		<fieldset style="background:#ffffff;">
             <legend style="background:#ffffff;">上传图片</legend>
 
-<form enctype="multipart/form-data" method="post" name="upform">  
+<form enctype="multipart/form-data" method="post" name="upform" >  
   上传文件:  
   <input name="upfile" type="file">  
   <input name="upfile_type" id="upfile_type" type="hidden">  

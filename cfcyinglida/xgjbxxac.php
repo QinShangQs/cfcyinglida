@@ -129,12 +129,10 @@ if($hzhxm!=""&&$zhjlx!=""&&$zhjhm!=""&&$hzhchshrq!=""&&$hzhxb!=""){
     {
       echo "</br>";
 //      $jsonsj = json_decode($json[$i]);
-        if(get_magic_quotes_gpc())//如果get_magic_quotes_gpc()是打开的
-        {
-
+        //if(get_magic_quotes_gpc())//如果get_magic_quotes_gpc()是打开的
+        //{
             $jsonsj = json_decode(stripslashes($json[$i]));//将字符串进行处理
-
-        }
+		//}
       $zhxxm = $jsonsj->姓名;
       $zhxzhjhm = $jsonsj->公民身份号码;
       $zhxjgzh = $jsonsj->军官证;
