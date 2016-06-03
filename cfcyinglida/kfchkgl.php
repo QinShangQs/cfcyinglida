@@ -104,6 +104,24 @@ $kfrkQuery_ID = mysql_query($kfrksql);
 while ($kfrkRecord = mysql_fetch_array($kfrkQuery_ID)) {
     $rkzsh1 = $kfrkRecord[0];
 }
+
+$kfrksql1mg = "select SUM(bjshl) from `kfrk` where gg like '1mg%'";
+if ($shyrq != "") {
+	$kfrksql1mg .= " where " . $shyrq;
+}//添加判断条件
+$kfrkQuery_ID = mysql_query($kfrksql1mg);
+while ($kfrkRecord = mysql_fetch_array($kfrkQuery_ID)) {
+	$rkzsh11mg = $kfrkRecord[0];
+}
+
+$kfrksql5mg = "select SUM(bjshl) from `kfrk` where gg like '5mg%'";
+if ($shyrq != "") {
+	$kfrksql5mg .= " where " . $shyrq;
+}//添加判断条件
+$kfrkQuery_ID = mysql_query($kfrksql5mg);
+while ($kfrkRecord = mysql_fetch_array($kfrkQuery_ID)) {
+	$rkzsh15mg = $kfrkRecord[0];
+}
 $kfchksql = "select SUM(pfshl1) from `yfshqzy` where `shqzht`>='2'";
 if ($fyrq != "") {
     $kfchksql .= " and " . $fyrq;
@@ -120,6 +138,25 @@ $kfchkQuery_ID = mysql_query($kfchksql);
 while ($kfchkRecord = mysql_fetch_array($kfchkQuery_ID)) {
     $chkztzsh1 = $kfchkRecord[0];
 }
+
+$kfchksql1mg = "select SUM(pfshl1) from `yfshqzy` where `shqzht`='2' and gg1 = '1mg'";
+if ($fyrq != "") {
+	$kfchksql1mg .= " and " . $fyrq;
+}//添加判断条件
+$kfchkQuery_ID = mysql_query($kfchksql1mg);
+while ($kfchkRecord = mysql_fetch_array($kfchkQuery_ID)) {
+	$chkztzsh11mg = $kfchkRecord[0];
+}
+
+$kfchksql5mg = "select SUM(pfshl1) from `yfshqzy` where `shqzht`='2' and gg1 = '5mg'";
+if ($fyrq != "") {
+	$kfchksql5mg .= " and " . $fyrq;
+}//添加判断条件
+$kfchkQuery_ID = mysql_query($kfchksql5mg);
+while ($kfchkRecord = mysql_fetch_array($kfchkQuery_ID)) {
+	$chkztzsh15mg = $kfchkRecord[0];
+}
+
 ?>
 
 
@@ -133,21 +170,36 @@ $zyfy = mysql_query($zyfysql);
 while ($zyfyRecord = mysql_fetch_array($zyfy)) {
     $zyfyjs = $zyfyRecord[0];
 }
+$fy1mgcountsql = $zyfysql." and gg1 = '1mg';";
+$fy1mg =  mysql_query($fy1mgcountsql);
+while ($zyfyRecord = mysql_fetch_array($fy1mg)) {
+	$fy1mgcount = $zyfyRecord[0];
+}
+
+$fy5mgcountsql = $zyfysql." and gg1 = '5mg'";
+$fy5mg =  mysql_query($fy5mgcountsql);
+while ($zyfyRecord = mysql_fetch_array($fy5mg)) {
+	$fy5mgcount = $zyfyRecord[0];
+}
 ?>
 <div class="top"> <span>
-    已发运货数： <?php if ($zyfyjs != "") {
-            echo $zyfyjs;
-        } else {
-            echo "0";
-        } ?>盒&nbsp;&nbsp;
+    已发运货数： 1mg <?php echo $fy1mgcount?>盒; 5mg <?php echo $fy5mgcount?>盒;
+        &nbsp;&nbsp;
         <?php
         if ($chkztzsh1 > 0 || $chkztzsh2 > 0) {
             echo "在途总数";
-            if ($chkztzsh1 > 0) {
-                echo "" . $chkztzsh1 . "盒 ";
-            }
+            echo "1mg " . ( empty($chkztzsh11mg) ? 0:$chkztzsh11mg ) . "盒;";
+            echo "5mg " . ( empty($chkztzsh15mg) ? 0:$chkztzsh15mg ). "盒; ";
+
         }
-        ?>  &nbsp;&nbsp;当前库房库存： <?php echo ($rkzsh1 - $chkzsh1) . "盒"; ?> </span></div>
+        ?>  &nbsp;&nbsp;当前库房库存：
+        
+         <?php 
+        	 echo "1mg " .($rkzsh11mg - $chkztzsh11mg) . "盒;";
+        	 echo "5mg " .($rkzsh15mg - $chkztzsh15mg) . "盒;";
+?> 
+         
+         </span></div>
 <table width="100%" border="0" cellspacing="0" cellpadding="5" class="top">
     <tr>
         <td>

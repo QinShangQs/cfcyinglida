@@ -33,16 +33,11 @@ while($Record = mysql_fetch_array($Query_ID)){
     <div>
         预计开始服用此次赠药时间:<?php echo $Record[16];?></div>
     <div>
-        本次药品规格:12.5mg*28粒/瓶</div>
+        本次药品规格:<?php echo $Record[5];?></div>
     <div>
         本次领药数量:<?php echo $Record[4];?>瓶</div>
     <div>
-        药品批号:<?php 
-  $phsql = "select ph from `kfrk` where `id`='".$Record[21]."'";
-  $phQuery_ID = mysql_query($phsql);
-  while($phRecord = mysql_fetch_array($phQuery_ID)){ 
-    echo $phRecord[0];
-  }
+        药品批号:<?php echo $Record[21];
       ?></div>
 <?php if($Record[9]=="0"){//echo $hzhxm;
 ?>

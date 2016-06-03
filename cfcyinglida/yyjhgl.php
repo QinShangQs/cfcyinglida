@@ -39,8 +39,8 @@ if($_GET[page]){
 }
 if($_GET[guanjianci]!=""){
 $guanjiancinr=$_GET[guanjianci];
-if(substr( $guanjiancinr, 0, 1 )=='x'||substr( $guanjiancinr, 0, 1 )=='X'){
-$guanjiancinr=str_ireplace('x-','',$guanjiancinr,$i);
+if(substr( $guanjiancinr, 0, 1 )=='i'||substr( $guanjiancinr, 0, 1 )=='I'){
+$guanjiancinr=str_ireplace('i-','',$guanjiancinr,$i);
 $hzhrzid=$guanjiancinr;
 }else{
 $guanjiancinr=preg_replace('/^0*/', '', $guanjiancinr);
@@ -182,8 +182,8 @@ $sql .=" order by id DESC limit $page $pagesize ";
   $hzhshj=$hzhRecord[2];
     echo "<tr style=\"color:#1f4248; font-weight:bold; height:30px;\">";
       echo "<td  width=\"13%\" align=\"center\" bgcolor=\"#FFFFFF\">".$hzhRecord[1]."</td>";
-      echo "<td  width=\"13%\" align=\"center\" bgcolor=\"#FFFFFF\">X-".$hzhRecord[0]."</td>";
-      echo "<td   width=\"18%\" align=\"center\" bgcolor=\"#FFFFFF\">肺癌</td>";
+      echo "<td  width=\"13%\" align=\"center\" bgcolor=\"#FFFFFF\">I-".$hzhRecord[0]."</td>";
+      echo "<td   width=\"18%\" align=\"center\" bgcolor=\"#FFFFFF\">RCC</td>";
       echo "<td   width=\"15%\" align=\"center\" bgcolor=\"#FFFFFF\">".$Record[20]."</td>";
       echo "<td  width=\"13%\" align=\"center\" bgcolor=\"#FFFFFF\">";
             if($Record[8]!=""){echo $Record[8]."粒";}else{echo "0粒";}

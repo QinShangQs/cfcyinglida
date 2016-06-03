@@ -24,9 +24,9 @@ include('spap_head.php');
 if($Record[20]>"0"){
 ?>
         <div>
-            <span class="label">规格（1）:</span> 12.5mg*28粒/瓶</div>
+            <span class="label">规格（1）:</span> 12.5mg*28粒/盒</div>
         <div>
-            <span class="label">收到数量:</span> <?php echo $Record[20];?>瓶</div>
+            <span class="label">收到数量:</span> <?php echo $Record[20];?>盒</div>
         <div>
             <span class="label"></span> <?php 
         if($Record[15]=="未知批号"){
@@ -61,7 +61,7 @@ while($ph1Record = mysql_fetch_array($ph1Query)){
 <?php
 }
 ?>
-</select> <input class="input addInput" id="ph1_<?php echo $i;?>_s" name="ph1_<?php echo $i;?>_s" style="width: 46px;" type="text" value="" />瓶
+</select> <input class="input addInput" id="ph1_<?php echo $i;?>_s" name="ph1_<?php echo $i;?>_s" style="width: 46px;" type="text" value="" />盒
 </div>
         <?php
     }

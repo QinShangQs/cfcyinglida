@@ -3,6 +3,14 @@
 include('newdb.php');
 $yyid = $_GET['id'];
 $html_title="指定医院详细";
+
+$yangzhangid = $yyid;
+if(strlen($yyid) == 1){
+	$yangzhangid = "00".$yyid;
+}else if(strlen($yyid) == 2){
+	$yangzhangid = "0".$yyid;
+}
+
 include('spap_head.php');
 ?>
     <div class="main">
@@ -41,7 +49,7 @@ include('spap_head.php');
             <span class="label">指定医生样张：</span>
             <span>
             <?php
-            $q1 = "/qzyzh/".$_GET['id']."-1.jpg";
+            $q1 = "/qzyzh/".$yangzhangid."-1.jpg";
             if(file_exists(dirname(__FILE__).$q1))
             	echo  "<img width=\"105\" height=\"45\" src='$q1'/>";
             else 
@@ -64,7 +72,7 @@ include('spap_head.php');
         <div>
             <span class="label">授权一医生样张：</span>
             <?php
-            $q8 = "/qzyzh/".$_GET['id']."-8.jpg";
+            $q8 = "/qzyzh/".$yangzhangid."-8.jpg";
             if(file_exists(dirname(__FILE__).$q8))
             	echo  "<img width=\"105\" height=\"45\" src='$q8'/>";
             	else
@@ -78,7 +86,7 @@ include('spap_head.php');
         <div>
             <span class="label">授权二医生样张：</span>
              <?php
-            $q3 = "/qzyzh/".$_GET['id']."-3.jpg";
+            $q3 = "/qzyzh/".$yangzhangid."-3.jpg";
             if(file_exists(dirname(__FILE__).$q3))
             	echo  "<img width=\"105\" height=\"45\" src='$q3'/>";
             	else
@@ -91,7 +99,7 @@ include('spap_head.php');
         <div>
             <span class="label">授权三医生样张：</span>
              <?php
-            $q4 = "/qzyzh/".$_GET['id']."-4.jpg";
+            $q4 = "/qzyzh/".$yangzhangid."-4.jpg";
             if(file_exists(dirname(__FILE__).$q4))
             	echo  "<img width=\"105\" height=\"45\" src='$q4'/>";
             	else

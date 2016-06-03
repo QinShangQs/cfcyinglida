@@ -40,7 +40,7 @@ for($i=0;$i<count($yshid);$i++)
   if($tjshl>0)
   {
       $dqrq=date('Y-m-d');
-      echo $gdkphshquery="insert into `gdkphsh`(`yshxm`,`fshrq`,`shl`,`zht`,`yfmch`)values('$yhname','$dqrq','$tjshl','1','$yhgldw')";
+      $gdkphshquery="insert into `gdkphsh`(`yshxm`,`fshrq`,`shl`,`zht`,`yfmch`)values('$yhname','$dqrq','$tjshl','1','$yhgldw')";
       $gdkphshresult=mysql_query($gdkphshquery);
       if(!$gdkphshresult)
       {
@@ -64,7 +64,7 @@ for($i=0;$i<count($yshid);$i++)
         }
       }
   }else{
-  echo "药房无空瓶 <input type=\"button\"  onclick=\"javascript:{history.go(-1);}\" value=\"返回\" class=\"uusub2\" />";
+  echo "无空药瓶打包  <input type=\"button\"  onclick=\"javascript:{history.go(-1);}\" value=\"返回\" class=\"uusub2\" />";
   }
   
 

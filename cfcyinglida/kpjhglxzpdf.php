@@ -57,9 +57,12 @@ $pdf->Cell(140-$yfmchwidth, 16, iconv("UTF-8", "gbk", $yfRecord[11]), 1, 0, 'L')
 $pdf->Ln();
 $pdf->SetFont('GB', '', 14);
 $pdf->Cell(25,16, iconv("UTF-8", "gbk", "自费数量："), 1, 0, 'L');
-$pdf->Cell(65,16, iconv("UTF-8", "gbk", round($Record[0])."瓶"), 1, 0, 'L');
+$pdf->Cell(65,16, iconv("UTF-8", "gbk", round($Record[0])."盒"), 1, 0, 'L');
 $pdf->Cell(25,16, iconv("UTF-8", "gbk", "赠药数量："), 1, 0, 'L');
-$pdf->Cell(75,16, iconv("UTF-8", "gbk", round($Record[1])."瓶"), 1, 0, 'L');
+$pdf->Cell(75,16, iconv("UTF-8", "gbk", round($Record[1])."盒"), 1, 0, 'L');
+$pdf->Ln();
+$pdf->Cell(25,16, iconv("UTF-8", "gbk", "总计："), 1, 0, 'L');
+$pdf->Cell(165,16, iconv("UTF-8", "gbk", (round($Record[0]) + round($Record[1])) ."盒"), 1, 0, 'L');
 $pdf->Ln();
 $pdf->Cell(25, 16, iconv("UTF-8", "gbk", "记录年月："), 1, 0, 'L');
 $pdf->Cell(65, 16, iconv("UTF-8", "gbk", date('Y年m月',strtotime($kshnyr))), 1, 0, 'L');

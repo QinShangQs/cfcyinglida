@@ -60,18 +60,20 @@ include('spap_head.php');
        </div>
        <div class="top">
        <?php
-       $shlsql="select `dbyppsh` from `yfdb` where `id`=".$fyid;
+       $shlsql="select `dbyppsh`,`dbypgg` from `yfdb` where `id`=".$fyid;
        $shlquery=mysql_query($shlsql);
        while($shlRecord=mysql_fetch_array($shlquery)){
        ?>
        数量：<input type="text" name="fyshl" id="fyshlid" value="<?php echo $shlRecord[0];?>" class="grd-white">
+            <div class="top">
+       规格：<input type="text" name="fygg" value="<?php echo $shlRecord[1];?>" class="grd-white" readonly>
+
+       </div>
        <?php
        }
        ?>
        </div>
-       <div class="top">
-       规格：<input type="text" name="fygg" value="12.5mg*28粒" class="grd-white">
-       </div>
+  
        <div class="top">
        <input type="submit" name="submit" id="submit" value="提交" class="uusub">
        </div>
@@ -101,6 +103,7 @@ include('spap_head.php');
           //document.getElementById('submit').disabled=true;
           return false;
         }
+
       });
      $("#pihaoid").change(function(){
         var yfmch=$("#pihaoid").val();

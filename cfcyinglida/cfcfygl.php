@@ -174,7 +174,9 @@ include('spap_head.php');
 
                     $hzhsql = "select `hzhid`,`hzhxm`,`hzhshj`,`ypgg`,`jzhlx` from `hzh` where `id`='" . $Record[1] . "'";
                     $hzhQuery_ID = mysql_query($hzhsql);
+                    $hashaz = false;
                     while ($hzhRecord = mysql_fetch_array($hzhQuery_ID)) {
+                    	$hashaz = true;
                         $hzhshj = $hzhRecord[2];
                         $lynumq = mysql_query("SELECT * FROM `zyff` where `hzhid`='" . $hzhRecord[0] . "' and `tshqk`<>'1'");
                         $lynum = mysql_num_rows($lynumq);//获取总条数
@@ -183,6 +185,12 @@ include('spap_head.php');
                         echo "<td align=\"center\" bgcolor=\"#FFFFFF\">I-" . $hzhRecord[0] . "</td>";
 
                         echo "<td align=\"center\" bgcolor=\"#FFFFFF\">" . $hzhRecord[3] . "</td>";
+                    }
+                    
+                    if( empty($hashaz)){
+                    	echo "<td align=\"center\" bgcolor=\"#FFFFFF\"></td>";
+                    	echo "<td align=\"center\" bgcolor=\"#FFFFFF\"></td>";
+                    	echo "<td align=\"center\" bgcolor=\"#FFFFFF\"></td>";
                     }
 
                     echo "<td align=\"center\" bgcolor=\"#FFFFFF\">" . $Record[4] . "</td>";
@@ -236,6 +244,7 @@ include('spap_head.php');
                     } else {
                         echo "<td align=\"center\" bgcolor=\"#FFFFFF\">本人</td>";
                     }
+                    echo "<td align=\"center\" bgcolor=\"#FFFFFF\"> $Record[9]</td>";
                     echo "<td align=\"center\" bgcolor=\"#FFFFFF\"><a href=\"cfcyshfyxq.php?id=" . $Record[0] . "\">详细</a></td>";
                     echo "</tr>";
                 }

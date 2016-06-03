@@ -151,7 +151,7 @@ if($lynum==""){$lynum="0";}
   if($hzhnum=="0"){
              ?><a href="kpyyhshxz.php?id=<?php echo $Record[0];?>">新增</a><?php }else{ echo "新增";}
              ?></td>
-            <td width="11%" align="center" bgcolor="#FFFFFF">S-<?php echo $Record[2];?></td>
+            <td width="11%" align="center" bgcolor="#FFFFFF">I-<?php echo $Record[2];?></td>
             <td width="12%" align="center" bgcolor="#FFFFFF"><a href="yshfyzhxqsh.php?id=<?php echo $Record[0];?>"><?php echo $Record[4];?></a></td>
             <td width="11%" align="center" bgcolor="#FFFFFF"><?php echo $Record[15];?></td>
             <td width="9%" align="center" bgcolor="#FFFFFF"><a href="yshfyxx.php?id=<?php echo $Record[0];?>"><?php

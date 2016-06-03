@@ -29,7 +29,7 @@ if($hzhid!=""&&$kpgg!=""&&$selectzhxqsh!=""&&$yyshl!="")
   }
   else{
  echo "成功！<br/>";
-  echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"1; URL=yshfygl.php\">";
+  echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"1; URL=kpyyhshgl.php\">";
 
   }
 }else{

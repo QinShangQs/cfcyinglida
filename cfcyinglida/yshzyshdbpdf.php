@@ -6,7 +6,7 @@ include('newdb.php');
   while($Record = mysql_fetch_array($Query_ID)){
 //header('Content-type: text/html;charset=utf-8');
 header('content-type:application/pdf');
-header("Content-Disposition: attachment; filename=".$id."_收到捐赠药物说明.pdf");
+header("Content-Disposition: attachment; filename=".$id."_药品接收确认表.pdf");
 ini_set('display_errors', '0');
 ini_set('max_execution_time', '60');
 
@@ -178,6 +178,6 @@ $pdf->Ln();
 $pdf->Cell(190, 6, iconv("UTF-8", "gbk", "           接 收 人：英立达患者援助项目办公室"), 0, 0, 'C');
       $pdf->Image('./images/image007.jpg',25,70,160,0);
 
-$pdf->Output($id.'_收到捐赠药物说明.pdf',I);
+$pdf->Output($id.'_药品接收确认表.pdf',I);
 }
 ?>

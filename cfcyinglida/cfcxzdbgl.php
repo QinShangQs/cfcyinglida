@@ -12,7 +12,7 @@ include('spap_head.php');
                 <strong>新增药房调拨</strong>
             </div>
             <div class="incontact w955 flt">
-                <form action="cfcyfdbglac.php" method="post">
+                <form action="cfcyfdbglac.php" method="post" onsubmit="return check();">
                     转出药房：<select id="fchyf" name="fchyfname" class="grd-white2">
                         <option value="">-请选择-</option>
                     </select><br>
@@ -23,7 +23,11 @@ include('spap_head.php');
                         </select><br>
                     </div>
                     <div class="top">
-                        调拨规格：<input type="text" name="dbypgg" id="dbypggid" value="12.5mg*28粒" class="grd-white">
+                        调拨规格：<select name="dbypgg" id="dbypggid" class="grd-white2">
+                  	<option value="">-请选择-</option>
+                  	<option value="5mg">5mg</option>
+                  	<option value="1mg">1mg</option>
+                  </select>
                     </div>
                     <div class="top">
                         调拨数量：<input type="text" name="zhrshl" id="zhrshlid" value="" class="grd-white">
@@ -71,6 +75,29 @@ include('spap_head.php');
                     $(function () {
                         chshlb('fchyf');
                     });
+
+                    function check(){
+						if($.trim($('#fchyf').val()).length == 0){
+							alert('请选择转出药房！');
+							return false;
+						}
+
+						if($.trim($('#frhyf').val()).length == 0){
+							alert('请选择转入药房！');
+							return false;
+						}
+
+						if($.trim($('#dbypggid').val()).length == 0){
+							alert('请选择调拨规格！');
+							return false;
+						}
+
+						if($.trim($('#zhrshlid').val()).length == 0){
+							alert('请填写调拨数量！');
+							return false;
+						}
+						return true;						
+                    }
                 </script>
             </div>
         </div>

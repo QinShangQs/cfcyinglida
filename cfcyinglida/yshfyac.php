@@ -31,12 +31,14 @@ $db = new DB();
     $cgjc0 = $_POST['cgjc0'];
     $cgjc1 = $_POST['cgjc1'];
     $cgjc2 = $_POST['cgjc2'];
+    $aqxpg_time = $_POST['aqxpg_time'];
     if($cgjc0!=0 && $cgjc1!=1 && $cgjc2!=2){
         echo "安全性评估三项检查必选！  <input type=\"button\"  onclick=\"javascript:{history.go(-1);}\" value=\"返回\" class=\"lgSub\" />";
     }else{
         $isfsyjc = 1;
     }
 
+    $recistpg_time = $_POST['recistpg_time'];//RECIST评估日期
     if($lynum%3 == 0 && $lynum !=0){//随访表
         $yxpg = $_POST['yxpg']; //有效性评估
         $jshrhsf = $_POST['jshrhsf']; //是否接受辉瑞公司随访
@@ -44,11 +46,12 @@ $db = new DB();
         $jxsyyld = $_POST['jxsyyld']; //是否建议继续服用英立达
         $dataArray1 = array(
             'hzhid' => $hzhid, 'tjzname' => $fyr, 'tjdwname' => $yfmch, 'syjc' => $isfsyjc, 'bcsfpg' => $pgxx, 'sjjxsyyld' => $jxsyyld,
-            'yxpg' => $yxpg, 'jshrhsf' => $jshrhsf,'create_time' => $create_time,
+            'yxpg' => $yxpg, 'jshrhsf' => $jshrhsf,'create_time' => $create_time,'recistpg_time'=>$recistpg_time
         );
     }else{ //处方笺
         $dataArray1 = array(
             'hzhid' => $hzhid, 'tjzname' => $fyr, 'tjdwname' => $yfmch, 'syjc' => $isfsyjc, 'create_time' => $create_time,
+         	'recistpg_time'=>$recistpg_time
         );
     }
 
@@ -61,6 +64,8 @@ $db = new DB();
     $pihao = $_POST['pihao']; //批号
     $lysj = $_POST['lysj']; //领药时间
     $xclysj = $_POST['xclysj']; //下次领药时间
+    $hszgyyhs = $_POST['hszgyyhs'];//回收自购药药盒数
+    $hsyzypyhs = $_POST['hsyzypyhs'];//回收援助药品药盒
     if(empty($lysj)){
         $lysj = date('Y-m-d', time());
     }
@@ -70,6 +75,7 @@ $db = new DB();
     
     $dataArray2 = array(
         'hzhid' => $hzhid, 'tjzname' => $fyr, 'tjdwname' => $yfmch, 'yfyl' => $yfyl, 'ypph' => $pihao, 'xclysj' => $xclysj , 'create_time' => $lysj, 'hzhlylx' => $lylx, 'hzhlyshl' => $lysl
+    		,'hszgyyhs'=>$hszgyyhs,'hsyzypyhs'=>$hsyzypyhs
     );
     $istrue2 = $db->insert('fayao_cflyinfo', $dataArray2);
     echo "成功！";

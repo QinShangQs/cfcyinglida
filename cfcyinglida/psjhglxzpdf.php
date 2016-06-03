@@ -57,7 +57,7 @@ while($Record = mysql_fetch_array($Query_ID)){
     $pdf->Ln();
     $pdf->SetFont('GB', '', 14);
     $pdf->Cell(25,16, iconv("UTF-8", "gbk", "破损数量："), 1, 0, 'L');
-    $pdf->Cell(165,16, iconv("UTF-8", "gbk", round($Record[0])."瓶"), 1, 0, 'L');
+    $pdf->Cell(165,16, iconv("UTF-8", "gbk", round($Record[0])."盒"), 1, 0, 'L');
 //    $pdf->Cell(25,16, iconv("UTF-8", "gbk", "赠药数量："), 1, 0, 'L');
 //    $pdf->Cell(75,16, iconv("UTF-8", "gbk", round($Record[1])."瓶"), 1, 0, 'L');
     $pdf->Ln();

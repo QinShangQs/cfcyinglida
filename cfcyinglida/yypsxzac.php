@@ -14,14 +14,14 @@ $ypgg = $_POST['ypgg'];
 //破损盒数
 $pshsh = $_POST['pshsh'];
 //批号
-//$pihao = $_POST['pihao'];
+$pihao = $_POST['pihao'];
 
 //状态
 $state="1";
 //创建日期
 $createDate=date('Y-m-d');
 
-$query="insert into `psyp`(yshxm,yfmch,ypgg,pshsh,state,createDate)values('$yshxm','$yfmch','$ypgg','$pshsh','$state','$createDate')";
+$query="insert into `psyp`(yshxm,yfmch,ypgg,pshsh,state,createDate,pihao)values('$yshxm','$yfmch','$ypgg','$pshsh','$state','$createDate','$pihao')";
 $result=mysql_query($query);
 if(!$result)
 {

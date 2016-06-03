@@ -1,3 +1,18 @@
 121.42.45.26
 
 administrator       cFc-1984-Sixpap
+
+#修改破损药品主键自增长 
+alter table psyp modify id int auto_increment;
+
+#回收自购药药盒数
+alter table fayao_cflyinfo add column hszgyyhs int default 0;
+
+#回收援助药品药盒
+alter table fayao_cflyinfo add column hsyzypyhs int default 0;
+
+#RECIST评估日期
+alter table fayao_patyxpg add column recistpg_time varchar(50);
+
+
+$kcshshdsql = "SELECT SUM(pfshl1) FROM `yfshqzy` where `shqzht`='3' and `yfmch`='$yhgldw'";

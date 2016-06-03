@@ -12,7 +12,7 @@ include('spap_head.php');
 				<strong><?php echo $html_title;?></strong>
 				</div>
 				<div class="incontact w955 flt">
-        <form action="kpyyhshxzac.php" method="post">
+        <form action="kpyyhshxzac.php" method="post" onsubmit="return check();">
 
         <fieldset class="top">
             <legend>患者</legend>
@@ -78,7 +78,7 @@ echo birthday($Record[38]);
             </tr>
             <tr style="color:#1f4248; font-size:12px;">
 <td width="17%"  align="center" bgcolor="#FFFFFF">
-  <input name="kpshl" class="grd-white" style="width:30px;" id='kpshl1'  value="1" readonly />&nbsp;瓶
+  <input name="kpshl" class="grd-white" style="width:30px;" id='kpshl1'  value="0" />&nbsp;瓶
 </td>
 <td width="16%" align="center" bgcolor="#FFFFFF">
   <input name="yyshl" class="grd-white" style="width:30px;" id='yyshl1' value="0"  />&nbsp;粒
@@ -147,6 +147,26 @@ echo birthday($Record[38]);
           }
           });
         });
+
+        function check(){
+			var kpshl1 = $.trim($("#kpshl1").val());
+			
+			if(isNaN(kpshl1)){
+				alert('请正确填写空药瓶数量！');
+				return false;
+			}
+try	{
+
+	kpshl1 = parseInt(kpshl1);
+	if(kpshl1 <= 0){
+		alert('空药瓶数量至少为1！');
+		return false;
+	}
+}catch(e){
+	console.log(e);
+}
+			return true;
+        }
     </script>
 
             <div class="clearFoot noPrint">

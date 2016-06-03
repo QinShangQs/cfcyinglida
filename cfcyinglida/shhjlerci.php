@@ -15,7 +15,7 @@ include('spap_head.php');
         
         <div class="incontact w955 flt">
     <div class="top">
-<form method=post action="shhjlerciac.php">
+<form method=post action="shhjlerciac.php" onsubmit="return check()">
 <input type="hidden" name="id" value="<?php echo $hzhid;?>" />
 <script type="text/javascript">
 function shifoupizhun(v){
@@ -35,12 +35,14 @@ document.getElementById('jujue').style.display='block';
     </div>
     <div class="top">
     <span>确认入组医院：</span><?php 
-    $hzhsql = "select zhzhyy from `hzh` where `id`='".$hzhid."'";
+    $hzhsql = "select zhzhyy,zhshrzshj from `hzh` where `id`='".$hzhid."'";
 
     $hzhQuery_ID = mysql_query($hzhsql);
     while($hzhRecord = mysql_fetch_array($hzhQuery_ID)){
       $hzhzhzhyy=$hzhRecord[0];
+      $zhshrzshj=$hzhRecord[1];//正式入组日期
     }
+    echo "<input type='hidden' id='zhshrzshj' value='{$zhshrzshj}'/>";
     if($hzhzhzhyy>0){$hzhjzhyy=$hzhzhzhyy;}
     else{
       $hzhsql = "select rzyy from `hzh` where `id`='".$hzhid."'";
@@ -105,7 +107,7 @@ document.getElementById('jujue').style.display='block';
     </div>
 </br>
     
-<span class="label">首次领药日期：</span> <input id="ygrqgh" name="ygrqgh" type="txt" class="grd-white" value="<?php echo $ygrq;?>"></input></br>
+<span class="label">首次服药日期：</span> <input id="ygrqgh" name="ygrqgh" type="txt" class="grd-white" value="<?php echo date('Y-m-d');?>"></input></br>
 <!--   <input  onclick="qryyyf(11)" name="ygrq" type="radio" value="1"></input><label for="ygrq">是</label> <input  onclick="qryyyf(10)" name="ygrq" type="radio" value="0"></input><label for="ygrq">否</label>*</br> -->
 
 
@@ -149,6 +151,17 @@ chooseDateOld('ygrqgh', true);
 chooseDateOld('ygrzhrq', true); 
 chooseDate('shcrq', true); 
 //chooseDate('rzrqid', true); 
+
+function check(){
+	var zhshrzshj = $("#zhshrzshj").val();//正式入组日期
+	var ygrqgh = $("#ygrqgh").val();
+	if(Date.parse(ygrqgh) < Date.parse(zhshrzshj)){
+		alert('首次服药日期必须晚于或等于'+zhshrzshj);
+		return false;
+	}
+	
+	return true;
+}
 </script>
     
             <div class="top">

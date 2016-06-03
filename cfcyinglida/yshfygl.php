@@ -209,15 +209,15 @@ $sql .= " order by id DESC limit $page $pagesize ";
           $hzhshj = $hzhRecord[2];
           echo "<td width=\"8%\" align=\"center\" bgcolor=\"#FFFFFF\">" . $hzhRecord[1] . "</td>";
           echo "<td width=\"10%\" align=\"center\" bgcolor=\"#FFFFFF\">I-" . $hzhRecord[0] . "</td>";
-          echo "<td width=\"10%\" align=\"center\" bgcolor=\"#FFFFFF\">" . $hzhRecord[4] . "</td>";
+          echo "<td width=\"10%\" align=\"center\" bgcolor=\"#FFFFFF\">" . $Record[5] . "</td>";
 
 
           echo "<td width=\"8%\" align=\"center\" bgcolor=\"#FFFFFF\">" . $Record[4] . "</td>";
           echo "<td width=\"8%\" align=\"center\" bgcolor=\"#FFFFFF\">";
           if ($Record[7] != "" && $Record[7] > 0) {
-              echo "是";
+              echo $Record[7];
           } else {
-              echo "否";
+              echo 0;
           }
 //          if($Record[7]!=""){echo $Record[7]."/";}else{echo "0/";}
 //          if($Record[8]!=""){echo $Record[8];}else{echo "0";}
@@ -234,7 +234,7 @@ $sql .= " order by id DESC limit $page $pagesize ";
           if ($Record[6] != "" && $Record[6] != 0) {
               echo $Record[6] - $Record[4];
           } else {
-              echo "";
+              echo "0";
           }
           echo "</td>";
           echo "<td width=\"12%\" align=\"center\" bgcolor=\"#FFFFFF\">";

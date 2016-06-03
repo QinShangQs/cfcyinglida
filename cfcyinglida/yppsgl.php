@@ -73,7 +73,7 @@ include('spap_head.php');
                       if($dayyd==1){
                           $ny=date('Y-m');
                       }else {
-                          $ny=date('Y-m',strtotime("-1 month"));
+                          $ny=date('Y-m');
                       }
                       echo "<a href=\"psjhglxzpdf.php?ny=".$ny."\">下载《记录表》</a>";
                       ?>
@@ -110,7 +110,15 @@ include('spap_head.php');
                     echo "</td>";
 
                     echo "<td align=\"center\" bgcolor=\"#FFFFFF\">";
-                    echo $Record[5];
+                    if(!is_numeric($Record[5]) ){
+                    	echo $Record[5];
+                    }else{
+                    	$ph1sql = "select id,ph from `kfrk` where id = ".$Record[5];
+                    	$ph1Query_ID = mysql_query($ph1sql);
+                    	while ($ph1Record = mysql_fetch_array($ph1Query_ID)) {
+                    		echo $ph1Record['1'];
+                    	}
+                    }
                     echo "</td>";
 
                     echo "<td align=\"center\" bgcolor=\"#FFFFFF\">";
@@ -118,7 +126,7 @@ include('spap_head.php');
                         if($Record[6]=="1"){
                             echo "在药房";
                         }else if($Record[6]=="2"){
-                            echo "已邮寄";
+                            echo "已邮寄 <input type='button' value='确认收货' onclick='qianshou(".$Record[0].")' />";
                         }else if($Record[6]=="3"){ echo "已签收";}
                     }else{echo "无";}
                     echo "</td>";
@@ -143,6 +151,18 @@ include('spap_head.php');
                         location.href='yppsjhglac.php';
                     }
                 };
+
+                function qianshou(id){
+                    if(confirm('确定要签收吗？')){
+						$.post('yppsglac.php',{id:id},function(obj){
+							alert(obj.msg);
+							if(obj.success){
+								location.reload();
+							}
+						},'json');
+                    }
+
+                }
             </script>
         </div>
     </div>

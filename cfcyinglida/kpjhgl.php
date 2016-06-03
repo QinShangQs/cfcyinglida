@@ -152,7 +152,7 @@ $tjkphj=$tjkpRecord[0]+$tjkpRecord[1];
 if($tjkpzf==""){$tjkpzf=0;}
 if($tjkpfy==""){$tjkpfy=0;}
 if($tjkphj==""){$tjkphj=0;}
-echo "</br>患者自费药交回空瓶总数：".$tjkpzf."   发药交回空瓶数：".number_format($tjkpfy, 2, '.', '')."    合计：".$tjkphj." ";
+echo "</br>患者自费药交回空瓶总数：".$tjkpzf."   发药交回空瓶数：".intval($tjkpfy)."    合计：".$tjkphj." ";
 
 $dayyd=date("d",strtotime("+1 day")); 
 if($dayyd==1){

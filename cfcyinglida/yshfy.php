@@ -16,7 +16,7 @@ $db = new DB();
 
     <div class="incontact w955 flt">
 
-        <form action="yshfyac.php" method="post">
+        <form action="yshfyac.php" method="post" onsubmit="return check()">
 <?php
   $hzhid = $_GET['id'];
   $sql = "select * from `hzh` where `id`='$hzhid'";
@@ -29,13 +29,15 @@ $db = new DB();
     $hzhzjhm=$Record[5].$Record[6];
 ?>
         <div>
-            患者病种:<?php echo $hzhshqbzh=$Record[7];?>&nbsp;捐助类型:<?php echo $hzhjzhlx=$Record[25];?>&nbsp;已领药<?php 
+            <!--患者病种:<?php /*echo $hzhshqbzh=$Record[7];*/?>&nbsp;捐助类型:<?php /*echo $hzhjzhlx=$Record[25];*/?>&nbsp;-->已领药<?php
             $hzhzhjlxhm=$Record[5].":".$Record[6];
             $hzhzhjlx=$Record[5];               //患者证件类型
             $hzhzhjhm=$Record[6];              //患者证件号码
             $hzhjzhshl=$Record[26];          //捐助数量
             //$hzhjzhlx=$Record[25];            //捐助类型
             $hzhruyymch=$Record[11];      //入组医院名称
+            if(!empty($Record[12]))
+            	$hzhruyymch = $Record[12];//转诊
             $hzhjshdh=$Record[16];         //患者家属电话
             $hzhdh=$Record[15];
             $hzhxm=$Record[4];   //患者姓名
@@ -60,7 +62,7 @@ $lyshlnumq=mysql_query("SELECT SUM(fyshl) FROM `zyff` where `hzhid`='".$Record[0
             <input type="hidden" name="bzh" value="<?php echo $Record[7];?>">
             <input type="hidden" name="rzyy" value="<?php echo $Record[11];?>">
             <input type="hidden" name="hzxm" id="hzxm" value="<?php echo $Record[4];?>">
-            <input type="hidden" name="lynum" value="<?php echo $lynum; ?>" />
+            <input type="hidden" id="lynum" name="lynum" value="<?php echo $lynum; ?>" />
 <?php
 }
 
@@ -195,12 +197,15 @@ $_SESSION['fycode'] = $fycode;      //将此随机数暂存入到session
                    <td align="center" bgcolor="#FFFFFF" rowspan="2">实验室和影像学检查</td>
                    <td align="center" bgcolor="#FFFFFF">
                        <label>安全性评估：</label>
-                       <label style="margin-left: 30px;">血常规检查</label><input type="checkbox" name="cgjc0" value="0" checked="checked" />
-                       <label style="margin-left: 30px;">尿常规检查</label><input type="checkbox" name="cgjc1" value="1" checked="checked"/>
-                       <label style="margin-left: 30px;">生化检查</label><input type="checkbox" name="cgjc2" value="2" checked="checked"/><br>
+                       <label style="margin-left: 30px;">血常规检查</label><input type="checkbox" name="cgjc0" value="0" />
+                       <label style="margin-left: 30px;">尿常规检查</label><input type="checkbox" name="cgjc1" value="1" />
+                       <label style="margin-left: 30px;">生化检查</label><input type="checkbox" name="cgjc2" value="2" /><br>
 
                        <label style="font-size: 12px; font-weight:bold;">*3项检查必做</label>
-                       <label style="padding-left: 160px;">检查报告日期：<?php echo date('Y-m-d', time());?></label>
+                       <label style="padding-left: 160px;">检查报告日期：
+                           <input type="text" id="aqxpg_time" name="aqxpg_time" value="" align="center" style="border:none; border-bottom:1px solid; width: 68px;"/>
+                            <?php //echo date('Y-m-d', time());?>
+                       </label>
                        <input type="hidden" name="isfsyjc" value="1"/>
                    </td>
                </tr>
@@ -214,7 +219,10 @@ $_SESSION['fycode'] = $fycode;      //将此随机数暂存入到session
                        <label style="margin-left: 30px;">ECT</label><input type="radio" name="yxpg" value="ECT" /><br>
 
                        <label style="font-size: 12px; font-weight:bold;">*4项检查选其一</label>
-                       <label style="padding-left: 150px;">检查报告日期：<?php echo date('Y-m-d', time());?></label>
+                       <label style="padding-left: 150px;">检查报告日期：
+                           <input type="text" id="yxpg_time" name="yxpg_time" value="" align="center" style="border:none; border-bottom:1px solid; width: 68px;"/>
+                           <?php /*echo date('Y-m-d', time());*/?>
+                       </label>
                    </td>
                </tr>
                <tr style="color:#1f4248; font-size:12px;">
@@ -224,7 +232,9 @@ $_SESSION['fycode'] = $fycode;      //将此随机数暂存入到session
                        PR<input type="radio" name="pgxx" value="PR"/>
                        SD<input type="radio" name="pgxx" value="SD"/>
                        PD<input type="radio" name="pgxx" value="PD"/><br>
-                       <label style="padding-left: 20px;">评估日期：<?php echo date('Y-m-d', time());?></label><br>
+                       <label style="padding-left: 20px;">评估日期：
+                       	<input type="text" id="recistpg_time" name="recistpg_time" value="<?php echo date('Y-m-d', time());?>" readonly style="border:none; border-bottom:1px solid; width: 68px;">
+                       </label><br>
                        <label>若勾选PD则是否愿意接受辉瑞公司随访：</label>
                        <input type="radio" name="jshrhsf" value="1">是
                        <input type="radio" name="jshrhsf" value="0">否
@@ -241,11 +251,14 @@ $_SESSION['fycode'] = $fycode;      //将此随机数暂存入到session
                <tr style="color:#1f4248; font-size:12px;">
                    <td align="center" bgcolor="#FFFFFF">安全性评估</td>
                    <td align="center" bgcolor="#FFFFFF" style="padding-left: 30px;">
-                       <input type="checkbox" name="cgjc0" value="0" checked="checked" style="margin-left: 30px;"/><label>血常规检查</label>
-                       <input type="checkbox" name="cgjc1" value="1" checked="checked" style="margin-left: 30px;"/><label>尿常规检查</label>
-                       <input type="checkbox" name="cgjc2" value="2" checked="checked" style="margin-left: 30px;"/><label>生化检查</label><br>
+                       <input type="checkbox" name="cgjc0" value="0" style="margin-left: 30px;"/><label>血常规检查</label>
+                       <input type="checkbox" name="cgjc1" value="1" style="margin-left: 30px;"/><label>尿常规检查</label>
+                       <input type="checkbox" name="cgjc2" value="2" style="margin-left: 30px;"/><label>生化检查</label><br>
                        <label style="font-size: 12px; font-weight:bold;">*3项检查必做</label>
-                       <label style="padding-left: 30px;">检查报告日期：<?php echo date('Y-m-d', time());?></label>
+                       <label style="padding-left: 30px;">检查报告日期：
+                           <input type="text" id="aqxpg_time" name="aqxpg_time" value="" align="center" style="border:none; border-bottom:1px solid; width: 68px;"/>
+                            <?php //echo date('Y-m-d', time());?>
+                       </label>
                        <input type="hidden" name="isfsyjc" value="1"/>
                    </td>
                </tr>
@@ -269,9 +282,9 @@ $_SESSION['fycode'] = $fycode;      //将此随机数暂存入到session
         </tr>
         <tr style="color:#1f4248; font-size:12px;">
             <td align="left" bgcolor="#FFFFFF" colspan="4">
-                (1)<input type="radio" name="yfyl" value="1"/> &nbsp;&nbsp;英利达<label style="font-weight: bold;">2</label>盒(5mg*28片/盒)共计<label style="font-weight: bold;">56</label>片 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;【5mg  Bid  p.o  连续服用】<br>
-                (2)<input type="radio" name="yfyl" value="2"/> &nbsp;&nbsp;英利达<label style="font-weight: bold;">12</label>盒(1mg*14片/盒)共计<label style="font-weight: bold;">168</label>片 &nbsp;&nbsp;【3mg  Bid  p.o  连续服用】<br>
-                (3)<input type="radio" name="yfyl" value="3"/> &nbsp;&nbsp;英利达<label style="font-weight: bold;">8</label>盒(1mg*14片/盒)共计<label style="font-weight: bold;">112</label>片 &nbsp;&nbsp;&nbsp;&nbsp;【2mg  Bid  p.o  连续服用】<br>
+                (1)<input type="radio" name="yfyl" value="1"/> &nbsp;&nbsp;英立达<label style="font-weight: bold;">2</label>盒(5mg*28片/盒)共计<label style="font-weight: bold;">56</label>片 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;【5mg  Bid  p.o  连续服用】<br>
+                (2)<input type="radio" name="yfyl" value="2"/> &nbsp;&nbsp;英立达<label style="font-weight: bold;">12</label>盒(1mg*14片/盒)共计<label style="font-weight: bold;">168</label>片 &nbsp;&nbsp;【3mg  Bid  p.o  连续服用】<br>
+                (3)<input type="radio" name="yfyl" value="3"/> &nbsp;&nbsp;英立达<label style="font-weight: bold;">8</label>盒(1mg*14片/盒)共计<label style="font-weight: bold;">112</label>片 &nbsp;&nbsp;&nbsp;&nbsp;【2mg  Bid  p.o  连续服用】<br>
                 <label style="font-weight: bold; padding-left: 215px;">*减量服用时，请填写选项(2)、(3)</label><br>
                 <label style="font-weight: bold; padding-left: 215px;">*一个疗程28天</label>
             </td>
@@ -300,7 +313,10 @@ $_SESSION['fycode'] = $fycode;      //将此随机数暂存入到session
         </tr>
         <tr style="color: #1f4248; font-size: 12px;">
             <td align="center" bgcolor="#FFFFFF">本次随访和填表时间</td>
-            <td align="center" bgcolor="#FFFFFF" colspan="3"><?php echo date('Y-m-d', time());?></td>
+            <td align="center" bgcolor="#FFFFFF" colspan="3">
+                <input type="text" id="create_time" name="create_time" value="" align="center" style="border:none; border-bottom:1px solid; width: 68px;"/>
+                <?php /*echo date('Y-m-d', time());*/?>
+            </td>
         </tr>
 <!--        <tr style="color:#1f4248; font-size:12px;">-->
 <!--            <td align="center" bgcolor="#FFFFFF"></td>-->
@@ -323,7 +339,32 @@ $_SESSION['fycode'] = $fycode;      //将此随机数暂存入到session
     </table>
 </div>
 
+ <div id="d5mg" style="display:none">
+    	 <option value="未知批号">未知批号</option>
+    		 <?php
+                            $ph1sql = "select id,ph from `kfrk` where `gg` like'5mg%'";
 
+                            $ph1Query_ID = mysql_query($ph1sql);
+                            while ($ph1Record = mysql_fetch_array($ph1Query_ID)) {
+                                ?>
+                                <option value="<?php echo $ph1Record['0']; ?>"><?php echo $ph1Record['1']; ?></option>
+                            <?php
+                            }
+                            ?>
+    </div>
+    <div id="d1mg"  style="display:none">
+    <option value="未知批号">未知批号</option>
+    		 <?php
+                            $ph1sql = "select id,ph from `kfrk` where `gg` like'1mg%'";
+
+                            $ph1Query_ID = mysql_query($ph1sql);
+                            while ($ph1Record = mysql_fetch_array($ph1Query_ID)) {
+                                ?>
+                                <option value="<?php echo $ph1Record['0']; ?>"><?php echo $ph1Record['1']; ?></option>
+                            <?php
+                            }
+                            ?></select>
+    </div>
 <div class="top">
     <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#cdcdcd">
         <tr style="color:#1f4248; font-weight:bold; height:30px;">
@@ -331,9 +372,42 @@ $_SESSION['fycode'] = $fycode;      //将此随机数暂存入到session
         </tr>
         <tr style="color:#1f4248; font-size:12px;">
             <td align="center" bgcolor="#FFFFFF">
-                患者于<input type="text" id="lysj" name="lysj" value="" align="center" style="border:none; border-bottom:1px solid; width: 68px;"/>领取英立达<input type="text" id="lysl" name="lysl" value="" style="border:none; border-bottom:1px solid; width: 60px;">盒<br>
-                (<input type="radio" name="lylx" value="1">5mg*28片/盒； <input type="radio" name="lylx" value="2">1mg*14片/盒)<br>
-                预估下次灵药时间：<input type="text" id="xclysj" name="xclysj" value="" style="border:none; border-bottom:1px solid; width: 68px;">
+                患者于<input type="text" id="lysj" name="lysj" value="" align="center" style="border:none; border-bottom:1px solid; width: 68px;"/>领取英立达<input type="text" id="lysl" name="lysl" value="" style="border:none; border-bottom:1px solid; width: 60px;"  onclick="lyshl();">盒
+                批号<select id="ph1" class="grd-white2" name="pihao">
+                    <option value="未知批号">未知批号</option>
+                </select>
+                <br>
+                (<input type="radio" name="lylx" value="1" id="lylx1">5mg*28片/盒； <input type="radio" name="lylx" id="lylx2" value="2">1mg*14片/盒)<br>
+                预估下次领药时间：<input type="text" id="xclysj" name="xclysj" value="" style="border:none; border-bottom:1px solid; width: 68px;" onclick="ygxcshj();"><br/>
+                
+                本次应回收空药盒:
+                <?php if($lynum == 0){?>
+                1、回收自购药药盒数：<input type="text" id="hszgyyhs" name="hszgyyhs" value="" align="center" style="border:none; border-bottom:1px solid; width: 68px;"/>
+                <?php }?>
+    &nbsp;&nbsp;2、回收援助药品药盒：<input type="text" id="hsyzypyhs" name="hsyzypyhs" readonly align="center" style="border:none; border-bottom:1px solid; width: 68px;"/>
+            </td>
+        </tr>
+
+    </table>
+</div>
+
+<div class="top">
+    <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#cdcdcd">
+        <tr style="color:#1f4248; font-weight:bold; height:30px;">
+            <td align="center" bgcolor="#FFFFFF" colspan="4">提示内容</td>
+        </tr>
+        <tr style="color:#1f4248; font-size:12px;">
+            <td align="left" bgcolor="#FFFFFF">
+              <?php if($lynum != 0) {?>  第<?php echo $lynum;?>次领药：<?php }?>
+                    1、患者下次领药时间：<input type="text" id="hzhxclysj" value="" style="border:none; border-bottom:1px solid; width: 68px;" onclick="ygxcshj();">
+                <?php
+                    if($lynum ==0 || $lynum == 1 || $lynum == 3 || $lynum == 4 || $lynum == 6 || $lynum == 7 || $lynum == 9 || $lynum == 10 || $lynum == 12 || $lynum == 13|| $lynum == 15 || $lynum == 16){
+                        echo "2、请回收患者自购药空药盒 和本次发放援助药品空药盒 3、请粘贴黄色不粘贴";
+                    } elseif ($lynum == 2 || $lynum == 5 || $lynum == 8 || $lynum == 11 || $lynum == 14) {
+                        echo "2、请粘贴红色不粘贴";
+                    } 
+                ?>
+
             </td>
         </tr>
 
@@ -353,12 +427,86 @@ $_SESSION['fycode'] = $fycode;      //将此随机数暂存入到session
 </body>
 </html>
 
-
+    <script type="text/javascript">		
+		$(document).ready(function(){
+			$("#lylx1").click(function(){
+				$("#ph1").empty().append($("#d5mg").html());
+			});
+			$("#lylx2").click(function(){
+				$("#ph2").empty().append($("#d1mg").html());
+			});
+			
+		});
+	</script>
 <script type="text/javascript">
     chooseDate('yxtimes', true); //检查时间
     chooseDate('pinggrq', true); //首次登记日期
     chooseDate('lysj', true); //领药时间
-    chooseDate('xclysj', true); //下次领药时间
+//    chooseDate('xclysj', true); //下次领药时间
+    chooseDate('aqxpg_time', true); //安全性评估日期
+    chooseDate('yxpg_time', true); //有效性评估日期
+    chooseDate('create_time', true); //本次随访日期
+    chooseDate('recistpg_time', true); //recist评估日期
+
+    $(function(){
+        $("input[name='yfyl']").change(function(){
+            lyshl();
+        })
+    });
+
+
+    //领药数量自动获取
+    function lyshl()
+    {
+        var yfyl = $("input[name='yfyl']:checked").val();
+
+        if(yfyl == 1) {
+            var lyshl = 2;
+            $("#lylx1").attr("checked","checked");
+            $("#lylx2").removeAttr("checked");
+        }else if(yfyl == 2) {
+            lyshl = 12;
+            $("#lylx2").attr("checked","checked");
+            $("#lylx1").removeAttr("checked");
+        }else if(yfyl == 3) {
+            lyshl = 8;
+            $("#lylx2").attr("checked","checked");
+            $("#lylx1").removeAttr("checked");
+        }
+        $('#lysl').val(lyshl);
+        $('#hsyzypyhs').val(lyshl);
+    }
+
+    //预估下次领药时间
+    function ygxcshj()
+    {
+        var dctime = $("#lysj").val();
+        var lynum = $("#lynum").val();
+        if(lynum == 0) {
+            var xcdate = AddDays(dctime, 21);
+        } else {
+            xcdate = AddDays(dctime, 28);
+        }
+        $("#xclysj").val(xcdate);
+        $("#hzhxclysj").val(xcdate);
+    }
+
+
+    function AddDays(date,days){
+        var nd = new Date(date);
+        nd = nd.valueOf();
+        nd = nd + days * 24 * 60 * 60 * 1000;
+        nd = new Date(nd);
+        //alert(nd.getFullYear() + "年" + (nd.getMonth() + 1) + "月" + nd.getDate() + "日");
+        var y = nd.getFullYear();
+        var m = nd.getMonth()+1;
+        var d = nd.getDate();
+        if(m <= 9) m = "0"+m;
+        if(d <= 9) d = "0"+d;
+        var cdate = y+"-"+m+"-"+d;
+        return cdate;
+    }
+
     //显示自购药X瓶
     function zgykypo() {
         if(document.getElementById('zgykyok').checked) {
@@ -412,5 +560,35 @@ $_SESSION['fycode'] = $fycode;      //将此随机数暂存入到session
 		        break;
     	}
     	document.getElementById('yongliang').innerHTML=html;
+    }
+
+    function check(){
+		try{
+				var xclysjt = Date.parse($("#hzhxclysj").val());//下次领药时间
+				if(Date.parse($("#aqxpg_time").val()) > xclysjt){
+					alert('安全性检查报告日期：要早于或等于本次领药日期!');
+					return false;
+				}	
+				if(Date.parse($("#yxpg_time").val()) > xclysjt){
+					alert('有效性检查报告日期：要早于或等于本次领药日期!');
+					return false;
+				}	
+				
+				if(Date.parse($("#recistpg_time").val()) > xclysjt || Date.parse($("#recistpg_time").val()) < Date.parse($("#yxpg_time").val())){
+					alert('评估日期：要早于或等于本次领药日期，但是要晚于或等于有效性检查报告日期!');
+					return false;
+				}	
+
+				if(Date.parse($("#create_time").val()) > xclysjt || Date.parse($("#create_time").val()) < Date.parse($("#recistpg_time").val())){
+					alert('本次随访和填表日期：要早于或等于本次领药日期，但是要晚于或等于评估日期!');
+					return false;
+				}
+		}catch(e){
+			console.log(e);
+			return false
+		}
+
+		alert('成功！');
+		return false;
     }
 </script>

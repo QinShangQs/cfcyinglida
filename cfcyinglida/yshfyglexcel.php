@@ -23,17 +23,19 @@ $objExcel->setActiveSheetIndex(0);
   
 $i=0;  
 //表头  
-$k1="中国癌症基金会索坦患者援助项目药品发放明细";  
-$k2="发药日期";  
-$k3="发药瓶数";  
-$k4="交回空瓶/交回余药";  
-$k5="空瓶、余药状态";   
-$k6="患者编码";  
-$k7="患者姓名";  
-$k8="领药人";  
-$k9="患者电话";  
-$k10="药师";  
-  
+$k1="中国癌症基金会英立达患者援助项目药品发放记录表";
+$k2="日期";
+$k3="患者姓名";
+$k4="唯一编码";
+$k5="规格";
+$k6="发药盒数";
+$k7="回收空药盒数";
+$k8="药品批号";
+$k9="发药前库存量";
+$k10="发药后库存量";
+$k11="药师签字";
+$k12="患者签字";
+
 $objExcel->getActiveSheet()->mergeCells( 'A1:H1' );
 /*$objExcel->getActiveSheet()->mergeCells( 'A4:C4' );
 $objExcel->getActiveSheet()->mergeCells( 'D4:E4' );
@@ -60,6 +62,7 @@ $objExcel->getActiveSheet()->setCellValue('G2', "$k8");
 $objExcel->getActiveSheet()->setCellValue('H2', "$k9"); 
 $objExcel->getActiveSheet()->setCellValue('I2', "$k10"); 
 $objExcel->getActiveSheet()->setCellValue('J2', "$k11"); 
+$objExcel->getActiveSheet()->setCellValue('K2', "$k12");
  //设置font
 $objExcel->setActiveSheetIndex(0)->getStyle('A1')->getFont()->setSize(14);
 $objExcel->setActiveSheetIndex(0)->getStyle('A1')->getFont()->setBold(true);
@@ -73,7 +76,7 @@ $objExcel->getActiveSheet()->getStyle('A1')->getAlignment()->setVertical(PHPExce
     //$objExcel->getActiveSheet()->getStyle('c')->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_TEXT);//文本
     //$objExcel->getActiveSheet()->getStyle('C')->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER);//
 
-Mysql_connect("localhost","root","xx.13579");
+Mysql_connect("localhost","root","cfc.201511");
 Mysql_select_db("cfcyinglida");
 mysql_query("set names utf8");
 $sqlchfq=explode("limit",$_SESSION[ygfyglsql]);
@@ -81,29 +84,32 @@ $sql=$sqlchfq[0];
   //$sql = "select * from `hzh`";
   $jshi=3;
   $Query_ID = mysql_query($sql);
-  while($Record = mysql_fetch_array($Query_ID)){ 
-  
-    /*----------写入内容-------------*/  
+  while($Record = mysql_fetch_array($Query_ID)){
+
+      $hzhsql = "select `hzhid`,`hzhxm`,`hzhshj`,`shqbzh`,`ypgg` from `hzh` where `id`='".$Record[1]."'";
+      $hzhQuery_ID = mysql_query($hzhsql);
+      while($hzhRecord = mysql_fetch_array($hzhQuery_ID)){
+          $hzhshj=$hzhRecord[2];
+          $hzhrzbm="S-".$hzhRecord[0];
+          $hzhxm=$hzhRecord[1];
+          $ypgg = $hzhRecord[4];
+      }
+
+      /*----------写入内容-------------*/
     $objExcel->getActiveSheet()->setCellValue('a'.$jshi, $Record[20]);  
-    $objExcel->getActiveSheet()->setCellValue('b'.$jshi, $Record[4]);  
+    $objExcel->getActiveSheet()->setCellValue('b'.$jshi, $hzhxm);
 
 if($Record[7]!=""){$jhkpyyshl=$Record[7]."/";}else{$jhkpyyshl="0/";}
 if($Record[8]!=""){$jhkpyyshl.=$Record[8];}else{$jhkpyyshl.="0";}
-    $objExcel->getActiveSheet()->setCellValue('c'.$jshi, $jhkpyyshl); 
+    $objExcel->getActiveSheet()->setCellValue('c'.$jshi, $hzhrzbm);
     
     if($Record[23]!=""){$kpyyzht="瓶:";if($Record[23]=="1"){$kpyyzht.="在药房";}else if($Record[23]=="2"){$kpyyzht.="在CFC";}else{$kpyyzht.="在国大";}$kpyyzht.="/";}else{$kpyyzht.="无/";}
     if($Record[24]!=""){$kpyyzht.="药:";if($Record[24]=="1"){$kpyyzht.="在药房";}elseif($Record[24]=="2"){$kpyyzht.="在CFC";}else{$kpyyzht.="在国大";} }else{$kpyyzht.="无";}    
-        $objExcel->getActiveSheet()->setCellValue('d'.$jshi, $kpyyzht); 
+        $objExcel->getActiveSheet()->setCellValue('d'.$jshi, $ypgg);
         
-  $hzhsql = "select `hzhid`,`hzhxm`,`hzhshj` from `hzh` where `id`='".$Record[1]."'";
-  $hzhQuery_ID = mysql_query($hzhsql);
-  while($hzhRecord = mysql_fetch_array($hzhQuery_ID)){
-  $hzhshj=$hzhRecord[2];
-    $hzhrzbm="I-".$hzhRecord[0];
-    $hzhxm=$hzhRecord[1];
-  } 
-    $objExcel->getActiveSheet()->setCellValue('e'.$jshi, $hzhrzbm);  
-    $objExcel->getActiveSheet()->setCellValue('f'.$jshi, $hzhxm); 
+
+    $objExcel->getActiveSheet()->setCellValue('e'.$jshi, $Record[4]);
+    $objExcel->getActiveSheet()->setCellValue('f'.$jshi, $Record[7]);
     
     
     if($Record[9]!='0'){
@@ -115,10 +121,21 @@ if($Record[8]!=""){$jhkpyyshl.=$Record[8];}else{$jhkpyyshl.="0";}
     $zhxqshlxfsh=$zhxqshRecord[1];
   }
   }else{$zhxqshxm="本人";$zhxqshlxfsh=$hzhshj;}
-    $objExcel->getActiveSheet()->setCellValue('g'.$jshi, $zhxqshxm);  
-    $objExcel->getActiveSheet()->setCellValue('h'.$jshi, $zhxqshlxfsh);   
+      $phsql = "select `ph` from `kfrk` WHERE  id = '".$Record[21]."'";
+      $phQueryId = mysql_query($phsql);
+      while($phRecord = mysql_fetch_array($phQueryId)){
+          $ph = $phRecord[0];
+      }
+    $objExcel->getActiveSheet()->setCellValue('g'.$jshi, $ph);
+    $objExcel->getActiveSheet()->setCellValue('h'.$jshi, $Record[6]);
 
-    $objExcel->getActiveSheet()->setCellValue('i'.$jshi, $Record[18] );  
+      if ($Record[6] != "" && $Record[6] != 0) {
+          $fyhshl = $Record[6] - $Record[4];
+      } else {
+          $fyhshl = "";
+      }
+
+    $objExcel->getActiveSheet()->setCellValue('i'.$jshi, $fyhshl );
  
     $jshi++;  
 
@@ -135,6 +152,7 @@ $objExcel->getActiveSheet()->getStyle('G2')->getAlignment()->setWrapText(true);/
 $objExcel->getActiveSheet()->getStyle('H2')->getAlignment()->setWrapText(true);//自动换行
 $objExcel->getActiveSheet()->getStyle('I2')->getAlignment()->setWrapText(true);//自动换行
 $objExcel->getActiveSheet()->getStyle('J2')->getAlignment()->setWrapText(true);//自动换行
+$objExcel->getActiveSheet()->getStyle('K2')->getAlignment()->setWrapText(true);//自动换行
 
   
 // 高置列的宽度  
@@ -148,6 +166,7 @@ $objExcel->getActiveSheet()->getColumnDimension('G')->setWidth(10);
 $objExcel->getActiveSheet()->getColumnDimension('H')->setWidth(25);    
 $objExcel->getActiveSheet()->getColumnDimension('I')->setWidth(10);    
 $objExcel->getActiveSheet()->getColumnDimension('J')->setWidth(20);    
+$objExcel->getActiveSheet()->getColumnDimension('K')->setWidth(20);
 
   
 $objExcel->getActiveSheet()->getHeaderFooter()->setOddHeader('&L&BPersonal cash register&RPrinted on &D');  
