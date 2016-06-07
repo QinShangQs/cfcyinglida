@@ -588,7 +588,6 @@ $_SESSION['fycode'] = $fycode;      //将此随机数暂存入到session
 			return false
 		}
 
-		alert('成功！');
-		return false;
+		return true;
     }
 </script>
