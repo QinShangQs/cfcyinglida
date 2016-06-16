@@ -24,7 +24,11 @@ include('spap_head.php');
 if($Record[20]>"0"){
 ?>
         <div>
-            <span class="label">规格（1）:</span> 12.5mg*28粒/盒</div>
+            <span class="label">规格（1）:</span> <?php if($Record['gg1'] == "1mg"){
+            	echo "1mg*14片/盒";
+            }else{
+            	echo "5mg*28片/盒";
+            }?></div>
         <div>
             <span class="label">收到数量:</span> <?php echo $Record[20];?>盒</div>
         <div>

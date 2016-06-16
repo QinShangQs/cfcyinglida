@@ -489,7 +489,7 @@ if( v.length!=11||!v.match(a) ){
   <table style="margin-top:30px;" width="100%" border="1" cellpadding="10" cellspacing="1">
     <tr>
       <td width="30%" bgcolor="#FFFFFF" align="center">指定医生<br/><span id='zhdyshxsh'></span></td>
-      <td width="70%" bgcolor="#FFFFFF" align="center"><img id="zhdyshyzh" width="100"/><img id="zhdyshqzh" width="100"/></td>
+      <td width="70%" bgcolor="#FFFFFF" align="center"><img id="zhdyshyzh" width="100"/></td>
     </tr>
 
     <tr id="qzyzhshq" style="display:none;">
@@ -1093,7 +1093,7 @@ function qzyzh(v,i){
     //i=yshshq[$('#shqyyid').val()];
     imgsrc=padLeft(v,3);
     document.getElementById('zhdyshyzh').src='./qzyzh/'+imgsrc+'-1.jpg';
-    document.getElementById('zhdyshqzh').src='./qzyzh/'+imgsrc+'-2.jpg';
+    //document.getElementById('zhdyshqzh').src='./qzyzh/'+imgsrc+'-2.jpg';
     $('#zhdyshxsh').html($('#zhdysh'+v).val());
     $('#shqyshxsh').html($('#shqysh'+v).val());
     if(i!=undefined&&i>0){

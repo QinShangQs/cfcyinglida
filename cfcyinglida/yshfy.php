@@ -46,9 +46,12 @@ $db = new DB();
             $hzhnl=$Record[37];    //患者年龄
             $hzhchshrq=$Record[38];//患者出生日期
             $hzherqshq=$Record[50];//患者出生日期
+            $zhshrzshj = $Record[34];//正式入组时间
+            $rzyy = $Record['rzyy'];//入组医院 
 
 $lynumq=mysql_query("SELECT * FROM `zyff` where `hzhid`='".$Record[0]."' and `tshqk`<>'1'");
 $lynum = mysql_num_rows($lynumq);//获取总条数
+
             echo $lynum;?>次
             , 已领<?php 
 $lyshlnumq=mysql_query("SELECT SUM(fyshl) FROM `zyff` where `hzhid`='".$Record[0]."'");
@@ -131,7 +134,10 @@ $_SESSION['fycode'] = $fycode;      //将此随机数暂存入到session
 
 </table>
 
-
+<input type="hidden" title="领药人" name="lyr" value="<?php echo $hzhxm;?>"/>
+<input type="hidden" title="领药人证件号码" name="lyrzhjhm" value="<?php echo $hzhzhjhm;?>"/>
+<input type="hidden" title="入组医院" name="rzyy" value="<?php echo $rzyy;?>"/>
+<input type="hidden" title="正式入组时间" name="zhshrzrq" value="<?php echo $zhshrzshj;?>"
 </div>
 
 <!--
@@ -191,7 +197,7 @@ $_SESSION['fycode'] = $fycode;      //将此随机数暂存入到session
         </tr>
 
         <?php
-           if($lynum%3 == 0){ //随访表
+           if($lynum%3 == 2){ //随访表
         ?>
                <tr style="color:#1f4248; font-size:12px;">
                    <td align="center" bgcolor="#FFFFFF" rowspan="2">实验室和影像学检查</td>
@@ -347,7 +353,7 @@ $_SESSION['fycode'] = $fycode;      //将此随机数暂存入到session
                             $ph1Query_ID = mysql_query($ph1sql);
                             while ($ph1Record = mysql_fetch_array($ph1Query_ID)) {
                                 ?>
-                                <option value="<?php echo $ph1Record['0']; ?>"><?php echo $ph1Record['1']; ?></option>
+                                <option value="<?php echo $ph1Record['1']; ?>"><?php echo $ph1Record['1']; ?></option>
                             <?php
                             }
                             ?>
@@ -360,7 +366,7 @@ $_SESSION['fycode'] = $fycode;      //将此随机数暂存入到session
                             $ph1Query_ID = mysql_query($ph1sql);
                             while ($ph1Record = mysql_fetch_array($ph1Query_ID)) {
                                 ?>
-                                <option value="<?php echo $ph1Record['0']; ?>"><?php echo $ph1Record['1']; ?></option>
+                                <option value="<?php echo $ph1Record['1']; ?>"><?php echo $ph1Record['1']; ?></option>
                             <?php
                             }
                             ?></select>
@@ -399,12 +405,13 @@ $_SESSION['fycode'] = $fycode;      //将此随机数暂存入到session
         <tr style="color:#1f4248; font-size:12px;">
             <td align="left" bgcolor="#FFFFFF">
               <?php if($lynum != 0) {?>  第<?php echo $lynum;?>次领药：<?php }?>
-                    1、患者下次领药时间：<input type="text" id="hzhxclysj" value="" style="border:none; border-bottom:1px solid; width: 68px;" onclick="ygxcshj();">
+                    1、患者下次领药时间：<input type="text" id="hzhxclysj" name="hzhxclysj" value="" style="border:none; border-bottom:1px solid; width: 68px;" onclick="ygxcshj();">
+                 	2、请回收患者自购药空药盒和本次发放援助药品空药盒   
                 <?php
-                    if($lynum ==0 || $lynum == 1 || $lynum == 3 || $lynum == 4 || $lynum == 6 || $lynum == 7 || $lynum == 9 || $lynum == 10 || $lynum == 12 || $lynum == 13|| $lynum == 15 || $lynum == 16){
-                        echo "2、请回收患者自购药空药盒 和本次发放援助药品空药盒 3、请粘贴黄色不粘贴";
-                    } elseif ($lynum == 2 || $lynum == 5 || $lynum == 8 || $lynum == 11 || $lynum == 14) {
-                        echo "2、请粘贴红色不粘贴";
+                    if($lynum  % 3 == 1){
+                        echo "3、黄色";
+                    } else {
+                        echo "3、红色";
                     } 
                 ?>
 
@@ -433,9 +440,8 @@ $_SESSION['fycode'] = $fycode;      //将此随机数暂存入到session
 				$("#ph1").empty().append($("#d5mg").html());
 			});
 			$("#lylx2").click(function(){
-				$("#ph2").empty().append($("#d1mg").html());
+				$("#ph1").empty().append($("#d1mg").html());
 			});
-			
 		});
 	</script>
 <script type="text/javascript">
@@ -464,14 +470,17 @@ $_SESSION['fycode'] = $fycode;      //将此随机数暂存入到session
             var lyshl = 2;
             $("#lylx1").attr("checked","checked");
             $("#lylx2").removeAttr("checked");
+            $("#lylx1").click();
         }else if(yfyl == 2) {
             lyshl = 12;
             $("#lylx2").attr("checked","checked");
             $("#lylx1").removeAttr("checked");
+            $("#lylx2").click();
         }else if(yfyl == 3) {
             lyshl = 8;
             $("#lylx2").attr("checked","checked");
             $("#lylx1").removeAttr("checked");
+            $("#lylx2").click();
         }
         $('#lysl').val(lyshl);
         $('#hsyzypyhs').val(lyshl);

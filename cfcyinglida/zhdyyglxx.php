@@ -58,7 +58,7 @@ include('spap_head.php');
         </div>
         <div>
             <span class="label">指定医生签字：</span><?php
-            $q2 = "/qzyzh/".$_GET['id']."-2.jpg";
+            $q2 = "/qzyzh/".$yangzhangid."-2.jpg";
             if(file_exists(dirname(__FILE__).$q2))
             	echo  "<img width=\"105\" height=\"45\" src='$q2'/>";
             	else

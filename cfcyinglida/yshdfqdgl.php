@@ -216,7 +216,7 @@ if ($guanjianci1 != "") {
 }
 $sql .= " GROUP BY a.`id` order by b.`xclyrq` ASC limit $page $pagesize ";
 $_SESSION [ygfysql] = $sql;
-// echo $sql;
+//echo $sql;
 $Query_ID = mysql_query ( $sql );
 while ( $Record = mysql_fetch_array ( $Query_ID ) ) {
 	// $hzhshcyyshj=$Record[30];
@@ -242,6 +242,7 @@ while ( $Record = mysql_fetch_array ( $Query_ID ) ) {
 	
 	// 读取次数
 	$lynumq = mysql_query ( "SELECT * FROM `zyff` where  `tshqk`='0' and `hzhid`='" . $Record [0] . "'" );
+	//var_dump("SELECT * FROM `zyff` where  `tshqk`='0' and `hzhid`='" . $Record [0] . "'" );
 	$lynum = mysql_num_rows ( $lynumq ); // 获取总条数
 	if ($lynum == "") {
 		$lynum = "0";

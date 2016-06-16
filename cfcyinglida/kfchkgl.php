@@ -195,8 +195,8 @@ while ($zyfyRecord = mysql_fetch_array($fy5mg)) {
         ?>  &nbsp;&nbsp;当前库房库存：
         
          <?php 
-        	 echo "1mg " .($rkzsh11mg - $chkztzsh11mg) . "盒;";
-        	 echo "5mg " .($rkzsh15mg - $chkztzsh15mg) . "盒;";
+        	 echo "1mg " .($rkzsh11mg - $chkztzsh11mg - $fy1mgcount) . "盒;";
+        	 echo "5mg " .($rkzsh15mg - $chkztzsh15mg - $fy5mgcount) . "盒;";
 ?> 
          
          </span></div>

@@ -78,18 +78,40 @@ $db = new DB();
     		,'hszgyyhs'=>$hszgyyhs,'hsyzypyhs'=>$hsyzypyhs
     );
     $istrue2 = $db->insert('fayao_cflyinfo', $dataArray2);
-    echo "成功！";
-    header("refresh:2;url=/yshdfqdgl.php");
+  
+    $zyffArray = array(
+    	'hzhid'=>$hzhid,
+    	'lycsh'=>($lynum+1),	# 领药次数 
+    	'lyshl'=>$lysl,	# 领药数量 --------  -
+    	'fyshl'=>$lysl,	# 发药数量 -------- 
+    	'fyjl'=>($lysx == "1" ? "5mg*28片/盒":"1mg*14片/盒"),#发药剂量(1 200mg,2 250mg) -------- 
+    	'fyqshyl'=>0,	#发药前剩余量 -------- 
+    	'jhkpshl'=>$_POST['hsyzypyhs'], #交回空瓶数量 -------- 
+    	'jhshyyyshl'=>0,	#交回剩余药物数量 -------- 
+    	'lyr'=>$_POST['lyr'],	# 领药人 -------- 
+    	'gx'=>'本人',# 关系 -------- 
+    	'lyrzhjhm'=>$_POST['lyrzhjhm'],	# 领药人证件号码 -------- 
+    	'rzyy'=>$_POST['rzyy'],	# 入组医院 --------             -
+    	'zhshrzrq'=>$_POST['zhshrzrq'],# 正式入组日期
+    	'ygxcfyrq'=>$xclyrq,# 预估下次发药日期 -------- 
+    	'ygshcyyjshrq'=>'',	# 预估上次用药结束日期 -------- 
+    	'ygbcyykshrq'=>'',# 预估本次用药开始日期 -------- 
+    	'bzh'=>'',	#病种 -------- 
+    	'fyr'=>$fyr,	#发药人 -------- 
+    	'yfmch'=>$yfmch,# 药房名称 -------- 
+    	'fyrq'=>$lysj,#发药日期 -------- 
+    	'ypph'=>$pihao,	# 药品批号 -------- 
+    	'tshqk'=>0
+    );
+    $db->insert('zyff', $zyffArray);
     //当前本批号库存数量
 //     $shdshlsql="select SUM(`pfshl1`) from `yfshqzy` where `ph1`='".$ypph."' and `yfmch`='".$yfmch."'";
     //下次领药时间
-//     $fyrq=date('Y-m-d');
-//     $hzhyytssh=$_POST['hzhyytssh'];//预估本次用药天数
-//     if($hzhyytssh<0||$hzhyytssh==""){echo "用药天数错误！";exit();}
-//     $ygshcyyjshrq=date('Y-m-d',strtotime('+'.$hzhyytssh.' day',strtotime($ygbcyykshrq)));
-//     $ygxcfyrq=date('Y-m-d',strtotime('-7 day',strtotime($ygshcyyjshrq)));
-//     $xcfyrqquery="UPDATE `xclyrq` SET `xclyrq`='$ygxcfyrq' where `hzhid`='$hzhid'";
-  
+    $xclyrq=$_POST['xclysj'];   
+    $xcArr= array('hzhid'=>$hzhid,'xclyrq'=>$xclyrq);
+    $db->insert('xclyrq', $xcArr);
+    echo "成功！";
+    header("refresh:2;url=/yshdfqdgl.php");
 ?>
 
 
