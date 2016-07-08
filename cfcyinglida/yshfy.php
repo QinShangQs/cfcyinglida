@@ -309,11 +309,11 @@ $_SESSION['fycode'] = $fycode;      //将此随机数暂存入到session
         <tr style="color: #1f4248; font-size: 12px;">
             <td align="center" bgcolor="#FFFFFF" width="200px">指定医生/授权医生签字</td>
             <td align="center" bgcolor="#FFFFFF" width="200px;">
-                <?php echo "<img width=\"105\" height=\"45\" src=\"/qzyzh/".$hzhruyymch."-2.jpg\"/>"; ?>
+                <?php echo "<img width=\"105\" height=\"45\" src=\"/qzyzh/".sprintf("%03d", $hzhruyymch)."-2.jpg\"/>"; ?>
             </td>
             <td align="center" bgcolor="#FFFFFF" width="200px;">盖章(指定医生专用章)</td>
             <td align="center" bgcolor="#FFFFFF">
-                <?php echo "<img width=\"105\" height=\"45\" src=\"/qzyzh/".$hzhruyymch."-1.jpg\"/>"; ?>
+                <?php echo "<img width=\"105\" height=\"45\" src=\"/qzyzh/".sprintf("%03d", $hzhruyymch)."-1.jpg\"/>"; ?>
             </td>
 
         </tr>
@@ -348,12 +348,12 @@ $_SESSION['fycode'] = $fycode;      //将此随机数暂存入到session
  <div id="d5mg" style="display:none">
     	 <option value="未知批号">未知批号</option>
     		 <?php
-                            $ph1sql = "select id,ph from `kfrk` where `gg` like'5mg%'";
+                            $ph1sql = "select id,ph,bjshl from `kfrk` where `gg` like'5mg%'";
 
                             $ph1Query_ID = mysql_query($ph1sql);
                             while ($ph1Record = mysql_fetch_array($ph1Query_ID)) {
                                 ?>
-                                <option value="<?php echo $ph1Record['1']; ?>"><?php echo $ph1Record['1']; ?></option>
+                                <option value="<?php echo $ph1Record['1']; ?>" fyqshyl="<?php echo $ph1Record['3']; ?>"><?php echo $ph1Record['1']; ?></option>
                             <?php
                             }
                             ?>
@@ -361,12 +361,12 @@ $_SESSION['fycode'] = $fycode;      //将此随机数暂存入到session
     <div id="d1mg"  style="display:none">
     <option value="未知批号">未知批号</option>
     		 <?php
-                            $ph1sql = "select id,ph from `kfrk` where `gg` like'1mg%'";
+                            $ph1sql = "select id,ph,bjshl from `kfrk` where `gg` like'1mg%'";
 
                             $ph1Query_ID = mysql_query($ph1sql);
                             while ($ph1Record = mysql_fetch_array($ph1Query_ID)) {
                                 ?>
-                                <option value="<?php echo $ph1Record['1']; ?>"><?php echo $ph1Record['1']; ?></option>
+                                <option value="<?php echo $ph1Record['1']; ?>" fyqshyl="<?php echo $ph1Record['3']; ?>"><?php echo $ph1Record['1']; ?></option>
                             <?php
                             }
                             ?></select>
@@ -409,9 +409,9 @@ $_SESSION['fycode'] = $fycode;      //将此随机数暂存入到session
                  	2、请回收患者自购药空药盒和本次发放援助药品空药盒   
                 <?php
                     if($lynum  % 3 == 1){
-                        echo "3、黄色";
+                        echo "3、请粘贴黄色不粘贴";
                     } else {
-                        echo "3、红色";
+                        echo "3、请粘贴红色不粘贴";
                     } 
                 ?>
 

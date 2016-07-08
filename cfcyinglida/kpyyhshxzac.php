@@ -3,7 +3,7 @@
 include('newdb.php');
 
   $hzhid = $_POST['id'];
-  $kpgg=$_POST['kpgg'];
+  $kpgg=$_POST['kpgg'];//这个找不到
   $kpshl=$_POST['kpshl'];
   $yyshl=$_POST['yyshl'];
   $selectzhxqsh=$_POST['selectzhxqsh'];//lyr
@@ -17,6 +17,8 @@ include('newdb.php');
   if($kpgg==1){$kpgg='200mg/'.$kpshl;}
   else if($kpgg==2){$kpgg='250mg/'.$kpshl;}
   else{$kpgg='0';}
+  
+  //var_dump($_POST);exit();
 if($hzhid!=""&&$kpgg!=""&&$selectzhxqsh!=""&&$yyshl!="")
 {
   $query="insert into `zyff`(`hzhid`,`jhkpgg`,`jhkpshl`,`jhshyyyshl`,`lyr`,`gx`,`lyrzhjhm`,`fyr`,`yfmch`,`fyrq`,`kpzht`,`yyzht`,`tshqk`)values('$hzhid','$kpgg','$kpshl','$yyshl','$selectzhxqsh','$gx','$lyrzhjhm','$fyr','$yfmch','$fyrq','$kpzht','$yyzht','1')";

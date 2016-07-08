@@ -30,7 +30,7 @@ $pdf->Cell(190, 40, iconv("UTF-8", "gbk", "药品接收确认表"), 0, 0, 'C');
 $pdf->Ln();
 $pdf->SetFont('GB', 'B', 14);
 $pdf->SetLeftMargin(10.0);
-$pdf->Cell(190, 14, iconv("UTF-8", "gbk", "指定药房信息"), 1, 0, 'C');
+$pdf->Cell(190, 10, iconv("UTF-8", "gbk", "指定药房信息"), 1, 0, 'C');
 
   $yfsql = "select * from `yf` where `yfmch`='".$Record[25]."' AND `yfzhdysh`='".$Record[1]."'";
   $yfQuery_ID = mysql_query($yfsql);
@@ -45,25 +45,25 @@ $yfmchwidth=105;
 }else{
 $yfmchwidth=75;
 }
-$pdf->Cell(40, 14, iconv("UTF-8", "gbk", "指定药房名称"), 1, 0, 'C');
+$pdf->Cell(40, 10, iconv("UTF-8", "gbk", "指定药房名称"), 1, 0, 'C');
 //$pdf->Cell($yfmchwidth, 16, iconv("UTF-8", "gbk", $yfRecord[1]), 1, 0, 'L');
 //$pdf->Cell(25, 16, iconv("UTF-8", "gbk", "负责药师："), 1, 0, 'L');
 //$pdf->Cell(140-$yfmchwidth, 16, iconv("UTF-8", "gbk", $yfRecord[11]), 1, 0, 'L');
-$pdf->Cell(150, 14, iconv("UTF-8", "gbk", $yfRecord[1]), 1, 0, 'L');
+$pdf->Cell(150, 10, iconv("UTF-8", "gbk", $yfRecord[1]), 1, 0, 'L');
 $pdf->Ln();
 
-$pdf->Cell(40, 14, iconv("UTF-8", "gbk", "指定药房地址"), 1, 0, 'C');
+$pdf->Cell(40, 10, iconv("UTF-8", "gbk", "指定药房地址"), 1, 0, 'C');
 if($yfRecord[10]==$yfRecord[14]){$yfshengshi=$yfRecord[10].$yfRecord[16];}
 else{$yfshengshi=$yfRecord[10].$yfRecord[14].$yfRecord[16];}
-$pdf->Cell(150, 14, iconv("UTF-8", "gbk", $yfshengshi.$yfRecord[2]), 1, 0, 'L');
+$pdf->Cell(150, 10, iconv("UTF-8", "gbk", $yfshengshi.$yfRecord[2]), 1, 0, 'L');
 $pdf->Ln();
 
-$pdf->Cell(40, 14, iconv("UTF-8", "gbk", "药师姓名"), 1, 0, 'C');
-$pdf->Cell(150, 14, iconv("UTF-8", "gbk", $yfRecord[11]), 1, 0, 'L');
+$pdf->Cell(40, 10, iconv("UTF-8", "gbk", "药师姓名"), 1, 0, 'C');
+$pdf->Cell(150, 10, iconv("UTF-8", "gbk", $yfRecord[11]), 1, 0, 'L');
 $pdf->Ln();
 
-$pdf->Cell(40, 14, iconv("UTF-8", "gbk", "联系方式"), 1, 0, 'C');
-$pdf->Cell(150, 14, iconv("UTF-8", "gbk", $yfRecord[3]), 1, 0, 'L');
+$pdf->Cell(40, 10, iconv("UTF-8", "gbk", "联系方式"), 1, 0, 'C');
+$pdf->Cell(150, 10, iconv("UTF-8", "gbk", $yfRecord[3]), 1, 0, 'L');
 //$pdf->Cell(25, 16, iconv("UTF-8", "gbk", "手机："), 1, 0, 'L');
 //$pdf->Cell(65, 16, iconv("UTF-8", "gbk", $yfRecord[4]), 1, 0, 'L');
 
@@ -76,18 +76,18 @@ $pdf->Ln();
 
 $pdf->Ln();
 $pdf->SetFont('GB', 'B', 14);
-$pdf->Cell(190, 14, iconv("UTF-8", "gbk", "收到援助药品记录"), 1, 0, 'C');
+$pdf->Cell(190, 10, iconv("UTF-8", "gbk", "收到援助药品记录"), 1, 0, 'C');
 
 
 
 $pdf->Ln();
 $pdf->SetFont('GB', '', 13);
-$pdf->Cell(30, 14, iconv("UTF-8", "gbk", "申请日期"), 1, 0, 'C');
-$pdf->Cell(65, 14, iconv("UTF-8", "gbk", date('Y年m月d日',strtotime($Record[14]))), 1, 0, 'L');
+$pdf->Cell(30, 10, iconv("UTF-8", "gbk", "申请日期"), 1, 0, 'C');
+$pdf->Cell(65, 10, iconv("UTF-8", "gbk", date('Y年m月d日',strtotime($Record[14]))), 1, 0, 'L');
 
 $pdf->SetFont('GB', '', 13);
-$pdf->Cell(30, 14, iconv("UTF-8", "gbk", "接收日期"), 1, 0, 'C');
-$pdf->Cell(65, 14, iconv("UTF-8", "gbk", date('Y年m月d日',strtotime($Record[14]))), 1, 0, 'L');
+$pdf->Cell(30, 10, iconv("UTF-8", "gbk", "接收日期"), 1, 0, 'C');
+$pdf->Cell(65, 10, iconv("UTF-8", "gbk", date('Y年m月d日',strtotime($Record[14]))), 1, 0, 'L');
 
 //$pdf->Cell(25,16, iconv("UTF-8", "gbk", "收到数量："), 1, 0, 'L');
 //$pdf->Cell(75,16, iconv("UTF-8", "gbk", $Record[20]."瓶（12.5mg*28粒/瓶）"), 1, 0, 'L');
@@ -119,18 +119,18 @@ $pdf->Cell(65,14, iconv("UTF-8", "gbk", "(".$Record[2].")".$Record[20]."盒 批�
 $pdf->Ln();
 
 
-$pdf->Cell(30, 14, iconv("UTF-8", "gbk", "运单号"), 1, 0, 'C');
-$pdf->Cell(160, 14, iconv("UTF-8", "gbk", $Record[12]), 1, 0, 'L');
+$pdf->Cell(30, 10, iconv("UTF-8", "gbk", "运单号"), 1, 0, 'C');
+$pdf->Cell(160, 10, iconv("UTF-8", "gbk", $Record[12]), 1, 0, 'L');
 //$pdf->Cell(25, 16, iconv("UTF-8", "gbk", "签字："), 1, 0, 'L');
 //$pdf->Cell(75, 16, iconv("UTF-8", "gbk", ""), 1, 0, 'L');
 $pdf->Ln();
 
-$pdf->MultiCell(190, 14, iconv("UTF-8", "gbk", "英立达患者援助项目办：                                                               我已于二0     年     月     日接收上述援助药品，并已入库保存。                    特此证明！                                                                         经办人签字：_________________
+$pdf->MultiCell(190, 10, iconv("UTF-8", "gbk", "英立达患者援助项目办：                                                               我已于二0     年     月     日接收上述援助药品，并已入库保存。                    特此证明！                                                                         经办人签字：_________________
 二0    年    月    日
 （加盖药房公章）"), 1, 0, 'L');
 //          $pdf->Ln();
 //          $pdf->Cell(190, 16, iconv("UTF-8", "gbk", "英立达患者援助项目办："), 0, 0, 'L');
-          $pdf->Ln();
+
 //$pdf->Cell(25,16, iconv("UTF-8", "gbk", "批号："), 1, 0, 'L');
 //
 //$pdf->Cell(65,16, iconv("UTF-8", "gbk", $ph1nr), 1, 0, 'L');
@@ -140,11 +140,9 @@ $pdf->MultiCell(190, 14, iconv("UTF-8", "gbk", "英立达患者援助项目办�
 //$pdf->Cell(75, 16, iconv("UTF-8", "gbk", ""), 1, 0, 'L');
 
 $pdf->Ln();
-$pdf->Ln();
 //$pdf->Cell(190, 5, iconv("UTF-8", "gbk", "注："), 0, 0, 'L');
-$pdf->Ln();
 $pdf->SetFont('GB', '', 11);
-$pdf->Cell(10, 25, iconv("UTF-8", "gbk", ""), 0, 0, 'C');
+$pdf->Cell(10, 10, iconv("UTF-8", "gbk", ""), 0, 0, 'C');
 $pdf->Cell(140, 4, iconv("UTF-8", "gbk", "注：1.本表（原件）下载后，须指定药师填写并加盖单位公章。"), 0, 0, 'L');
 $pdf->Ln();
 $pdf->Cell(10, 25, iconv("UTF-8", "gbk", ""), 0, 0, 'C');
@@ -170,13 +168,13 @@ $pdf->Ln();
 $pdf->Ln();
 //$pdf->Cell(190, 6, iconv("UTF-8", "gbk", "英立达患者援助项目办公室"), 0, 0, 'C');
 $pdf->Ln();
-      $pdf->Image('./images/image006.jpg',58,28,20,0);
+      $pdf->Image('./images/image006.jpg',58,240,20,0);
 $pdf->Cell(190, 6, iconv("UTF-8", "gbk", "联系电话：010-6715 0515"), 0, 0, 'C');
 $pdf->Ln();
 $pdf->Cell(190, 6, iconv("UTF-8", "gbk", "   邮寄地址：北京市 2258 信箱"), 0, 0, 'C');
 $pdf->Ln();
 $pdf->Cell(190, 6, iconv("UTF-8", "gbk", "           接 收 人：英立达患者援助项目办公室"), 0, 0, 'C');
-      $pdf->Image('./images/image007.jpg',25,70,160,0);
+ $pdf->Image('./images/image007.jpg',25,265,160,0);
 
 $pdf->Output($id.'_药品接收确认表.pdf',I);
 }

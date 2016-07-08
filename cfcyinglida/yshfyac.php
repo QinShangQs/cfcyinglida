@@ -2,6 +2,13 @@
 @header('Content-type: text/html;charset=utf-8');
 include('wdb.php');
 $db = new DB();
+
+$frqshyl = 0;// 发药前剩余数量
+if($pihao != '未知批号'){
+	$fyqshylArr = $db->getRow("select bjshl from `kfrk` where `ph` = '{$_POST['pihao']}'");
+	$frqshyl = !empty($fyqshylArr) ? $fyqshylArr['bjshl']:0;
+}
+
     $hzhid = $_POST['id'];//患者id
     $fyr=$_SESSION['yhname'];//发药人id
     $yfmch=$_SESSION['gldw'];//发药人单位
@@ -79,13 +86,16 @@ $db = new DB();
     );
     $istrue2 = $db->insert('fayao_cflyinfo', $dataArray2);
   
+
+    
+    
     $zyffArray = array(
     	'hzhid'=>$hzhid,
     	'lycsh'=>($lynum+1),	# 领药次数 
     	'lyshl'=>$lysl,	# 领药数量 --------  -
     	'fyshl'=>$lysl,	# 发药数量 -------- 
     	'fyjl'=>($lysx == "1" ? "5mg*28片/盒":"1mg*14片/盒"),#发药剂量(1 200mg,2 250mg) -------- 
-    	'fyqshyl'=>0,	#发药前剩余量 -------- 
+    	'fyqshyl'=>$frqshyl,	#发药前剩余量 -------- 
     	'jhkpshl'=>$_POST['hsyzypyhs'], #交回空瓶数量 -------- 
     	'jhshyyyshl'=>0,	#交回剩余药物数量 -------- 
     	'lyr'=>$_POST['lyr'],	# 领药人 -------- 

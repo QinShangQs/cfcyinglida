@@ -43,7 +43,7 @@ include('spap_head.php');
 <label>医生联系方式：</label><span><?php echo $Record[7];?></span>
 </div>
 <div class="insinsins" style="width: 100%">
-<label>指定医生样张：</label><span><img src="qzyzh/<?php echo sprintf("%03d", $Record[8]);?>-1.jpg" width="105" height="45"/> <img src="qzyzh/<?php echo sprintf("%03d", $Record[8]);?>-2.jpg" width="105" height="45"/></span>
+<label>指定医生样张：</label><span><img src="qzyzh/<?php echo sprintf("%03d", $yyid);?>-1.jpg" width="105" height="45"/> <img src="qzyzh/<?php echo sprintf("%03d", $yyid);?>-2.jpg" width="105" height="45"/></span>
 </div>
 <div class="insinsins" style="width: 100%">
 <label>授权一医生：</label><span><?php echo $Record[9];?></span>

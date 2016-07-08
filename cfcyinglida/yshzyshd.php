@@ -21,6 +21,7 @@ include('spap_head.php');
 ?>
 <input type="hidden" name="id" value="<?php echo $shqid;?>" />
 <?php
+//已改过
 if($Record[20]>"0"){
 ?>
         <div>

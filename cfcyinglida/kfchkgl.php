@@ -186,12 +186,12 @@ while ($zyfyRecord = mysql_fetch_array($fy5mg)) {
     已发运货数： 1mg <?php echo $fy1mgcount?>盒; 5mg <?php echo $fy5mgcount?>盒;
         &nbsp;&nbsp;
         <?php
-        if ($chkztzsh1 > 0 || $chkztzsh2 > 0) {
+        //if ($chkztzsh1 > 0 || $chkztzsh2 > 0) {
             echo "在途总数";
             echo "1mg " . ( empty($chkztzsh11mg) ? 0:$chkztzsh11mg ) . "盒;";
             echo "5mg " . ( empty($chkztzsh15mg) ? 0:$chkztzsh15mg ). "盒; ";
 
-        }
+        //}
         ?>  &nbsp;&nbsp;当前库房库存：
         
          <?php 

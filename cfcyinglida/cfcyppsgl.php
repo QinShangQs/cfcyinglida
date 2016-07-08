@@ -129,7 +129,7 @@ include('spap_head.php');
                 if ($guanjiancisql != "") {
                     $sql .= "where ". $guanjiancisql;
                 }
-                $sql .= " order by id DESC limit $page $pagesize ";
+                $sql .= " order by id DESC limit $page $pagesize "; 
                 $Query_ID = mysql_query($sql);
                 while ($Record = mysql_fetch_array($Query_ID)) {
                     echo "<tr style=\"color:#1f4248;  font-size:12px;\">";
@@ -144,7 +144,15 @@ include('spap_head.php');
                     echo "</td>";
 
                     echo "<td align=\"center\" bgcolor=\"#FFFFFF\">";
-                    echo $Record[5];
+                    if(!is_numeric($Record[5]) ){
+                    	echo $Record[5];
+                    }else{
+                    	$ph1sql = "select id,ph from `kfrk` where id = ".$Record[5];
+                    	$ph1Query_ID = mysql_query($ph1sql);
+                    	while ($ph1Record = mysql_fetch_array($ph1Query_ID)) {
+                    		echo $ph1Record['1'];
+                    	}
+                    }                    
                     echo "</td>";
 
                     echo "<td align=\"center\" bgcolor=\"#FFFFFF\">";
@@ -152,7 +160,7 @@ include('spap_head.php');
                         if ($Record[6] == "1") {
                             echo "在药房";
                         } else if ($Record[6] == "2") {
-                            echo "已邮寄";
+                            echo "已邮寄" . " <input type='button' value='确认收货' onclick='qianshou(".$Record[0].")' />";
                         } else if ($Record[6] == "3") {
                             echo "已签收";
                         }
@@ -176,6 +184,18 @@ include('spap_head.php');
                 </tr>
             </table>
             <script type="text/javascript">
+	            function qianshou(id){
+	                if(confirm('确定要签收吗？')){
+						$.post('cfcyppsglac.php',{id:id},function(obj){
+							alert(obj.msg);
+							if(obj.success){
+								location.reload();
+							}
+						},'json');
+	                }
+	
+	            }
+            
                 function chazhao() {
                     var url = 'cfcyppsgl.php?guanjianci=' + encodeURIComponent($('#Guanjianci').val()) +
                         '&kshrq=' + encodeURIComponent($('#KaishiRiqi').val()) +

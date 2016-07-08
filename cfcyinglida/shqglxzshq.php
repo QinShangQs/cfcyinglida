@@ -489,12 +489,14 @@ if( v.length!=11||!v.match(a) ){
   <table style="margin-top:30px;" width="100%" border="1" cellpadding="10" cellspacing="1">
     <tr>
       <td width="30%" bgcolor="#FFFFFF" align="center">指定医生<br/><span id='zhdyshxsh'></span></td>
-      <td width="70%" bgcolor="#FFFFFF" align="center"><img id="zhdyshyzh" width="100"/></td>
+      <td width="70%" bgcolor="#FFFFFF" align="center">
+      <img id="zhdyshyzh" width="100"/><img id="zhdyshqzh" width="100"/>
+      </td>
     </tr>
 
-    <tr id="qzyzhshq" style="display:none;">
+    <tr id="qzyzhshq" style="display;">
       <td width="30%"  bgcolor="#FFFFFF" align="center">授权医生<br/><span id='shqyshxsh'></span></td>
-      <td width="70%"  bgcolor="#FFFFFF" align="center"><div id="qzyzhshqysh"></div></td>
+      <td width="70%"  bgcolor="#FFFFFF" align="center"><div id="qzyzhshqysh"></div><img id="shouquanyishengyangzhang" width="100"/></td>
     </tr>
   </table>
 </div>
@@ -1093,7 +1095,9 @@ function qzyzh(v,i){
     //i=yshshq[$('#shqyyid').val()];
     imgsrc=padLeft(v,3);
     document.getElementById('zhdyshyzh').src='./qzyzh/'+imgsrc+'-1.jpg';
-    //document.getElementById('zhdyshqzh').src='./qzyzh/'+imgsrc+'-2.jpg';
+    document.getElementById('zhdyshqzh').src='./qzyzh/'+imgsrc+'-2.jpg';
+    document.getElementById('shouquanyishengyangzhang').src='./qzyzh/'+imgsrc+'-8.jpg';
+    
     $('#zhdyshxsh').html($('#zhdysh'+v).val());
     $('#shqyshxsh').html($('#shqysh'+v).val());
     if(i!=undefined&&i>0){
@@ -1107,8 +1111,8 @@ function qzyzh(v,i){
         $('#qzyzhshqysh').html(shqimg);
       }
     }else{
-      document.getElementById('qzyzhshq').style.display='none';
-      $('#qzyzhshqysh').html('');
+      /* document.getElementById('qzyzhshq').style.display='none';
+      $('#qzyzhshqysh').html(''); */
     }
     document.getElementById('qzyzh').style.display='block';
   }

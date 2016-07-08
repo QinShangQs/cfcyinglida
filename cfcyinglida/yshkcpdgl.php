@@ -147,6 +147,7 @@ include('spap_head.php');
                                 ?></td>
                             <?php
                             $mxsql = "select `ypph`,`qchkc`,`byrk`,`bychk`,`shjkc`,`zhtsd` from `kfkcpdmx` where `pdid`='" . $Record[0] . "'";
+                            echo $mxsql;
                             $mxQuery_ID = mysql_query($mxsql);
                             $mxi = 0;
                             $mxi1 = 0;
@@ -177,7 +178,7 @@ include('spap_head.php');
                                     $lastDay = date("Y-m-d", strtotime("$firstDay +1 month -1 day")); //当月的最后一天
 
                                     $psypSql = "SELECT SUM(pshsh) FROM psyp WHERE yfmch='$dwmch' AND pihao='$newph' AND createDate >= '$firstDay' AND createDate <='$lastDay'";
-									var_dump($psypSql);
+									//var_dump($psypSql);
                                     $psypQueryId = mysql_query($psypSql);
                                     while ($psypRecord = mysql_fetch_array($psypQueryId)) {
                                         $psypshl = $psypRecord[0];
@@ -195,7 +196,7 @@ include('spap_head.php');
                                     <td align="center" bgcolor="#FFFFFF"><?php echo $mxRecord[0]."[".$gg."]"; ?></td>
                                     <td align="center" bgcolor="#FFFFFF"><?php echo $mxRecord[1]; ?></td>
                                     <td align="center" bgcolor="#FFFFFF"><?php echo $mxRecord[2]; ?></td>
-                                    <td align="center" bgcolor="#FFFFFF"><?php echo $mxRecord[3]; ?></td>
+                                    <td align="center" bgcolor="#FFFFFF"><?php echo $mxRecord[3] ; ?></td>
                                     <td align="center" bgcolor="#FFFFFF"><?php echo $psypshl; ?></td>
                                     <td align="center" bgcolor="#FFFFFF" <?php if($mxRecord[5] > 0){?> style="color: red;"<?php }?>>
                                         <?php echo $mxRecord[4]; ?>

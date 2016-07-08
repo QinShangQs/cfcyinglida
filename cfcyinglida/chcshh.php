@@ -118,12 +118,8 @@ $shhrq1 = explode ( ",", $shhrq );
 $shqbzh1 = explode ( ",", $shqbzh );
 $shhr1 = explode ( ",", $shhr );
 
-$clmschsqlwhere = '';
-if($result[1] == '索坦' && $result[3] == "1"){
-	$clmschsqlwhere = ' where id = 3';
-}
 
-$clmchsql = "select id,nr from `clshhmch` {$clmschsqlwhere} order by id ASC";
+$clmchsql = "select id,nr from `clshhmch` order by id ASC";
 
 $clmchQuery_ID = mysql_query ( $clmchsql );
 while ( $clmchRecord = mysql_fetch_array ( $clmchQuery_ID ) ) {

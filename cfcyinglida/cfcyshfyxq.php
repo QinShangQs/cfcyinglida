@@ -31,16 +31,28 @@ while($Record = mysql_fetch_array($Query_ID)){
 ?>
     </div>
     <div>
-        预计开始服用此次赠药时间:<?php echo $Record[16];?></div>
+        下次领药日期:<?php 
+        $ygxcfyrqshjnumq = mysql_query("select * from xclyrq where hzhid='".$fyid."'");
+        while ( $ygxcfyrqshjnum = mysql_fetch_array ( $ygxcfyrqshjnumq ) ) {
+        	$ygxcfyrqshj = $ygxcfyrqshjnum[2];
+        }
+        if($ygxcfyrqshj!=""){
+        	echo $ygxcfyrqshj;
+        }else {echo "日期错误";}
+        
+        ?></div>
     <div>
         本次领药数量:<?php echo $Record[4];?>瓶</div>
     <div>
         药品批号:<?php 
+        if(is_string($Record[21])){
+        	echo $Record[21];
+        }else{
   $phsql = "select ph from `kfrk` where `id`='".$Record[21]."'";
   $phQuery_ID = mysql_query($phsql);
   while($phRecord = mysql_fetch_array($phQuery_ID)){ 
     echo $phRecord[0];
-  }
+  }}
       ?></div>
 <?php if($Record[9]=="0"){//echo $hzhxm;
 ?>
