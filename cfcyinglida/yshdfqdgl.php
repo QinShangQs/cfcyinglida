@@ -287,8 +287,8 @@ while ( $Record = mysql_fetch_array ( $Query_ID ) ) {
 	
 	?></td>
 						<td width="8%" align="center" bgcolor="#FFFFFF">
-                <?php
-	if ($lynum % 3 == 0 && $lynum != 0) {
+                <?php 
+	if (($lynum+1) % 3 == 0 ) {
 		echo "医学条件随访表";
 	} else {
 		echo "处方笺";
@@ -310,16 +310,14 @@ while ( $Record = mysql_fetch_array ( $Query_ID ) ) {
 			} else {
 				echo "发药";
 			}
-		} else if ('1' == '1') {
-			echo "<a href=\"yshfy.php?id=" . $Record [0] . "\">发药</a>";
 		} else {
 			echo "发药";
 		}
 	} else if ($lynum > "0") {
-		$ygxcfyrqq = mysql_query ( "SELECT ygxcfyrq FROM `zyff` where `tshqk`='0' and `hzhid`='" . $Record [0] . "' order by id DESC limit 0,1" );
-		while ( $ygxcfyrq = mysql_fetch_array ( $ygxcfyrqq ) ) {
-			$ygxcfyrqshj = $ygxcfyrq [0];
-		}
+// 		$ygxcfyrqq = mysql_query ( "SELECT ygxcfyrq FROM `zyff` where `tshqk`='0' and `hzhid`='" . $Record [0] . "' order by id DESC limit 0,1" );
+// 		while ( $ygxcfyrq = mysql_fetch_array ( $ygxcfyrqq ) ) {
+// 			$ygxcfyrqshj = $ygxcfyrq [0];
+// 		}
 		if ($ygxcfyrqshj != "" || $shqid > 0) {
 			$ygxcfyshj_List = explode ( "-", $ygxcfyrqshj );
 			$ygxcfyshj_d = mktime ( 0, 0, 0, $ygxcfyshj_List [1], $ygxcfyshj_List [2], $ygxcfyshj_List [0] );
@@ -327,12 +325,12 @@ while ( $Record = mysql_fetch_array ( $Query_ID ) ) {
 			if (($Days >= 0 && $Days <= 30) || $shqid > 0) {
 				echo "<a href=\"yshfy.php?id=" . $Record [0] . "\">发药</a>";
 			} else {
-				echo "发药";
+				echo "";
 			}
 		} else if ('1' == '1') {
 			echo "<a href=\"yshfy.php?id=" . $Record [0] . "\">发药</a>";
 		} else {
-			echo "发药";
+			echo "";
 		}
 	}
 	?></td>
@@ -472,7 +470,7 @@ while ( $Record = mysql_fetch_array ( $Query_ID ) ) {
 	?></td>
 
 						<td align="center" bgcolor="#FFFFFF"> <?php
-	if ($lynum % 3 == 0 && $lynum != 0) {
+	if (($lynum+1) % 3 == 0) {
 		echo "医学条件随访表";
 	} else {
 		echo "处方笺";
@@ -509,10 +507,11 @@ while ( $Record = mysql_fetch_array ( $Query_ID ) ) {
 	   * }
 	   */
 else if ($lynum > "0") {
-		$ygxcfyrqq = mysql_query ( "SELECT ygxcfyrq FROM `zyff` where `tshqk`='0' and `hzhid`='" . $Record [0] . "' order by id DESC limit 0,1" );
-		while ( $ygxcfyrq = mysql_fetch_array ( $ygxcfyrqq ) ) {
-			$ygxcfyrqshj = $ygxcfyrq [0];
-		}
+// 		$ygxcfyrqq = mysql_query ( "SELECT ygxcfyrq FROM `zyff` where `tshqk`='0' and `hzhid`='" . $Record [0] . "' order by id DESC limit 0,1" );
+// 		while ( $ygxcfyrq = mysql_fetch_array ( $ygxcfyrqq ) ) {
+// 			$ygxcfyrqshj = $ygxcfyrq [0];
+// 		}
+//var_dump($ygxcfyrqshj); 
 		if ($ygxcfyrqshj != "" || $shqidchq > 0) {
 			$ygxcfyshj_List = explode ( "-", $ygxcfyrqshj );
 			$ygxcfyshj_d = mktime ( 0, 0, 0, $ygxcfyshj_List [1], $ygxcfyshj_List [2], $ygxcfyshj_List [0] );
@@ -520,10 +519,10 @@ else if ($lynum > "0") {
 			if (($Days >= 0 && $Days <= 30) || $shqidchq > 0) {
 				echo "<a href=\"yshfy.php?id=" . $Record [0] . "\">发药</a>";
 			} else {
-				echo "发药";
+				echo "";
 			}
 		} else {
-			echo "发药";
+			echo "";
 		}
 	}
 	?></td>

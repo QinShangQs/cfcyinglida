@@ -126,19 +126,19 @@ while ( $clmchRecord = mysql_fetch_array ( $clmchQuery_ID ) ) {
 	if ($hzherqshq != "2") {
 		
 		// 进入索坦项目的患者、未进入索坦项目但吃过8瓶的患者
-		if ($result [3] == 8) {
+		if ($result [3] == 8 ) {
 			if ($clmchRecord [0] == 3 || $clmchRecord [0] == 4 || $clmchRecord [0] == 5 || $clmchRecord [0] == 6 || $clmchRecord [0] == 7 || $clmchRecord [0] == 8 || $clmchRecord [0] == 9 || $clmchRecord [0] == 10) {
 				continue;
 			}
 		}
 		// 未吃过索坦的患者
-		if ($result [3] == 0 || ! isset ( $result [3] )) {
+		if ($result [3] == 0 || ! isset ( $result [3] ) || $result[3] == 1) {
 			if ($clmchRecord [0] == 2 || $clmchRecord [0] == 4 || $clmchRecord [0] == 5 || $clmchRecord [0] == 6 || $clmchRecord [0] == 7 || $clmchRecord [0] == 8 || $clmchRecord [0] == 9 || $clmchRecord [0] == 10) {
 				continue;
 			}
 		}
 		// 未进入索坦项目但吃过2瓶的患者
-		if ($result [3] == 2) {
+		if ($result [3] == 2 ) {
 			if ($clmchRecord [0] == 2 || $clmchRecord [0] == 3 || $clmchRecord [0] == 5 || $clmchRecord [0] == 6 || $clmchRecord [0] == 7 || $clmchRecord [0] == 8 || $clmchRecord [0] == 9 || $clmchRecord [0] == 10) {
 				continue;
 			}
@@ -162,19 +162,19 @@ while ( $clmchRecord = mysql_fetch_array ( $clmchQuery_ID ) ) {
 			}
 		}
 		// 未进入索坦项目但吃过9瓶或10瓶的患者
-		if ($result [3] == 9 || $result [3] == 10) {
+		if ($result [3] == 9 || $result [3] == 10 ) {
 			if ($clmchRecord [0] == 2 || $clmchRecord [0] == 3 || $clmchRecord [0] == 4 || $clmchRecord [0] == 5 || $clmchRecord [0] == 6 || $clmchRecord [0] == 7 || $clmchRecord [0] == 9 || $clmchRecord [0] == 10) {
 				continue;
 			}
 		}
 		// 未进入索坦项目但吃过11瓶的患者
-		if ($result [3] == 11) {
+		if ($result [3] == 11 ) {
 			if ($clmchRecord [0] == 2 || $clmchRecord [0] == 3 || $clmchRecord [0] == 4 || $clmchRecord [0] == 5 || $clmchRecord [0] == 6 || $clmchRecord [0] == 7 || $clmchRecord [0] == 8 || $clmchRecord [0] == 10) {
 				continue;
 			}
 		}
 		// 未进入索坦项目但吃过12瓶的患者
-		if ($result [3] == 12) {
+		if ($result [3] == 12 ) {
 			if ($clmchRecord [0] == 2 || $clmchRecord [0] == 3 || $clmchRecord [0] == 4 || $clmchRecord [0] == 5 || $clmchRecord [0] == 6 || $clmchRecord [0] == 7 || $clmchRecord [0] == 8 || $clmchRecord [0] == 9) {
 				continue;
 			}

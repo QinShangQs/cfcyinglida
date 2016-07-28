@@ -10,7 +10,7 @@ include('spap_head.php');
 <?php
 $fyid=$_GET['id'];
 $sql = "select * from `zyff` where `id`='".$fyid."'";
-
+var_dump($sql);
 $Query_ID = mysql_query($sql);
 while($Record = mysql_fetch_array($Query_ID)){
 ?>
@@ -19,7 +19,9 @@ while($Record = mysql_fetch_array($Query_ID)){
 <?php
   $hzhsql = "select * from `hzh` where `id`='".$Record[1]."'";
   $hzhQuery_ID = mysql_query($hzhsql);
+ 
   while($hzhRecord = mysql_fetch_array($hzhQuery_ID)){  
+  	$hzhid =$hzhRecord[0];
   $hzhjzhshl=$hzhRecord[26];
   $hzhxm=$hzhRecord[4];
   $hzhzhjhm=$hzhRecord[5].":".$hzhRecord[6];
@@ -32,7 +34,7 @@ while($Record = mysql_fetch_array($Query_ID)){
     </div>
     <div>
         下次领药日期:<?php 
-        $ygxcfyrqshjnumq = mysql_query("select * from xclyrq where hzhid='".$fyid."'");
+        $ygxcfyrqshjnumq = mysql_query("select * from xclyrq where hzhid='".$hzhid."'");
         while ( $ygxcfyrqshjnum = mysql_fetch_array ( $ygxcfyrqshjnumq ) ) {
         	$ygxcfyrqshj = $ygxcfyrqshjnum[2];
         }

@@ -194,6 +194,7 @@ if($guanjianci!=""){
 $sql .=" and ".$guanjianci;
 }
 $sql .=" order by id DESC limit $page $pagesize ";
+
   $Query_ID = mysql_query($sql);
   while($Record = mysql_fetch_array($Query_ID)){
 

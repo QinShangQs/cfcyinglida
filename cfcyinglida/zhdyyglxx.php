@@ -46,7 +46,7 @@ include('spap_head.php');
         <div>
             <span class="label">医生电子邮箱：</span><?php echo $Record[30];?></div>
         <div>
-            <span class="label">指定医生样张：</span>
+            <span class="label">指定医生样章：</span>
             <span>
             <?php
             $q1 = "/qzyzh/".$yangzhangid."-1.jpg";
@@ -70,7 +70,7 @@ include('spap_head.php');
         <div>
             <span class="label">授权医生电子邮箱：</span><?php echo $Record[31];?></div>
         <div>
-            <span class="label">授权一医生样张：</span>
+            <span class="label">授权一医生签字：</span>
             <?php
             $q8 = "/qzyzh/".$yangzhangid."-8.jpg";
             if(file_exists(dirname(__FILE__).$q8))
@@ -84,7 +84,7 @@ include('spap_head.php');
         <div>
             <span class="label">授权二医生：</span><?php echo $Record[12];?></div>
         <div>
-            <span class="label">授权二医生样张：</span>
+            <span class="label">授权二医生签字：</span>
              <?php
             $q3 = "/qzyzh/".$yangzhangid."-3.jpg";
             if(file_exists(dirname(__FILE__).$q3))
@@ -97,7 +97,7 @@ include('spap_head.php');
         <div>
             <span class="label">授权三医生：</span><?php echo $Record[15];?></div>
         <div>
-            <span class="label">授权三医生样张：</span>
+            <span class="label">授权三医生签字：</span>
              <?php
             $q4 = "/qzyzh/".$yangzhangid."-4.jpg";
             if(file_exists(dirname(__FILE__).$q4))

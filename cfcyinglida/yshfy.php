@@ -203,9 +203,9 @@ $_SESSION['fycode'] = $fycode;      //将此随机数暂存入到session
                    <td align="center" bgcolor="#FFFFFF" rowspan="2">实验室和影像学检查</td>
                    <td align="center" bgcolor="#FFFFFF">
                        <label>安全性评估：</label>
-                       <label style="margin-left: 30px;">血常规检查</label><input type="checkbox" name="cgjc0" value="0" />
-                       <label style="margin-left: 30px;">尿常规检查</label><input type="checkbox" name="cgjc1" value="1" />
-                       <label style="margin-left: 30px;">生化检查</label><input type="checkbox" name="cgjc2" value="2" /><br>
+                       <label style="margin-left: 30px;">血常规检查</label><input type="checkbox" name="cgjc0" id="c0" value="0" />
+                       <label style="margin-left: 30px;">尿常规检查</label><input type="checkbox" name="cgjc1" id="c1" value="1" />
+                       <label style="margin-left: 30px;">生化检查</血常规检查label><input type="checkbox" name="cgjc2" id="c2" value="2" /><br>
 
                        <label style="font-size: 12px; font-weight:bold;">*3项检查必做</label>
                        <label style="padding-left: 160px;">检查报告日期：
@@ -257,9 +257,9 @@ $_SESSION['fycode'] = $fycode;      //将此随机数暂存入到session
                <tr style="color:#1f4248; font-size:12px;">
                    <td align="center" bgcolor="#FFFFFF">安全性评估</td>
                    <td align="center" bgcolor="#FFFFFF" style="padding-left: 30px;">
-                       <input type="checkbox" name="cgjc0" value="0" style="margin-left: 30px;"/><label>血常规检查</label>
-                       <input type="checkbox" name="cgjc1" value="1" style="margin-left: 30px;"/><label>尿常规检查</label>
-                       <input type="checkbox" name="cgjc2" value="2" style="margin-left: 30px;"/><label>生化检查</label><br>
+                       <input type="checkbox" name="cgjc0" id="c0" value="0" style="margin-left: 30px;"/><label>血常规检查</label>
+                       <input type="checkbox" name="cgjc1" id="c1" value="1" style="margin-left: 30px;"/><label>尿常规检查</label>
+                       <input type="checkbox" name="cgjc2" id="c2" value="2" style="margin-left: 30px;"/><label>生化检查</label><br>
                        <label style="font-size: 12px; font-weight:bold;">*3项检查必做</label>
                        <label style="padding-left: 30px;">检查报告日期：
                            <input type="text" id="aqxpg_time" name="aqxpg_time" value="" align="center" style="border:none; border-bottom:1px solid; width: 68px;"/>
@@ -310,6 +310,26 @@ $_SESSION['fycode'] = $fycode;      //将此随机数暂存入到session
             <td align="center" bgcolor="#FFFFFF" width="200px">指定医生/授权医生签字</td>
             <td align="center" bgcolor="#FFFFFF" width="200px;">
                 <?php echo "<img width=\"105\" height=\"45\" src=\"/qzyzh/".sprintf("%03d", $hzhruyymch)."-2.jpg\"/>"; ?>
+                <?php
+                //第一
+		            $q8 = "/qzyzh/".sprintf("%03d", $hzhruyymch)."-8.jpg";
+		            if(file_exists(dirname(__FILE__).$q8))
+		            	echo  "<img  width=\"105\" height=\"45\" src='$q8'/>";
+		        ?>
+		        
+		        <?php
+		        	//第二
+		            $q3 = "/qzyzh/".sprintf("%03d", $hzhruyymch)."-3.jpg";
+		            if(file_exists(dirname(__FILE__).$q3))
+		            	echo  "<img width=\"105\" height=\"45\" src='$q3'/>";
+		            ?>
+                
+                 <?php
+                 //第三
+            $q4 = "/qzyzh/".sprintf("%03d", $hzhruyymch)."-4.jpg";
+            if(file_exists(dirname(__FILE__).$q4))
+            	echo  "<img width=\"105\" height=\"45\" src='$q4'/>"; 
+            ?>
             </td>
             <td align="center" bgcolor="#FFFFFF" width="200px;">盖章(指定医生专用章)</td>
             <td align="center" bgcolor="#FFFFFF">
@@ -404,11 +424,12 @@ $_SESSION['fycode'] = $fycode;      //将此随机数暂存入到session
         </tr>
         <tr style="color:#1f4248; font-size:12px;">
             <td align="left" bgcolor="#FFFFFF">
-              <?php if($lynum != 0) {?>  第<?php echo $lynum;?>次领药：<?php }?>
-                    1、患者下次领药时间：<input type="text" id="hzhxclysj" name="hzhxclysj" value="" style="border:none; border-bottom:1px solid; width: 68px;" onclick="ygxcshj();">
-                 	2、请回收患者自购药空药盒和本次发放援助药品空药盒   
+              <?php $nextlynum = $lynum+1; if($lynum != 0) {?>  第<?php echo $nextlynum;?>次领药：<?php }?>
+              1、患者下次领药时间：<input type="text" id="hzhxclysj" name="hzhxclysj" value="" style="border:none; border-bottom:1px solid; width: 68px;" onclick="ygxcshj();">
+              <?php if($lynum == 0) echo "2.请回收患者自购药空药盒和本次发放援助药品空药盒"; else echo "2.请回收患者本次发放援助药品空药盒"?>      
+
                 <?php
-                    if($lynum  % 3 == 1){
+                    if(($lynum + 2) % 3 == 0){
                         echo "3、请粘贴黄色不粘贴";
                     } else {
                         echo "3、请粘贴红色不粘贴";
@@ -572,6 +593,67 @@ $_SESSION['fycode'] = $fycode;      //将此随机数暂存入到session
     }
 
     function check(){
+		if(!$("#c0").attr("checked") || !$("#c1").attr("checked") || !$("#c2").attr("checked")){
+			alert('安全性评估3项检查必做 ！');
+			return false;
+		}
+        
+    	if(!$("#aqxpg_time").val()){
+			alert('请选择安全性评估 -检查报告日期！');
+			$("#aqxpg_time").focus();
+			return false;
+		}
+    	if(!$("input[name='yfyl']:checked").val()){
+			alert('请选择处方签！');
+			return false;
+		}
+    	
+    	if(!$("#create_time").val()){
+			alert('请选择本次随访和填表时间！');
+			$("#create_time").focus();
+			return false;
+		}
+    	
+		if(!$("#lysj").val()){
+			alert('请选择本次领药时间！');
+			$("#lysj").focus();
+			return false;
+		}
+
+		if(isNaN($("#lysl").val()) || !$("#lysl").val()){
+			alert('请正确填写领药数量！');
+			$("#lysl").focus();
+			return false;
+		}
+
+		if(!$("#xclysj").val() || $("#xclysj").val().indexOf('NaN') != -1){
+			alert('请选择预估下次领药时间！');
+			$("#xclysj").focus();
+			return false;
+		}
+
+		if(!$("input[name='lylx']:checked").val()){
+			alert('请选择领药规格！');
+			return false;
+		}
+
+		if($("#ph1").val() == "未知批号"){
+			alert('请选择具体批号 ！');
+			return false;
+		}
+
+		if($("#hszgyyhs").length > 0 && !$("#hszgyyhs").val()){
+			alert('请填写回收自购药药盒数！');
+			$("#hszgyyhs").focus();
+			return false;
+		}
+
+		if(!$("#hzhxclysj").val()){
+			alert('请选择下次领药时间！');
+			$("#hzhxclysj").focus();
+			return false;
+		}
+		
 		try{
 				var xclysjt = Date.parse($("#hzhxclysj").val());//下次领药时间
 				if(Date.parse($("#aqxpg_time").val()) > xclysjt){

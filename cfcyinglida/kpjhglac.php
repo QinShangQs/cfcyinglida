@@ -48,6 +48,7 @@ $numresult = mysql_query ( $numquery );
 while ( $numRecord = mysql_fetch_array ( $numresult ) ) {
 	$tjshl = $numRecord [0] + $numRecord [1];
 }
+//var_dump($tjshl);die();
 
 if ($tjshl > 0) {
 	$dqrq = date ( 'Y-m-d' );

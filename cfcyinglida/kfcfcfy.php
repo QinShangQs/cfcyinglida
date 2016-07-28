@@ -83,6 +83,14 @@ include('spap_head.php');
             chooseDate('fyrq', true);
 
             function check(){
+                if($("#ph1").length > 0 && $("#ph1").val() == "未知批号"){
+					alert('请选择批号');
+					return false;
+                }
+                if($("#ph2").length > 0 && $("#ph2").val() == "未知批号"){
+					alert('请选择批号');
+					return false;
+                }
 				if($.trim($("#ydh").val()).length == 0){
 					alert('请填写运单号！');
 					return false;

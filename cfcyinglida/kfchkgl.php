@@ -96,14 +96,6 @@ include('spap_head.php');
     <input type="button" class="uusub" value="查收CFC发药指令" class="lgSub"
            onclick="javascript:{location.href='kfcfcfyzhl.php';}"/></div>
 <?php
-$kfrksql = "select SUM(bjshl) from `kfrk` where `gg`='12.5mg*28粒/瓶'";
-if ($shyrq != "") {
-    $kfrksql .= " where " . $shyrq;
-}//添加判断条件
-$kfrkQuery_ID = mysql_query($kfrksql);
-while ($kfrkRecord = mysql_fetch_array($kfrkQuery_ID)) {
-    $rkzsh1 = $kfrkRecord[0];
-}
 
 $kfrksql1mg = "select SUM(bjshl) from `kfrk` where gg like '1mg%'";
 if ($shyrq != "") {
@@ -113,7 +105,6 @@ $kfrkQuery_ID = mysql_query($kfrksql1mg);
 while ($kfrkRecord = mysql_fetch_array($kfrkQuery_ID)) {
 	$rkzsh11mg = $kfrkRecord[0];
 }
-
 $kfrksql5mg = "select SUM(bjshl) from `kfrk` where gg like '5mg%'";
 if ($shyrq != "") {
 	$kfrksql5mg .= " where " . $shyrq;
@@ -121,22 +112,6 @@ if ($shyrq != "") {
 $kfrkQuery_ID = mysql_query($kfrksql5mg);
 while ($kfrkRecord = mysql_fetch_array($kfrkQuery_ID)) {
 	$rkzsh15mg = $kfrkRecord[0];
-}
-$kfchksql = "select SUM(pfshl1) from `yfshqzy` where `shqzht`>='2'";
-if ($fyrq != "") {
-    $kfchksql .= " and " . $fyrq;
-}//添加判断条件
-$kfchkQuery_ID = mysql_query($kfchksql);
-while ($kfchkRecord = mysql_fetch_array($kfchkQuery_ID)) {
-    $chkzsh1 = $kfchkRecord[0];
-}
-$kfchksql = "select SUM(pfshl1) from `yfshqzy` where `shqzht`='2'";
-if ($fyrq != "") {
-    $kfchksql .= " and " . $fyrq;
-}//添加判断条件
-$kfchkQuery_ID = mysql_query($kfchksql);
-while ($kfchkRecord = mysql_fetch_array($kfchkQuery_ID)) {
-    $chkztzsh1 = $kfchkRecord[0];
 }
 
 $kfchksql1mg = "select SUM(pfshl1) from `yfshqzy` where `shqzht`='2' and gg1 = '1mg'";
@@ -162,7 +137,7 @@ while ($kfchkRecord = mysql_fetch_array($kfchkQuery_ID)) {
 
 <?php
 
-$zyfysql = "SELECT SUM(pfshl1) FROM `yfshqzy` where `shqzht`>'1'";
+$zyfysql = "SELECT SUM(pfshl1) FROM `yfshqzy` where `shqzht`='3'";
 if ($guanjiancisql != "") {
     $zyfysql .= " and " . $guanjiancisql;
 }

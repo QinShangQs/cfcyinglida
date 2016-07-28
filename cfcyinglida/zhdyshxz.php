@@ -70,7 +70,7 @@ while($Record = mysql_fetch_array($Query_ID)){
             <input class="grd-white2" id="zhdyshdh2" name="zhdyshdh2" style="width: 460px;" type="text" value="" />
         </div>
         <div class="top">
-            <span class="label">指定医生样张：</span>
+            <span class="label">指定医生样章：</span>
             <img src="/images/loading.gif" style="display:none;" id="loadimg" />
             <p id="img_div1"><img id="img_path1" width='100' height='100' /></p>
             <input type="button" onclick="tjyzh(1)" value="上传" class="uusub2" id="upload_button1">
@@ -84,7 +84,7 @@ while($Record = mysql_fetch_array($Query_ID)){
         <div class="top">
             <span class="label">授权一医生：</span><input class="grd-white2" id="shqysh1" name="shqysh1" style="width: 460px;" type="text" value="" /></div>
         <div class="top">
-            <span class="label">授权一医生样张：</span>
+            <span class="label">授权一医生签字：</span>
             <p id="img_div8"><img id="img_path8" width='100' height='100'/></p>
             <input type="button" onclick="tjyzh(8)" value="上传" class="uusub2" id="upload_button8">
         </div>
@@ -93,7 +93,7 @@ while($Record = mysql_fetch_array($Query_ID)){
         <div class="top">
             <span class="label">授权二医生：</span><input class="grd-white2" id="shqysh2" name="shqysh2" style="width: 460px;" type="text" value="" /></div>
         <div class="top">
-            <span class="label">授权二医生样张：</span>
+            <span class="label">授权二医生签字：</span>
             <p id="img_div3"><img id="img_path3" width='100' height='100'/></p>
             <input type="button" onclick="tjyzh(3)" value="上传" class="uusub2" id="upload_button3">
         </div>
@@ -102,7 +102,7 @@ while($Record = mysql_fetch_array($Query_ID)){
         <div class="top">
             <span class="label">授权三医生：</span><input class="grd-white2" id="shqysh3" name="shqysh3" style="width: 460px;" type="text" value="" /></div>
         <div class="top">
-            <span class="label">授权三医生样张：</span>
+            <span class="label">授权三医生签字：</span>
             <p id="img_div4"><img id="img_path4" width='100' height='100'/></p>
             <input type="button" onclick="tjyzh(4)" value="上传" class="uusub2" id="upload_button4">
         </div>

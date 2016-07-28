@@ -91,12 +91,13 @@ if($pihao != '未知批号'){
     
     $zyffArray = array(
     	'hzhid'=>$hzhid,
+    	'kpzht'=>1,#在药房
     	'lycsh'=>($lynum+1),	# 领药次数 
     	'lyshl'=>$lysl,	# 领药数量 --------  -
-    	'fyshl'=>$lysl,	# 发药数量 -------- 
-    	'fyjl'=>($lysx == "1" ? "5mg*28片/盒":"1mg*14片/盒"),#发药剂量(1 200mg,2 250mg) -------- 
+    	'fyshl'=>$_POST['hsyzypyhs'],	# 发药数量 --------  收援助药品药盒
+    	'fyjl'=>($lylx == "1" ? "5mg*28片/盒":"1mg*14片/盒"),#发药剂量(1 200mg,2 250mg) -------- 
     	'fyqshyl'=>$frqshyl,	#发药前剩余量 -------- 
-    	'jhkpshl'=>$_POST['hsyzypyhs'], #交回空瓶数量 -------- 
+    	'jhkpshl'=> $_POST['hszgyyhs'], #交回空瓶数量 -------- 回收自购药药盒数
     	'jhshyyyshl'=>0,	#交回剩余药物数量 -------- 
     	'lyr'=>$_POST['lyr'],	# 领药人 -------- 
     	'gx'=>'本人',# 关系 -------- 
@@ -120,6 +121,10 @@ if($pihao != '未知批号'){
     $xclyrq=$_POST['xclysj'];   
     $xcArr= array('hzhid'=>$hzhid,'xclyrq'=>$xclyrq);
     $db->insert('xclyrq', $xcArr);
+    
+    //减库存数量数量 $frqshyl（发药前数量 - 领药数量$lysl）
+    $db->query("update `kfrk` set  bjshl = bjshl - {$lysl}  where `ph` = '{$_POST['pihao']}'");
+    
     echo "成功！";
     header("refresh:2;url=/yshdfqdgl.php");
 ?>

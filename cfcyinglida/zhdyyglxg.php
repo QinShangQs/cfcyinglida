@@ -82,7 +82,7 @@ $(function () {
         <div>
             <span class="label">授权一联系方式：</span><input class="grd-white2" id="shqyshdh1" name="shqyshdh1" style="width: 460px;" type="text" value="<?php echo $Record[11];?>" /></div>
         <div>
-            <span class="label">授权一医生样章：</span><img src="qzyzh/<?php echo sprintf("%03d", $Record[0]);?>-8.jpg?r=<?php echo rand(0, 100);?>" width="105" height="45"/>  
+            <span class="label">授权一医生签字：</span><img src="qzyzh/<?php echo sprintf("%03d", $Record[0]);?>-8.jpg?r=<?php echo rand(0, 100);?>" width="105" height="45"/>  
   <input type="button" onclick="tjyzh(8)" value="上传" class="uusub2"></div>
         <div>
             <span class="label">授权二医生：</span><input class="grd-white2" id="shqysh2" name="shqysh2" style="width: 460px;" type="text" value="<?php echo $Record[12];?>" /></div>
@@ -90,7 +90,7 @@ $(function () {
         <div>
             <span class="label">授权二联系方式：</span><input class="grd-white2" id="shqyshdh2" name="shqyshdh2" style="width: 460px;" type="text" value="<?php echo $Record[14];?>" /></div>
         <div>
-            <span class="label">授权二医生样章：</span><img src="qzyzh/<?php echo sprintf("%03d", $Record[0]);?>-3.jpg?r=<?php echo rand(0, 100);?>" width="105" height="45"/>  
+            <span class="label">授权二医生签字：</span><img src="qzyzh/<?php echo sprintf("%03d", $Record[0]);?>-3.jpg?r=<?php echo rand(0, 100);?>" width="105" height="45"/>  
   <input type="button" onclick="tjyzh(3)" value="上传" class="uusub2"></div>
         <div>
             <span class="label">授权三医生：</span><input class="grd-white2" id="shqysh3" name="shqysh3" style="width: 460px;" type="text" value="<?php echo $Record[15];?>" /></div>
@@ -98,7 +98,7 @@ $(function () {
         <div>
             <span class="label">授权三联系方式：</span><input class="grd-white2" id="shqyshdh3" name="shqyshdh3" style="width: 460px;" type="text" value="<?php echo $Record[17];?>" /></div>
         <div>
-            <span class="label">授权三医生样章：</span><img src="qzyzh/<?php echo sprintf("%03d", $Record[0]);?>-4.jpg?r=<?php echo rand(0, 100);?>" width="105" height="45"/>  
+            <span class="label">授权三医生签字：</span><img src="qzyzh/<?php echo sprintf("%03d", $Record[0]);?>-4.jpg?r=<?php echo rand(0, 100);?>" width="105" height="45"/>  
   <input type="button" onclick="tjyzh(4)" value="上传" class="uusub2"></div>
         <div>
             <span class="label">医生培训期数：</span><input class="grd-white2" id="yshpxqsh" name="yshpxqsh" style="width: 460px;" type="text" value="<?php echo $Record[18];?>" /></div>

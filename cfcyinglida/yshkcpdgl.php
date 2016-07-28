@@ -147,7 +147,7 @@ include('spap_head.php');
                                 ?></td>
                             <?php
                             $mxsql = "select `ypph`,`qchkc`,`byrk`,`bychk`,`shjkc`,`zhtsd` from `kfkcpdmx` where `pdid`='" . $Record[0] . "'";
-                            echo $mxsql;
+                            
                             $mxQuery_ID = mysql_query($mxsql);
                             $mxi = 0;
                             $mxi1 = 0;

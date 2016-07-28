@@ -47,7 +47,7 @@ include('spap_head.php');
         <input class="grd-white" id="zhdyshdh2" name="zhdyshdh2" style="width: 360px;" type="text" value="" />*
     </span>
 </div>
-<div class="insinsins" style="width:100%;"><label>指定医生样张：</label>
+<div class="insinsins" style="width:100%;"><label>指定医生样章：</label>
     <span>
         <img src="/images/loading.gif" style="display: none;" id="loadimg"/>
         <p id="img_div1"><img id="img_path1" width="100" height="100"></p>
@@ -60,7 +60,7 @@ include('spap_head.php');
     </span></div>
 </div>
 <div class="insinsins" style="width:100%;"><label>授权一医生：</label><span><input class="grd-white" id="shqysh1" name="shqysh1" style="width: 460px;" type="text" value="" /></span></div>
-<div class="insinsins" style="width:100%;"><label>授权一医生样张：</label><span>
+<div class="insinsins" style="width:100%;"><label>授权一医生签字：</label><span>
         <p id="img_div8"><img id="img_path8" width='100' height='100'/></p>
             <input type="button" onclick="tjyzh(8)" value="上传" class="uusub2" id="upload_button8">
     </span></div>
@@ -75,14 +75,14 @@ include('spap_head.php');
     </span>
 </div>
 <div class="insinsins" style="width:100%;"><label>授权二医生：</label><span><input class="grd-white" id="shqysh2" name="shqysh2" style="width: 460px;" type="text" value="" /></span></div>
-<div class="insinsins" style="width:100%;"><label>授权二医生样张：</label><span>
+<div class="insinsins" style="width:100%;"><label>授权二医生签字：</label><span>
 <!--        <input class="grd-white" id="shqyshyzh2" name="shqyshyzh3" style="width: 460px;" type="file" value="" />-->
         <p id="img_div3"><img id="img_path3" width='100' height='100'/></p>
             <input type="button" onclick="tjyzh(3)" value="上传" class="uusub2" id="upload_button3">
     </span></div>
 <div class="insinsins" style="width:100%;"><label>授权二联系方式：</label><span><input class="grd-white" id="shqyshdh2" name="shqyshdh2" style="width: 460px;" type="text" value="" /></span></div>
 <div class="insinsins" style="width:100%;"><label>授权三医生：</label><span><input class="grd-white" id="shqysh3" name="shqysh3" style="width: 460px;" type="text" value="" /></span></div>
-<div class="insinsins" style="width:100%;"><label>授权三医生样张：</label><span>
+<div class="insinsins" style="width:100%;"><label>授权三医生签字：</label><span>
 <!--        <input class="grd-white" id="shqyshyzh3" name="shqyshyzh4" style="width: 460px;" type="file" value="" />-->
         <p id="img_div4"><img id="img_path4" width='100' height='100'/></p>
             <input type="button" onclick="tjyzh(4)" value="上传" class="uusub2" id="upload_button4">
