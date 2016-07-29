@@ -23,7 +23,7 @@ session_destroy();
 			<div class="left"><img src="./images/tp_left.gif" /></div>
 			<div class="right">
 				<div class="top">
-				<img src="./images/login_text.gif" />
+				<img src="./images/login_text.png" />
 				</div>
                                 <form action="indexac.php"  method="post">
                                     <div class="bottom">
