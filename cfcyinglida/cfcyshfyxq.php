@@ -10,7 +10,7 @@ include('spap_head.php');
 <?php
 $fyid=$_GET['id'];
 $sql = "select * from `zyff` where `id`='".$fyid."'";
-var_dump($sql);
+
 $Query_ID = mysql_query($sql);
 while($Record = mysql_fetch_array($Query_ID)){
 ?>
