@@ -181,16 +181,6 @@ include('pagefy.php');
         </tr>
 <?php        
 
-  
-
-  /*$sql = "select * from `zyff` where `tshqk`='0' and (`fyr`='".$yhid."' ";
-for($i=0;$i<count($yshid);$i++)
-{
-  if($yshid[$i]!=null){
-    $sql .= " or `fyr`='".$yshid[$i]."' ";
-  }
-}
-  $sql .= ")";*/
 $sql = "select * from `zyff` where `tshqk`='0' and `yfmch`='$yhgldw' ";  
 if($guanjianci!=""){
 $sql .=" and ".$guanjianci;
@@ -211,7 +201,6 @@ $sql .= " order by id DESC limit $page $pagesize ";
           echo "<td width=\"10%\" align=\"center\" bgcolor=\"#FFFFFF\">I-" . $hzhRecord[0] . "</td>";
           echo "<td width=\"10%\" align=\"center\" bgcolor=\"#FFFFFF\">" . $Record[5] . "</td>";
 
-
           echo "<td width=\"8%\" align=\"center\" bgcolor=\"#FFFFFF\">" . $Record[4] . "</td>";
           echo "<td width=\"8%\" align=\"center\" bgcolor=\"#FFFFFF\">";
           if ($Record[7] != "" && $Record[7] > 0) {
@@ -219,15 +208,11 @@ $sql .= " order by id DESC limit $page $pagesize ";
           } else {
               echo 0;
           }
-//          if($Record[7]!=""){echo $Record[7]."/";}else{echo "0/";}
-//          if($Record[8]!=""){echo $Record[8];}else{echo "0";}
+
           echo "</td>";
-//      echo "<td width=\"8%\" align=\"center\" bgcolor=\"#FFFFFF\"><a href=\"yshfyxq.php?id=".$Record[0]."\">详细</a></td>";
           echo "<td width=\"8%\" align=\"center\" bgcolor=\"#FFFFFF\">" . $Record[21] . "</td>";
           echo "<td width=\"8%\" align=\"center\" bgcolor=\"#FFFFFF\">";
           echo $Record[6];
-//        if($Record[23]!=""){echo "瓶:";if($Record[23]=="1"){ echo "在药房";}else if($Record[23]=="2"){ echo "在CFC";}else{ echo "在国大";}echo "</br>";}else{echo "无</br>";}
-//        if($Record[24]!=""){echo "药:";if($Record[24]=="1"){ echo "在药房";}elseif($Record[24]=="2"){ echo "在CFC";}else{ echo "在国大";} }else{echo "无";}
           echo "</td>";
 
           echo "<td width=\"8%\" align=\"center\" bgcolor=\"#FFFFFF\">";
@@ -238,27 +223,10 @@ $sql .= " order by id DESC limit $page $pagesize ";
           }
           echo "</td>";
           echo "<td width=\"12%\" align=\"center\" bgcolor=\"#FFFFFF\">";
-          /*$yshsql = "select `yhyl1` from `manager` where `id`='".$Record[18]."'";
-          $yshQuery_ID = mysql_query($yshsql);
-          while($yshRecord = mysql_fetch_array($yshQuery_ID)){
-            echo $yshRecord[0];
-          }*/
           echo $Record[18];
           echo "</td>";
-//          if ($Record[9] != '0') {
-//              $zhxqshsql = "select `xm`,`lxfsh` from `zhxqsh` where `id`='" . $Record[9] . "'";
-//              //echo $zhxqshsql;
-//              $zhxqshQuery_ID = mysql_query($zhxqshsql);
-//              while ($zhxqshRecord = mysql_fetch_array($zhxqshQuery_ID)) {
-//                  $zhxqshxm = $zhxqshRecord[0];
-//                  $zhxqshlxfsh = $zhxqshRecord[1];
-//                  echo "<td width=\"8%\" align=\"center\" bgcolor=\"#FFFFFF\">" . $zhxqshxm . "</td>";
-//                  echo "<td width=\"10%\" align=\"center\" bgcolor=\"#FFFFFF\">" . $zhxqshlxfsh . "</td>";
-//              }
-//          } else {
-              echo "<td width=\"10%\" align=\"center\" bgcolor=\"#FFFFFF\">$hzhRecord[1]</td>";
-//              echo "<td width=\"8%\" align=\"center\" bgcolor=\"#FFFFFF\">" . $hzhshj . "</td>";
-//          }
+          echo "<td width=\"10%\" align=\"center\" bgcolor=\"#FFFFFF\">$hzhRecord[1]</td>";
+
       }
     echo "</tr>";
 }

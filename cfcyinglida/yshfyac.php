@@ -3,15 +3,27 @@
 include('wdb.php');
 $db = new DB();
 
-$frqshyl = 0;// 发药前剩余数量
-if($pihao != '未知批号'){
-	$fyqshylArr = $db->getRow("select bjshl from `kfrk` where `ph` = '{$_POST['pihao']}'");
-	$frqshyl = !empty($fyqshylArr) ? $fyqshylArr['bjshl']:0;
-}
-
     $hzhid = $_POST['id'];//患者id
     $fyr=$_SESSION['yhname'];//发药人id
     $yfmch=$_SESSION['gldw'];//发药人单位
+    $pihao = $_POST['pihao'];
+    
+    $frqshyl = 0;// 发药前剩余数量
+    if($pihao != '未知批号' && !empty($pihao)){
+    	$kfrkArr = $db->getRow("select id,bjshl from `kfrk` where `ph` = '{$pihao}'");
+    	$pihaoId = $kfrkArr['id'];
+    	//当前本批号库存数量
+    	$pihaokcArr = $db->getRow("select SUM(`pfshl1`) as s from `yfshqzy` where `ph1`='".$pihaoId."' and `yfmch`='".$yfmch."'");
+    	//当前本批号赠药发放数   
+    	$zyffslArr = $db->getRow("SELECT SUM(fyshl) as s FROM `zyff` where `yfmch`='".$yfmch."' and `ypph` = '".$pihao."'");
+    	//当前本批号库存数量 -当前本批号赠药发放数 = 当前本批号库存可用数  （剩余数量）
+    	$frqshyl = intval($pihaokcArr['s']) - intval($zyffslArr['s']);
+
+    }else{
+    	echo "失败，必须选择批号！";
+    	header("refresh:2;url=/yshdfqdgl.php");
+    	exit;
+    }
     
     //患者所需携带资料
     $patsfz = $_POST['patsfz']; //患者身份证是否打勾
@@ -68,7 +80,7 @@ if($pihao != '未知批号'){
     $yfyl = $_POST['yfyl']; //用法用量
     $lylx = $_POST['lylx']; //领药类型
     $lysl = $_POST['lysl']; //领药数量
-    $pihao = $_POST['pihao']; //批号
+    //$pihao = $_POST['pihao']; //批号
     $lysj = $_POST['lysj']; //领药时间
     $xclysj = $_POST['xclysj']; //下次领药时间
     $hszgyyhs = $_POST['hszgyyhs'];//回收自购药药盒数
@@ -85,8 +97,6 @@ if($pihao != '未知批号'){
     		,'hszgyyhs'=>$hszgyyhs,'hsyzypyhs'=>$hsyzypyhs
     );
     $istrue2 = $db->insert('fayao_cflyinfo', $dataArray2);
-  
-
     
     
     $zyffArray = array(
@@ -115,16 +125,18 @@ if($pihao != '未知批号'){
     	'tshqk'=>0
     );
     $db->insert('zyff', $zyffArray);
-    //当前本批号库存数量
-//     $shdshlsql="select SUM(`pfshl1`) from `yfshqzy` where `ph1`='".$ypph."' and `yfmch`='".$yfmch."'";
+    
     //下次领药时间
     $xclyrq=$_POST['xclysj'];   
     $xcArr= array('hzhid'=>$hzhid,'xclyrq'=>$xclyrq);
     $db->insert('xclyrq', $xcArr);
     
-    //减库存数量数量 $frqshyl（发药前数量 - 领药数量$lysl）
-    $db->query("update `kfrk` set  bjshl = bjshl - {$lysl}  where `ph` = '{$_POST['pihao']}'");
-    
+    //修改特殊发药申请状态
+    $tsfyArr = $db->getRow("select * from `tshzhtzyfywu` where `hzhid`='{$hzhid}' and `shqzht`='1'");
+    if(!empty($tsfyArr)){
+    	$db->query("update `tshzhtzyfywu` set `shqzht` = 0 where `id` = '{$tsfyArr['id']}'");
+    }
+
     echo "成功！";
     header("refresh:2;url=/yshdfqdgl.php");
 ?>

@@ -31,8 +31,9 @@ include('spap_head.php');
       if($Record[14]=="1"){echo "checked=\"checked\"";}
       echo "/><label for=\"IsApproved\">启用</label><input id=\"IsApproved\" name=\"IsApproved\" type=\"radio\" value=\"0\" ";
       if($Record[14]!="1"){echo "checked=\"checked\"";}
-      echo "/><label for=\"IsApproved\">禁用</label></td></tr></table><p><input type=\"submit\" value=\"保存\" class=\"lgSub\" /><input type=\"button\"  onclick=\"javascript:{history.go(-1);}\" value=\"返回\" class=\"lgSub\" /></p>";
+      echo "/><label for=\"IsApproved\">禁用</label></td></tr></table><p><input type=\"submit\" value=\"保存\" class=\"lgSub\" />&nbsp;&nbsp;<input type=\"button\"  onclick=\"javascript:{history.go(-1);}\" value=\"返回\" class=\"lgSub\" /></p>";
       $jshi = '1';
+      echo "<input type=hidden name=dwmch value='{$Record[6]}' />";
   }
     if($jshi=='0')
     {echo "错误!用户不存在或其他问题！<META HTTP-EQUIV=\"Refresh\" CONTENT=\"2; URL=yhgl.php\">";}

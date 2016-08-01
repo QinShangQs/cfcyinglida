@@ -66,9 +66,9 @@ include('spap_head.php');
                         //判断该药房是否因为实际库存数目不对导致药方锁定
                         if($kfisLock == 0){
                         ?>
-                        <a href="yshkcpdxz.php">新增库存盘点</a>
-                    <?php
-                    }
+	                        <a href="yshkcpdxz.php">新增库存盘点</a>
+	                    <?php
+	                    }
                     }
                     ?></span>
             </div>

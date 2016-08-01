@@ -12,12 +12,12 @@ while ($xtggxxRecord = mysql_fetch_array($xtggxxQuery_ID)) {
     $xtggxxggnr = $xtggxxRecord[0];//读取数据库，盘点当月 1 或者 上月 0
 }
 
-$dayyd = date("d", strtotime("+1 day"));
+$dayyd = date("d", strtotime("+1 day")); 
 if (($ri >= 1 && $ri <= 5) || $xtggxx == 1 || $dayyd == 1 || $yzhyfshfpdzht == 1) {
-    if ($xtggxxggnr == 1 || $dayyd == 1) {
-        $dzhny = date('Y-m');
+    if($ri >= 1 && $ri <= 5){      
+    	$dzhny = date('Y-m', strtotime("-1 month", strtotime(date('Y-m'))));
     } else {
-        $dzhny = date('Y-m', strtotime("-1 month", strtotime(date('Y-m'))));
+    	$dzhny = date('Y-m');
     }
 
     $html_title = "库房库存盘点新增";
