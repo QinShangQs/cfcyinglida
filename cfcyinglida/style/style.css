@@ -34,16 +34,17 @@
 	text-align:center;
 }
 .wrap .head .head_info .head_right .head_right_middle {
-	width:783px;
-	height:24px;
-	vertical-align:middle;
-	padding-left:34px;
-	text-align:left;
-	float:left;
-	color:#FFFFFF;
+	width: 783px;
+    height: 24px;
+    vertical-align: middle;
+    text-align: right;
+    float: left;
+    color: black;
+    padding-top: 25px;
+    font-size: 18px;
 }
 .wrap .head .head_info .head_right .head_right_middle a {
-	color:#FFFFFF;
+	color:black;
 }
 .wrap .head .head_info .head_right .head_right_middle a:hover {
 	color:#FFFFFF;

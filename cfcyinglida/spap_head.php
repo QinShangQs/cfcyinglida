@@ -29,7 +29,7 @@ include('xpap_head.php');
 		<div class="head_info">
 			<div class="head_left"><a href="manager.php"><img src="./images/tp_left.gif" /></a></div>
 			<div class="head_right">
-				<div class="head_right_top"><img src="./images/head_right_top.gif" /></div>
+				<div class="head_right_top"><img src="./images/head_right_top.gif" width=817 height=145 /></div>
 				<div class="head_right_middle">欢迎您，<?php echo $_SESSION[yhname];?> <a href="/">注销</a> <?php 
               if($_SESSION[yhln]=='admin'&&$_SESSION[yhshf]=='3'){
             ?>

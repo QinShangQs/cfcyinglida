@@ -1,9 +1,15 @@
 ﻿/* CSS Document */
 @import"master.css";/* CSS 主文件 */
+body{
+	background:url(../images/login_bg.jpg) center ;
+	background-size:100%;
+	background-position-y: 0px;
+	background-repeat: no-repeat;
+}
+
 .index_wrap {
 	float:left;
 	position:absolute;
-	background:url(../images/login_bg.jpg) -50px center repeat;
 }
 .index_wrap table td {
 	height:100%;
@@ -16,10 +22,9 @@
 	position:absolute;
 }
 .index_wrap .index_inputs {
-	height:144px;
-	background:#ca4c5a;
+	height:184px;
 	width:100%;
-	bottom:120px;
+	bottom:200px;
 	position:absolute;
 	overflow:hidden;
 }
@@ -40,17 +45,18 @@
 }
 .index_wrap .index_inputs .index_ins .right .top {
 	width:817px;
-	text-align:center;
+	text-align:right;
 	float:left;
-	height:86px;
+	height:140px;
 }
 .index_wrap .index_inputs .index_ins .right .bottom {
-	width:724px;
+	width:824px;
 	height:58px;
-	padding-left:93px;
 	float:left;
 	font-size:14px;
-	color:#FFFFFF;
+	color:black;
+	font-family: '微软雅黑';
+
 }
 .index_wrap .index_inputs .index_ins .right .bottom li {
 	line-height:34px;
