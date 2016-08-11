@@ -7,18 +7,31 @@ $db = new DB();
     $fyr=$_SESSION['yhname'];//发药人id
     $yfmch=$_SESSION['gldw'];//发药人单位
     $pihao = $_POST['pihao'];
-    
+    $lylx = $_POST['lylx']; //领药类型
+    $fyjl = ($lylx == "1" ? "5mg*28片/盒":"1mg*14片/盒");
+    $woguige = ($lylx == "1" ? "5mg":"1mg");
+
     $frqshyl = 0;// 发药前剩余数量
     if($pihao != '未知批号' && !empty($pihao)){
-    	$kfrkArr = $db->getRow("select id,bjshl from `kfrk` where `ph` = '{$pihao}'");
-    	$pihaoId = $kfrkArr['id'];
-    	//当前本批号库存数量
-    	$pihaokcArr = $db->getRow("select SUM(`pfshl1`) as s from `yfshqzy` where `ph1`='".$pihaoId."' and `yfmch`='".$yfmch."'");
+    	//当前本批号库存数量,已收到状态
+    	$pihaokcArr = $db->getRow("select SUM(`pfshl1`) as s from `yfshqzy` where `shqzht`='3' and gg1 = '".$woguige."' and `yfmch`='".$yfmch."'");
     	//当前本批号赠药发放数   
-    	$zyffslArr = $db->getRow("SELECT SUM(fyshl) as s FROM `zyff` where `yfmch`='".$yfmch."' and `ypph` = '".$pihao."'");
+    	$zyffslArr = $db->getRow("SELECT SUM(fyshl) as s FROM `zyff` where `yfmch`='".$yfmch."' and `fyjl` like '".$woguige."%'");
+    	
+    	$pihaokc = 0;
+    	$zyffsl = 0;
+    	if(!empty($pihaokcArr['s']))
+    		$pihaokc = intval($pihaokcArr['s']);
+    	if(!empty($zyffslArr['s']))
+    		$zyffsl = intval($zyffslArr['s']);
+    		
     	//当前本批号库存数量 -当前本批号赠药发放数 = 当前本批号库存可用数  （剩余数量）
-    	$frqshyl = intval($pihaokcArr['s']) - intval($zyffslArr['s']);
-
+    	$frqshyl = $pihaokc - $zyffsl;
+    	if($frqshyl <= 0){
+    		echo "失败，库存不足！";
+    		header("refresh:2;url=/yshdfqdgl.php");
+    		exit;
+    	}    	
     }else{
     	echo "失败，必须选择批号！";
     	header("refresh:2;url=/yshdfqdgl.php");
@@ -78,7 +91,7 @@ $db = new DB();
     
     //处方与领药信息
     $yfyl = $_POST['yfyl']; //用法用量
-    $lylx = $_POST['lylx']; //领药类型
+
     $lysl = $_POST['lysl']; //领药数量
     //$pihao = $_POST['pihao']; //批号
     $lysj = $_POST['lysj']; //领药时间
@@ -105,7 +118,7 @@ $db = new DB();
     	'lycsh'=>($lynum+1),	# 领药次数 
     	'lyshl'=>$lysl,	# 领药数量 --------  -
     	'fyshl'=>$_POST['hsyzypyhs'],	# 发药数量 --------  收援助药品药盒
-    	'fyjl'=>($lylx == "1" ? "5mg*28片/盒":"1mg*14片/盒"),#发药剂量(1 200mg,2 250mg) -------- 
+    	'fyjl'=>$fyjl,#发药剂量(1 200mg,2 250mg) -------- 
     	'fyqshyl'=>$frqshyl,	#发药前剩余量 -------- 
     	'jhkpshl'=> $_POST['hszgyyhs'], #交回空瓶数量 -------- 回收自购药药盒数
     	'jhshyyyshl'=>0,	#交回剩余药物数量 -------- 

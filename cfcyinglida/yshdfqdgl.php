@@ -148,30 +148,36 @@ while ( $yshtmRecord = mysql_fetch_array ( $yshtmQuery_ID ) ) {
  * }
  * $kcshshdsql .=")";
  */
-$kcshshdsql = "SELECT SUM(pfshl1) FROM `yfshqzy` where `shqzht`='3' and `yfmch`='$yhgldw'";
+#5mg计算
+$kcshshdsql = "SELECT SUM(pfshl1) FROM `yfshqzy` where `shqzht`='3' and `yfmch`='$yhgldw' and gg1 = '5mg'";
 $kcshshdQuery_ID = mysql_query ( $kcshshdsql );
 while ( $kcshshdRecord = mysql_fetch_array ( $kcshshdQuery_ID ) ) {
 	$kcshshd1 = $kcshshdRecord [0];
 }
-/*
- * $kcshfy1sql="SELECT SUM(fyshl) FROM `zyff` where `fyjl`='1' and (`fyr`='$yhid'";
- * for($i=0;$i<count($yfyshid);$i++)
- * {
- * if($yfid[$i]!=null){
- * $kcshfy1sql .= " or `fyr`='".$yfyshid[$i]."' ";
- * }
- * }
- * $kcshfy1sql .=")";
- */
-$kcshfy1sql = "SELECT SUM(fyshl) FROM `zyff` where  `yfmch`='$yhgldw'";
-// echo $kcshfy1sql;
+
+$kcshfy1sql = "SELECT SUM(fyshl) FROM `zyff` where `yfmch`='$yhgldw' and `fyjl` like '5mg%'";
 $kcshfy1Query_ID = mysql_query ( $kcshfy1sql );
 while ( $kcshfy1Record = mysql_fetch_array ( $kcshfy1Query_ID ) ) {
 	$kcshfy1 = $kcshfy1Record [0];
 }
+#1mg计算
+$kcshshdsql_1mg = "SELECT SUM(pfshl1) FROM `yfshqzy` where `shqzht`='3' and `yfmch`='$yhgldw' and gg1 = '1mg'";
+$kcshshdQuery_ID = mysql_query ( $kcshshdsql_1mg );
+while ( $kcshshdRecord = mysql_fetch_array ( $kcshshdQuery_ID ) ) {
+	$kcshshd1_1mg = $kcshshdRecord [0];
+}
+
+$kcshfy1sql_1mg = "SELECT SUM(fyshl) FROM `zyff` where `yfmch`='$yhgldw' and `fyjl` like '1mg%'";
+$kcshfy1Query_ID = mysql_query ( $kcshfy1sql_1mg );
+while ( $kcshfy1Record = mysql_fetch_array ( $kcshfy1Query_ID ) ) {
+	$kcshfy1_1mg = $kcshfy1Record [0];
+}
+
 ?>
     <div class="insinsins">
-					<span>&nbsp;&nbsp;预估待发药数：<?php echo $num." ";?>盒(5mg) 当前库存数：<?php echo $kcshshd1-$kcshfy1;?> 盒(5mg)  <?php /*(当前药房id: <?php echo $yshid." ";?>开发期间调用)*/?></span>
+					<span>&nbsp;&nbsp;预估待发药数：<?php echo $num." ";?>盒 &nbsp;&nbsp;当前库存数：<?php echo $kcshshd1-$kcshfy1;?> 盒(5mg) 
+					&nbsp;&nbsp;<?php echo $kcshshd1_1mg-$kcshfy1_1mg;?> 盒(1mg)
+					 <?php /*(当前药房id: <?php echo $yshid." ";?>开发期间调用)*/?></span>
 				</div>
 				<table width="100%" border="0" cellspacing="0" cellpadding="5"
 					class="top">
