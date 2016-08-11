@@ -221,6 +221,7 @@ if ($guanjianci1 != "") {
 	$sql .= " and " . $guanjianci1;
 }
 $sql .= " GROUP BY a.`id` order by b.`xclyrq` ASC limit $page $pagesize ";
+
 $_SESSION [ygfysql] = $sql;
 //echo $sql;
 $Query_ID = mysql_query ( $sql );
@@ -361,7 +362,7 @@ while ( $Record = mysql_fetch_array ( $Query_ID ) ) {
 					</tr>
 				</table>
 				超过时间未领药的患者：
-				<table width="100%" border="0" cellpadding="5" cellspacing="1"
+				<table id="chaoshi" width="100%" border="0" cellpadding="5" cellspacing="1"
 					bgcolor="#cdcdcd">
 					<tr style="color: #1f4248; font-weight: bold; height: 30px;">
 
@@ -393,7 +394,7 @@ if ($guanjianci1 != "") {
 	$sql .= " and " . $guanjianci1;
 }
 $sql .= " GROUP BY a.`id` order by b.`xclyrq` ASC limit $page $pagesize ";
-// echo $sql;
+
 $Query_ID = mysql_query ( $sql );
 while ( $Record = mysql_fetch_array ( $Query_ID ) ) {
 	// $hzhshcyyshj=$Record[30];
@@ -453,17 +454,7 @@ while ( $Record = mysql_fetch_array ( $Query_ID ) ) {
 		} else {
 			echo "日期错误";
 		}
-	} 	/*
-	 * else if($lynum=="0"&&$hzhjzhlx=="部分"){
-	 * if($hzhshcyyshj!=""){
-	 * $hzhzfjzhshl=12-$hzhjzhshl;
-	 * $hzhzfyyday=$hzhzfjzhshl*30;
-	 * echo date('Y-m-d',strtotime('+'.$hzhzfyyday.' day',strtotime($hzhshcyyshj)));
-	 *
-	 * //date('Y-m-d',strtotime('-7 day',strtotime($hzhshcyyshj)));
-	 * }else{echo "日期错误";}
-	 * }
-	 */
+	} 
 	else if ($lynum > "0") {
 		if ($ygxcfyrqshj != "") {
 			echo $ygxcfyrqshj;
@@ -500,24 +491,9 @@ while ( $Record = mysql_fetch_array ( $Query_ID ) ) {
 		} else {
 			echo "发药";
 		}
-	}  /*
-	   * else if($lynum=="0"&&$hzhjzhlx=="部分"){
-	   * if($hzhshcyyshj!=""){
-	   * $hzhzfjzhshl=12-$hzhjzhshl;
-	   * $hzhzfyyday=$hzhzfjzhshl*30;
-	   * $hzhshcyyshj_List=explode("-",date('Y-m-d',strtotime('+'.$hzhzfyyday.' day',strtotime($hzhshcyyshj))));
-	   * $hzhshcyyshj_d=mktime(0,0,0,$hzhshcyyshj_List[1],$hzhshcyyshj_List[2],$hzhshcyyshj_List[0]);
-	   * $Days=round(($nowdate_d-$hzhshcyyshj_d)/3600/24);
-	   * if($Days>=-7&&$Days<=23){echo "<a href=\"yshfy.php?id=".$Record[0]."\">发药</a>";}else{echo "发药";}
-	   * }else{echo "发药";}
-	   * }
-	   */
+	}  
 else if ($lynum > "0") {
-// 		$ygxcfyrqq = mysql_query ( "SELECT ygxcfyrq FROM `zyff` where `tshqk`='0' and `hzhid`='" . $Record [0] . "' order by id DESC limit 0,1" );
-// 		while ( $ygxcfyrq = mysql_fetch_array ( $ygxcfyrqq ) ) {
-// 			$ygxcfyrqshj = $ygxcfyrq [0];
-// 		}
-//var_dump($ygxcfyrqshj); 
+
 		if ($ygxcfyrqshj != "" || $shqidchq > 0) {
 			$ygxcfyshj_List = explode ( "-", $ygxcfyrqshj );
 			$ygxcfyshj_d = mktime ( 0, 0, 0, $ygxcfyshj_List [1], $ygxcfyshj_List [2], $ygxcfyshj_List [0] );
@@ -535,24 +511,7 @@ else if ($lynum > "0") {
 					</tr>
 
 <?php
-} /*
-   * echo "<tr><td><a href=\"shqxq.php?id=".$Record[0]."\">查看</a></td>";
-   * echo "<td><span class=RuxianaiColor>".$Record[7]."</span></td>";
-   * echo "<td><span style=\"display: inline-block; width: 60px;\">".$Record[4]."</span><span style=\"display: inline-block; width: 50px; text-align: right;\" class=RuxianaiColor>申请号</span><span style=\"display: inline-block; width: 50px; text-align: right;\" class=RuxianaiColor>编号</span><br />".$Record[6]."</td>";
-   * echo "<td style=\"text-align: center;\">".$Record[3]."</td>";
-   * echo "<td>";
-   * if($Record[31]!=""){echo $Record[31];}else{echo "无";} echo "<br />";
-   * if($Record[34]!=""){echo $Record[34];}else{echo "无";} echo "</td><td>";
-   * if($Record[33]!=""){echo $Record[33];}else{echo "无";} echo "<br />";
-   * if($Record[32]!=""){echo $Record[32];}else{echo "无";} echo "</td>";
-   * echo "<td>".$Record[35]."</td><td>";
-   * $yysql = "select dq,yymch,zhdysh from `yyyshdq` where id='".$Record[9]."'";
-   * $yyQuery_ID = mysql_query($yysql);
-   * while($yyRecord = mysql_fetch_array($yyQuery_ID)){
-   * echo $yyRecord[0]." ".$yyRecord[1]." ".$yyRecord[2];
-   * }
-   * echo "<br /></td></tr>";
-   */
+} 
 ?>        
 
         
@@ -623,6 +582,18 @@ else if ($lynum > "0") {
 	</div>
 	</body>
 	<script type="text/javascript">
+	//删除超时中，内有超过一个月发药日期的数据
+	$("#chaoshi tr").each(function(i,e){
+		var csday = "<?php echo date ( 'Y-m-d', strtotime ( '-1 month', strtotime ( date ( 'Y-m-d' ) ) ) );?>"
+		if(i != 0){
+			var dd = $(e).find('td').eq(4).text();
+			if(Date.parse(dd) > Date.parse(csday)){
+				$(e).remove();
+			}	
+		}
+	});
+
+	
 function padLeft(str, lenght) {
   if (str.length >= lenght){
   //alert(str.length+'b'+lenght);
