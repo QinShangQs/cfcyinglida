@@ -97,7 +97,10 @@ $db = new DB();
     $lysj = $_POST['lysj']; //领药时间
     $xclysj = $_POST['xclysj']; //下次领药时间
     $hszgyyhs = $_POST['hszgyyhs'];//回收自购药药盒数
-    $hsyzypyhs = $_POST['hsyzypyhs'];//回收援助药品药盒
+    $hsyzypyhs = $_POST['hsyzypyhs'];//回收援助药品药盒   
+    $xclyrq=$_POST['xclysj']; //下次领药时间
+    
+    //下面连个判断应该没用
     if(empty($lysj)){
         $lysj = date('Y-m-d', time());
     }
@@ -128,8 +131,8 @@ $db = new DB();
     	'rzyy'=>$_POST['rzyy'],	# 入组医院 --------             -
     	'zhshrzrq'=>$_POST['zhshrzrq'],# 正式入组日期
     	'ygxcfyrq'=>$xclyrq,# 预估下次发药日期 -------- 
-    	'ygshcyyjshrq'=>'',	# 预估上次用药结束日期 -------- 
-    	'ygbcyykshrq'=>'',# 预估本次用药开始日期 -------- 
+    	'ygshcyyjshrq'=>$_POST['ygscyyjshrq'],	# 预估上次用药结束日期 -------- 
+    	'ygbcyykshrq'=>$_POST['benciyongyaoshijian'],# 预估本次用药开始日期 -------- 
     	'bzh'=>'',	#病种 -------- 
     	'fyr'=>$fyr,	#发药人 -------- 
     	'yfmch'=>$yfmch,# 药房名称 -------- 
@@ -139,8 +142,7 @@ $db = new DB();
     );
     $db->insert('zyff', $zyffArray);
     
-    //下次领药时间
-    $xclyrq=$_POST['xclysj'];   
+   
     $xcArr= array('hzhid'=>$hzhid,'xclyrq'=>$xclyrq);
     $db->insert('xclyrq', $xcArr);
     

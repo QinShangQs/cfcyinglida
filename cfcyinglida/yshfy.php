@@ -19,13 +19,18 @@ $db = new DB();
         <form action="yshfyac.php" method="post" onsubmit="return check()">
 <?php
   $hzhid = $_GET['id'];
-  $sql = "select * from `hzh` where `id`='$hzhid'";
+ 
 
+  //患者信息
+  $sql = "select * from `hzh` where `id`='$hzhid'";
   $Query_ID = mysql_query($sql);
   while($Record = mysql_fetch_array($Query_ID)){
-    $ygshcyyjshrqq=mysql_query("SELECT ygshcyyjshrq FROM `zyff` where `hzhid`='".$Record[0]."' order by `id` desc limit 0,1");
+    $ygshcyyjshrqq=mysql_query("SELECT fyrq,ygshcyyjshrq FROM `zyff` where `hzhid`='".$Record[0]."' order by `id` desc limit 0,1");
     while($ygshcyyjshrqs = mysql_fetch_array($ygshcyyjshrqq)){
-    $ygshcyyjshrq=$ygshcyyjshrqs[0];}
+    	$ygshcyyjshrq=$ygshcyyjshrqs[1];//预估上次用药结束日期
+    	if(empty($ygshcyyjshrq))
+    		$ygshcyyjshrq=$ygshcyyjshrqs[0];//避免旧数据为null
+    }
     $hzhzjhm=$Record[5].$Record[6];
 ?>
         <div>
@@ -442,8 +447,10 @@ $_SESSION['fycode'] = $fycode;      //将此随机数暂存入到session
     </table>
 </div>
 
-
-
+	<!-- 预估本次用药开始日期 -->
+	<input type="hidden" name="benciyongyaoshijian" id="benciyongyaoshijian" value=""/>
+	<!--  预估上次用药结束日期  -->
+	<input type="hidden" name="ygscyyjshrq" id="ygscyyjshrq" value=""/>
     </div>
     <div class="top">
         <input id="submitBtn" type="submit" value="保存" class="uusub" /> <input type="button"  onclick="javascript:{history.go(-1);}" value="返回" class="uusub2" />
@@ -454,6 +461,18 @@ $_SESSION['fycode'] = $fycode;      //将此随机数暂存入到session
     </div></div>
 </body>
 </html>
+
+<?php 
+ 
+
+  $sql = "select * from sfshc where hzhid = ".$hzhid;
+  $Query_ID = mysql_query($sql);
+  while($Record = mysql_fetch_array($Query_ID)){
+  	$shoucifayaoriqi = $Record[6];//time
+  }
+  //获取首次发药日期,预估上次用药结束日期
+  echo "<script>var shoucifayaoriqi = '$shoucifayaoriqi'; var ygshcyyjshrq = '$ygshcyyjshrq'; </script>";
+?>
 
     <script type="text/javascript">		
 		$(document).ready(function(){
@@ -510,13 +529,30 @@ $_SESSION['fycode'] = $fycode;      //将此随机数暂存入到session
     //预估下次领药时间
     function ygxcshj()
     {
-        var dctime = $("#lysj").val();
-        var lynum = $("#lynum").val();
-        if(lynum == 0) {
-            var xcdate = AddDays(dctime, 21);
-        } else {
-            xcdate = AddDays(dctime, 28);
+        var dctime = $("#lysj").val();//发药时间、领药时间
+        var lynum = parseInt($("#lynum").val());
+
+        //预估本次用药开始日期
+        //上次用药结束日期=发药日期/首次服药日期+27天
+        var benciyongyaoshijian = shoucifayaoriqi;
+        if(lynum != 0) {
+        	benciyongyaoshijian = ygshcyyjshrq;
         }
+//         else{
+//         	benciyongyaoshijian = AddDays(shoucifayaoriqi, 21)
+//         }
+
+        //当 发药日期 早于 预估本次用药开始日期
+        if(Date.parse(dctime) < Date.parse(benciyongyaoshijian)) {
+            var ygscyyjshrq = AddDays(benciyongyaoshijian, 27);//预估上次用药结束日期 = 预估本次用药开始日期 + 27天
+            var xcdate = AddDays(ygscyyjshrq, -7);//-7 //预估下次发药日期= 预估上次用药结束日期 +1天-7天
+        } else {
+            //当 发药日期 晚于 预估本次用药开始日期
+            var ygscyyjshrq = AddDays(dctime, 27);//预估上次用药结束日期=发药日期+27天            
+            var xcdate = AddDays(ygscyyjshrq, -7);//预估下次发药日期=预估上次用药结束日期+1天-7天
+        }
+        $("#benciyongyaoshijian").val(benciyongyaoshijian);
+        $("#ygscyyjshrq").val(ygscyyjshrq);
         $("#xclysj").val(xcdate);
         $("#hzhxclysj").val(xcdate);
     }
