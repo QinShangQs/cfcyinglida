@@ -1,24 +1,24 @@
 <?php
 
 //+------------------------+ 
-//| pie3dfun.php//¹«ÓÃº¯Êý | 
+//| pie3dfun.php//ï¿½ï¿½ï¿½Ãºï¿½ï¿½ï¿½ | 
 //+------------------------+
 
-define("ANGLE_STEP", 5);    //¶¨Òå»­ÍÖÔ²»¡Ê±µÄ½Ç¶È²½³¤
+define("ANGLE_STEP", 5);    //ï¿½ï¿½ï¿½å»­ï¿½ï¿½Ô²ï¿½ï¿½Ê±ï¿½Ä½Ç¶È²ï¿½ï¿½ï¿½
 
-function draw_getdarkcolor($img,$clr)    //Çó$clr¶ÔÓ¦µÄ°µÉ« 
+function draw_getdarkcolor($img,$clr)    //ï¿½ï¿½$clrï¿½ï¿½Ó¦ï¿½Ä°ï¿½É« 
 { 
     $rgb    =    imagecolorsforindex($img,$clr); 
     return array($rgb["red"]/2,$rgb["green"]/2,$rgb["blue"]/2); 
 }
 
-function draw_getexy($a, $b, $d)    //Çó½Ç¶È$d¶ÔÓ¦µÄÍÖÔ²ÉÏµÄµã×ø±ê 
+function draw_getexy($a, $b, $d)    //ï¿½ï¿½Ç¶ï¿½$dï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ÏµÄµï¿½ï¿½ï¿½ï¿½ï¿½ 
 { 
     $d        =    deg2rad($d); 
     return array(round($a*Cos($d)), round($b*Sin($d))); 
 }
 
-function draw_arc($img,$ox,$oy,$a,$b,$sd,$ed,$clr)    //ÍÖÔ²»¡º¯Êý 
+function draw_arc($img,$ox,$oy,$a,$b,$sd,$ed,$clr)    //ï¿½ï¿½Ô²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 { 
     $n                    =    ceil(($ed-$sd)/ANGLE_STEP); 
     $d                    =    $sd; 
@@ -33,7 +33,7 @@ function draw_arc($img,$ox,$oy,$a,$b,$sd,$ed,$clr)    //ÍÖÔ²»¡º¯Êý
     } 
 }
 
-function draw_sector($img, $ox, $oy, $a, $b, $sd, $ed, $clr)    //»­ÉÈÃæ 
+function draw_sector($img, $ox, $oy, $a, $b, $sd, $ed, $clr)    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 { 
     $n                    =    ceil(($ed-$sd)/ANGLE_STEP); 
     $d                    =    $sd; 
@@ -52,7 +52,7 @@ function draw_sector($img, $ox, $oy, $a, $b, $sd, $ed, $clr)    //»­ÉÈÃæ
     imagefill($img, $x+$ox, $y+$oy, $clr); 
 }
 
-function draw_sector3d($img, $ox, $oy, $a, $b, $v, $sd, $ed, $clr)    //3dÉÈÃæ 
+function draw_sector3d($img, $ox, $oy, $a, $b, $v, $sd, $ed, $clr)    //3dï¿½ï¿½ï¿½ï¿½ 
 { 
     draw_sector($img, $ox, $oy, $a, $b, $sd, $ed, $clr); 
     if($sd<180) 
@@ -75,7 +75,7 @@ function draw_sector3d($img, $ox, $oy, $a, $b, $v, $sd, $ed, $clr)    //3dÉÈÃæ
         imagefill($img, $sx, $sy, $clr); 
     } 
 }
-function draw_getindexcolor($img, $clr)    //RBG×ªË÷ÒýÉ« 
+function draw_getindexcolor($img, $clr)    //RBG×ªï¿½ï¿½ï¿½ï¿½É« 
 { 
     $R        =    ($clr>>16) & 0xff; 
     $G        =    ($clr>>8)& 0xff; 
@@ -83,9 +83,9 @@ function draw_getindexcolor($img, $clr)    //RBG×ªË÷ÒýÉ«
     return imagecolorallocate($img, $R, $G, $B); 
 }
 
-// »æÍ¼Ö÷º¯Êý£¬²¢Êä³öÍ¼Æ¬ 
-// $datLst ÎªÊý¾ÝÊý×é, $datLst Îª±êÇ©Êý×é, $datLst ÎªÑÕÉ«Êý×é 
-// ÒÔÉÏÈý¸öÊý×éµÄÎ¬ÊýÓ¦¸ÃÏàµÈ 
+// ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Æ¬ 
+// $datLst Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, $datLst Îªï¿½ï¿½Ç©ï¿½ï¿½ï¿½ï¿½, $datLst Îªï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ 
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¬ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ 
 function draw_img($datLst,$labLst,$clrLst,$a=250,$b=120,$v=20,$font=10) 
 { 
     $ox        =    5+$a; 
@@ -93,39 +93,39 @@ function draw_img($datLst,$labLst,$clrLst,$a=250,$b=120,$v=20,$font=10)
     $fw        =    imagefontwidth($font); 
     $fh        =    imagefontheight($font);
 
-    $n        =    count($datLst);//Êý¾ÝÏî¸öÊý
+    $n        =    count($datLst);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
     $w        =    10+$a*2; 
     $h        =    10+$b*2+$v+($fh+2)*$n;
 
     $img    =    imagecreate($w, $h);
 
-    //×ªRGBÎªË÷ÒýÉ« 
+    //×ªRGBÎªï¿½ï¿½ï¿½ï¿½É« 
     for($i=0; $i<$n; $i++) 
         $clrLst[$i]    =    draw_getindexcolor($img,$clrLst[$i]);
 
     $clrbk    =    imagecolorallocate($img, 0xff, 0xff, 0xff); 
     $clrt    =    imagecolorallocate($img, 0x00, 0x00, 0x00);
 
-    //Ìî³ä±³¾°É« 
+    //ï¿½ï¿½ä±³ï¿½ï¿½É« 
     imagefill($img, 0, 0, $clrbk);
 
-    //ÇóºÍ 
+    //ï¿½ï¿½ï¿½ 
     $tot    =    0; 
     for($i=0; $i<$n; $i++) 
         $tot    +=    $datLst[$i];
         $sd        =    0; 
-    $ed        =    0; 333
+    $ed        =    0; 
     $ly        =    10+$b*2+$v; 
     for($i=0; $i<$n; $i++) 
     { 
         $sd    =    $ed; 
         $ed    +=    $datLst[$i]/$tot*360;
 
-        //»­Ô²±ý 
+        //ï¿½ï¿½Ô²ï¿½ï¿½ 
         draw_sector3d($img, $ox, $oy, $a, $b, $v, $sd, $ed, $clrLst[$i]);    //$sd,$ed,$clrLst[$i]);
 
-        //»­±êÇ© 
+        //ï¿½ï¿½ï¿½ï¿½Ç© 
         imagefilledrectangle($img, 5, $ly, 5+$fw, $ly+$fh, $clrLst[$i]); 
         imagerectangle($img, 5, $ly, 5+$fw, $ly+$fh, $clrt); 
         //imagestring($img, $font, 5+2*$fw, $ly, $labLst[$i].":".$datLst[$i]."(".(round(10000*($datLst[$i]/$tot))/100)."%)", $clrt);
@@ -135,19 +135,19 @@ function draw_img($datLst,$labLst,$clrLst,$a=250,$b=120,$v=20,$font=10)
         $ly        +=    $fh+2; 
     }
 
-    //Êä³öÍ¼ÐÎ 
+    //ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ 
     header("Content-type: image/png");
 
-    //Êä³öÉú³ÉµÄÍ¼Æ¬ 
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éµï¿½Í¼Æ¬ 
     $imgFileName = "../temp/".time().".png"; 
     imagepng($img,$imgFileName); 
-    echo '<IMG SRC="'.$imgFileName.'" BORDER="1" ALT="Í³¼Æ±ýÍ¼">'; 
+    echo '<IMG SRC="'.$imgFileName.'" BORDER="1" ALT="Í³ï¿½Æ±ï¿½Í¼">'; 
 }
 
-$datLst = array(30, 10, 20, 20, 10, 20, 10, 20);    //Êý¾Ý 
-$labLst = array("ÖÐ¹ú¿Æ¼¼´óÑ§", "°²»ÕÀí¹¤´óÑ§", "Çå»ª´óÑ§", "±±¾©´óÑ§", "ÄÏ¾©´óÑ§", "ÉÏº£´óÑ§", "ºÓº£´óÑ§", "ÖÐÉ½´óÑ§");    //±êÇ© 
+$datLst = array(30, 10, 20, 20, 10, 20, 10, 20);    //ï¿½ï¿½ï¿½ï¿½ 
+$labLst = array("ï¿½Ð¹ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½Ñ§", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§", "ï¿½å»ªï¿½ï¿½Ñ§", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§", "ï¿½Ï¾ï¿½ï¿½ï¿½Ñ§", "ï¿½Ïºï¿½ï¿½ï¿½Ñ§", "ï¿½Óºï¿½ï¿½ï¿½Ñ§", "ï¿½ï¿½É½ï¿½ï¿½Ñ§");    //ï¿½ï¿½Ç© 
 $clrLst = array(0x99ff00, 0xff6666, 0x0099ff, 0xff99ff, 0xffff99, 0x99ffff, 0xff3333, 0x009999);
 
-//»­Í¼ 
+//ï¿½ï¿½Í¼ 
 draw_img($datLst,$labLst,$clrLst); 
 ?>

@@ -29,7 +29,6 @@ if ($dwmch != "") {
 	$shfchfq = mysql_query ( $shfchfsql );
 	$shfchf = mysql_num_rows ( $shfchfq );
 	if ($shfchf == 0) {
-		
 		$phidsql = "select `ph1`,`ph2`,`phshl1`,`phshl2` from `yfshqzy` where `shqzht`='3'  and `jlshjch`>'$dzhnykshshjch' and `jlshjch`<'$dzhnyjshshjch' and `yfmch`='" . $yhgldw . "'";
 		$phidQuery_ID = mysql_query ( $phidsql );
 		while ( $phidRecord = mysql_fetch_array ( $phidQuery_ID ) ) {

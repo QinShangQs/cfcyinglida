@@ -19,6 +19,14 @@ if (($ri >= 1 && $ri <= 5) || $xtggxx == 1 || $dayyd == 1 || $yzhyfshfpdzht == 1
     } else {
     	$dzhny = date('Y-m');
     }
+    
+    //特殊情况盘点月
+    if($xtggxx == 1){
+    	if($xtggxxggnr == 1)
+    		$dzhny = date('Y-m');//当月
+    	else 
+    		$dzhny = date('Y-m', strtotime("-1 month", strtotime(date('Y-m'))));//上月
+    }
 
     $html_title = "库房库存盘点新增";
     include('spap_head.php');
@@ -34,6 +42,10 @@ if (($ri >= 1 && $ri <= 5) || $xtggxx == 1 || $dayyd == 1 || $yzhyfshfpdzht == 1
                 <div class="incontact w955 flt">
                     <?php
                     echo "<b>开始盘点" . $dzhny . "</b>";
+                    if($xtggxx == 1){
+                    	echo "<公告盘点>";
+                    }
+                    	
                     $pdrq = date('Y-m-d');
                     $pdr = $_SESSION['yhid'];
                     ?>
