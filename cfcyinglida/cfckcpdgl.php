@@ -20,18 +20,25 @@ if ($_GET[page]) {
     $page = ($pageval - 1) * $pagesize;
     $page .= ',';
 }
-if ($_GET[kshrq] != "" && $_GET[jshrq] != "") {
-    $kshrq = $_GET[kshrq];
-    $jshrq = $_GET[jshrq];
+$kshrq = $_GET[kshrq];
+$jshrq = $_GET[jshrq];
+if ($kshrq != "" && $jshrq != "") { 
     $guanjiancisql = "( `pdrq` >= '" . $kshrq . "' and `pdrq` <= '" . $jshrq . "' )";
-
     $numsql .= " and " . $guanjiancisql;
+}else if($kshrq != ''){
+	$numsql .= " and `pdrq` >= '" . $kshrq . "'";
+}else if($jshrq != ''){
+	$numsql .= " and `pdrq` <= '" . $jshrq . "'";
 }
+	
 if ($_GET[yf] != "") {//按药房
-
     $guanjiancisql = "`dwmch`='" . $_GET[yf] . "'";
     $numsql .= " and " . $guanjiancisql;
+}
 
+if($_GET['status'] != ''){
+	$guanjiancisql = "`status`='" . $_GET['status'] . "'";
+	$numsql .= " and " . $guanjiancisql;
 }
 
 $numq = mysql_query($numsql);
@@ -63,11 +70,17 @@ include('spap_head.php');
                                     -
                                     <input type="text" id="JiezhiRiqi" name="JiezhiRiqi" readonly="readonly"
                                            placeholder="请输入结束日期" size="12" value="" class="grd-white"/>&nbsp;&nbsp;
-                                    <input type="button" value="按盘点日期过滤" onclick="guolv();" class="uusub"/>
+                                           
+                                     
+                                     <select id="statusId" name="statusId" style="width:100px;" class="grd-white2">
+                                     	<option value="" <?php if ($_GET['status'] == "") { echo 'selected';} ?>>全部状态</option>
+                                     	<option value="0" <?php if ($_GET['status'] == "0") { echo 'selected';} ?>>正常</option>
+                                     	<option value="1" <?php if ($_GET['status'] == "1") { echo 'selected';} ?>>异常</option>                                     	  
+                                     </select>     &nbsp;&nbsp;
+                                    <input type="button" value="查询" onclick="search();" class="uusub"/>
                                 </div>
                                 <div style="padding-top: 5px;">
-                                    <select id="YaoFangId" name="YaoFangId" style="width:400px;" class="grd-white2"
-                                            onchange="guolvyf();">
+                                    <select id="YaoFangId" name="YaoFangId" style="width:400px;" class="grd-white2">
                                         <?php
                                         if ($_GET[yf] == "") {
                                             ?>
@@ -89,6 +102,7 @@ include('spap_head.php');
                                         }
                                         ?>
                                     </select>
+                                                            
                                 </div>
                                 <table width="100%" border="0" cellspacing="0" cellpadding="5" class="top">
                                     <tr>
@@ -105,6 +119,7 @@ include('spap_head.php');
                                         <td rowspan="2" align="center" bgcolor="#FFFFFF">覆盖日期</td>
                                         <td rowspan="2" align="center" bgcolor="#FFFFFF">盘点日期</td>
                                         <td rowspan="2" align="center" bgcolor="#FFFFFF">盘点人</td>
+                                        <td rowspan="2" align="center" bgcolor="#FFFFFF">状态</td>
                                         <td colspan="6" align="center" bgcolor="#FFFFFF">库存盘点明细</td>
                                     </tr>
                                     <tr style="color:#1f4248; font-weight:bold; height:30px;">
@@ -112,21 +127,13 @@ include('spap_head.php');
                                         <td align="center" bgcolor="#FFFFFF">月初库存量</td>
                                         <td align="center" bgcolor="#FFFFFF">本月收到数量</td>
                                         <td align="center" bgcolor="#FFFFFF">本月发放药品数量</td>
-                                        <td align="center" bgcolor="#FFFFFF">破损数量</td>
+                                        <td align="center" bgcolor="#FFFFFF" style="display:none">破损数量</td>
                                         <td align="center" bgcolor="#FFFFFF">实际库存</td>
                                     </tr>
 
                                     <?php
-                                    /*$sql = "select yfmch from `yf` ";
-                                    $Query_ID = mysql_query($sql);
-                                    while($Record = mysql_fetch_array($Query_ID)){$dwmch=$Record [0];}*/
-
-                                    //$sql = "select * from `kfkcpd` where `dwmch`='$dwmch'";
-                                    $sql = "select * from `kfkcpd` where '1'='1'";
-                                    if ($guanjiancisql != "") {
-                                        $sql .= " and " . $guanjiancisql;
-                                    }
-                                    $sql .= " order by id DESC limit $page $pagesize ";
+                                    
+                                    $sql =  $numsql." order by id DESC limit $page $pagesize ";
 
                                     $Query_ID = mysql_query($sql);
                                     while ($Record = mysql_fetch_array($Query_ID)) {
@@ -145,6 +152,7 @@ include('spap_head.php');
                                                 }
                                             ?>
                                         </td>
+                                        <td align="center" bgcolor="#FFFFFF"><?php echo $Record[7] == 1 ?"<font color='red'>异常</font>" :"正常"; ?></td>
                                         <?php
                                         $mxsql = "select `ypph`,`qchkc`,`byrk`,`bychk`,`shjkc` from `kfkcpdmx` where `pdid`='" . $Record[0] . "'";
                                         //echo $mxsql;
@@ -184,6 +192,7 @@ include('spap_head.php');
                                                           <td align=\"center\" bgcolor=\"#FFFFFF\"></td>
                                                           <td align=\"center\" bgcolor=\"#FFFFFF\"></td>
                                                           <td align=\"center\" bgcolor=\"#FFFFFF\"></td>
+                                    					  <td align=\"center\" bgcolor=\"#FFFFFF\"></td>
                                                           <td align=\"center\" bgcolor=\"#FFFFFF\"></td>";
                                                 }
                                                 ?>
@@ -192,7 +201,7 @@ include('spap_head.php');
                                                 <td align="center" bgcolor="#FFFFFF"><?php echo $mxRecord[1]; ?></td>
                                                 <td align="center" bgcolor="#FFFFFF"><?php echo $mxRecord[2]; ?></td>
                                                 <td align="center" bgcolor="#FFFFFF"><?php echo $mxRecord[3]; ?></td>
-                                                <td align="center" bgcolor="#FFFFFF"><?php echo $psypshl; ?></td>
+                                                <td align="center" bgcolor="#FFFFFF" style="display:none"><?php echo $psypshl; ?></td>
                                                 <td align="center" bgcolor="#FFFFFF"><?php echo $mxRecord[4]; ?></td>
                                                 </tr>
                                                 <?php
@@ -218,7 +227,11 @@ include('spap_head.php');
                                         }
                                         if ($mxi != $mxi1) {
                                             echo "<tr style=\"color:#1f4248; font-size:12px;\">
-      <td align=\"center\" bgcolor=\"#FFFFFF\"></td><td align=\"center\" bgcolor=\"#FFFFFF\"></td><td align=\"center\" bgcolor=\"#FFFFFF\"></td><td align=\"center\" bgcolor=\"#FFFFFF\"></td>";
+      											<td align=\"center\" bgcolor=\"#FFFFFF\"></td>
+												<td align=\"center\" bgcolor=\"#FFFFFF\"></td>
+												<td align=\"center\" bgcolor=\"#FFFFFF\"></td>
+												<td align=\"center\" bgcolor=\"#FFFFFF\" style=\"display:none\"></td>
+												<td align=\"center\" bgcolor=\"#FFFFFF\"></td>";
                                             ?>
                                             <td align="center" bgcolor="#FFFFFF">合计：</td>
                                             <td align="center" bgcolor="#FFFFFF"><?php echo $hjqchshl;
@@ -247,21 +260,11 @@ include('spap_head.php');
                                     </tr>
                                 </table>
                                 <script type="text/javascript">
-                                    function guolv() {
+                                   
 
-                                        var url = 'cfckcpdgl.php?kshrq=' + $('#KaishiRiqi').val() + '&jshrq=' + $('#JiezhiRiqi').val();
-
-                                        location.href = url;
-                                    }
-
-
-                                    function guolvyf() {
-                                        if ($('#KaishiRiqi').val() != "" || $('#JiezhiRiqi').val() != "") {
-                                            var url = 'cfckcpdgl.php?kshrq=' + $('#KaishiRiqi').val() + '&jshrq=' + $('#JiezhiRiqi').val() + '&yf=' + $('#YaoFangId').val();
-                                        } else {
-                                            var url = 'cfckcpdgl.php?yf=' + $('#YaoFangId').val();
-                                        }
-                                        location.href = url;
+                                    function search(){
+                                    	var url = 'cfckcpdgl.php?kshrq=' + $('#KaishiRiqi').val() + '&jshrq=' + $('#JiezhiRiqi').val() + '&yf=' + $('#YaoFangId').val() + "&status=" +$("#statusId").val();
+                                    	location.href = url;
                                     }
 
                                     $(function () {
@@ -279,6 +282,6 @@ include('spap_head.php');
                                         }
                                         ?>
                                     });
-                                </script>
-                                </body>
-                                </html>
+          </script>
+	</body>
+</html>

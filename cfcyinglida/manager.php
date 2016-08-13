@@ -480,7 +480,7 @@ if ($_SESSION[yhshf] == '3') {
             <div class="topico"><img src="./images/icon01.gif"/></div>
             <div class="istext"><a href="yshchrkgl.php" title="出入库统计">出入库统计</a></div>
         </div>
-        <div class="infowraps">
+        <div class="infowraps" style="display: none">
             <div class="topico"><img src="./images/icon01.gif"/></div>
             <div class="istext"><a href="yppsgl.php" title="药品破损">药品破损</a></div>
         </div>

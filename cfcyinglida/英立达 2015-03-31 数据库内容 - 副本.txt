@@ -526,6 +526,8 @@ cgcyinglida  utf8_general_ci
   3 盘点人 -------- pdr
   4 单位名称 -------- dwmch
   5 记录时间戳 -------- jlshjch
+  6 盘点状态 --------- status 若被锁住，则状态为1异常，没锁则为0正常
+  
 库房库存盘点明细 -------- kfkcpdmx
   0 id （自增长） -------- id
   1 盘点id （关联） -------- pdid

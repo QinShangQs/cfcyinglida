@@ -9,6 +9,7 @@ $pdrq = $_POST ['pdrq']; // 盘点日期
 $pdr = $_POST ['pdr']; // 盘点人
 $jlshjch = microtime_float (); // 记录时间戳精确到毫秒
 $dwmch = $_POST ['dwmch']; // 单位名称
+
 if ($dwmch != "") {
 	$dzhnykshshjch = strtotime ( $dzhny ); // 盘点月开始第一天
 	$dzhnyjshshjch = strtotime ( "$dzhny +1 month" ); // 盘点月结束最后一天(结束也是下月第一天之前所以加一个月)
@@ -26,9 +27,11 @@ if ($dwmch != "") {
 		$tjshj = 0;
 	} // 0为统计上月,1为当月
 	$shfchfsql = "select * from `kfkcpd` where `dzhny`='$dzhny' and `dwmch`='$dwmch'";
+// 	var_dump($shfchfsql);
+// 	exit;
 	$shfchfq = mysql_query ( $shfchfsql );
 	$shfchf = mysql_num_rows ( $shfchfq );
-	if ($shfchf == 0) {
+	//if ($shfchf == 0) {
 		$phidsql = "select `ph1`,`ph2`,`phshl1`,`phshl2` from `yfshqzy` where `shqzht`='3'  and `jlshjch`>'$dzhnykshshjch' and `jlshjch`<'$dzhnyjshshjch' and `yfmch`='" . $yhgldw . "'";
 		$phidQuery_ID = mysql_query ( $phidsql );
 		while ( $phidRecord = mysql_fetch_array ( $phidQuery_ID ) ) {
@@ -125,7 +128,8 @@ if ($dwmch != "") {
 			$phn [$phnRecord [0]] = $phnRecord [1];
 		}
 		
-		$shcpdidsql = "select id,jlshjch from `kfkcpd` where `dwmch`='$dwmch' order by id DESC limit 0,1";
+		$shcpdidsql = "select id,jlshjch from `kfkcpd` where `dwmch`='$dwmch' and `dzhny`!='$dzhny' order by id DESC limit 0,1";
+		//die(var_dump($shcpdidsql));
 		$shcpdidQuery_ID = mysql_query ( $shcpdidsql );
 		while ( $shcpdidRecord = mysql_fetch_array ( $shcpdidQuery_ID ) ) {
 			$shcpdid = $shcpdidRecord [0];
@@ -186,25 +190,31 @@ if ($dwmch != "") {
 				
 				// 当月出库 是“药品发放明细”里面当月发出去的+“药房调拨”里面当月发出去的+“药品破损”里面当月填写的破损的
 				// 药房明细发出的数量
-				$zyffSql = "SELECT SUM(fyshl) FROM zyff WHERE fyrq >= '$firstDay' AND fyrq < '$lastDay' AND yfmch = '$dwmch' AND ypph='$phid'";
+				$zyffSql = "SELECT SUM(fyshl) FROM zyff WHERE fyrq >= '$firstDay' AND fyrq < '$lastDay' AND yfmch = '$dwmch' AND ypph='$ypph'";
 				$zyffQueryId = mysql_query ( $zyffSql );
 				while ( $zyffRecord = mysql_fetch_array ( $zyffQueryId ) ) {
 					$zyffshl = $zyffRecord [0];
 				}
-				
-				// 药房调拨当月发出的数量
+
+
+				/*不计算调拨和破损
+				 * // 药房调拨当月发出的数量
 				$yfdbfchSql = "SELECT SUM(yfshjfyshl) FROM yfdb WHERE fcyfid='$dwmch' AND ph='$ypph' AND dbypshdrq >='$firstDay' AND dbypshdrq < '$lastDay' ";
 				$yfdbfchQueryId = mysql_query ( $yfdbfchSql );
 				while ( $yfdbfchRecord = mysql_fetch_array ( $yfdbfchQueryId ) ) {
 					$yfdbfchshl = $yfdbfchRecord [0];
 				}
-				
+				 
 				// 药品破损里面当月破损数量
-				$psypSql = "SELECT SUM(pshsh) FROM psyp WHERE yfmch='$dwmch' AND pihao='$ypph' AND createDate >= '$firstDay' AND createDate <='$lastDay'";
+				$psypSql = "SELECT SUM(pshsh) FROM psyp WHERE yfmch='$dwmch' AND pihao='$phid' AND createDate >= '$firstDay' AND createDate <='$lastDay'";
 				$psypQueryId = mysql_query ( $psypSql );
 				while ( $psypRecord = mysql_fetch_array ( $psypQueryId ) ) {
 					$psypshl = $psypRecord [0];
-				}
+				}*/
+				
+
+				$yfdbfchshl = 0;
+				$psypshl = 0;
 				
 				if ($zyffshl == "") {
 					$zyffshl = "0";
@@ -219,7 +229,7 @@ if ($dwmch != "") {
 				}
 				
 				// 当月出库数量
-				$bychk = $zyffshl + $yfdbfchshl + $psypshl;
+				$bychk = $zyffshl + $yfdbfchshl + $psypshl;				
 				
 				if ($shcpdid != "") {
 					$shcpdkcshlsql = "select `shjkc` from `kfkcpdmx` where `pdid`='$shcpdid' and `ypph`='$ypph'";
@@ -235,7 +245,8 @@ if ($dwmch != "") {
 				} else {
 					$shcpdkcshl = 0;
 				}
-
+				
+				
 				// 实际库存等于期初库存 + 本月入库 -本月出库
 				if ($shcpdkcshl + $byrkshjshl - $bychk != $shjkc) {
 					$zhtsd = 1;
@@ -244,10 +255,14 @@ if ($dwmch != "") {
 					$zhtsd = 0;
 					$islock = 0;
 				}
-
+				
+				
+				//status 盘点状态若被锁住，则状态为1异常，没锁则为0正常
 				$kfkcpdisLockSql = "UPDATE `kfkcpd` SET `islock` = {$islock} WHERE id='$getID'";
 				$kfkcpdResult = mysql_query ( $kfkcpdisLockSql );
-				
+				$kfkcpdisLockSql = "UPDATE `kfkcpd` SET `status` = {$islock} WHERE id='$getID'";
+				$kfkcpdResult = mysql_query ( $kfkcpdisLockSql );
+
 				$mxquery = "insert into `kfkcpdmx`(`pdid`,`ypph`,`qchkc`,`byrk`,`bychk`,`shjkc`,`zhtsd`)
                                             values('$getID','$ypph','$shcpdkcshl','$byrkshjshl','$bychk','$shjkc','$zhtsd')";
 				$mxresult = mysql_query ( $mxquery );
@@ -255,6 +270,8 @@ if ($dwmch != "") {
 					echo mysql_error ();
 					echo "失败 <input type=\"button\"  onclick=\"javascript:{history.go(-1);}\" value=\"返回\" class=\"lgSub\" />";
 				}
+// 				var_dump($kfkcpdisLockSql);
+// 				var_dump($kfkcpdResult);exit();
 				$ypph = "";
 				$qchkc = "0";
 				$byrk = "0";
@@ -276,9 +293,9 @@ if ($dwmch != "") {
 				exit ();
 			}
 		}
-	} else {
-		echo $dzhny . "已经盘点过<input type=\"button\"  onclick=\"javascript:{history.go(-1);}\" value=\"返回\" class=\"lgSub\" />";
-	}
+// 	} else {
+// 		echo $dzhny . "已经盘点过<input type=\"button\"  onclick=\"javascript:{history.go(-1);}\" value=\"返回\" class=\"lgSub\" />";
+// 	}
 } else {
 	echo "失败 <input type=\"button\"  onclick=\"javascript:{history.go(-1);}\" value=\"返回\" class=\"lgSub\" />";
 }

@@ -108,102 +108,103 @@ include ('spap_head.php');
 							<td width="8%" align="center" bgcolor="#FFFFFF">月初库存量</td>
 							<td width="8%" align="center" bgcolor="#FFFFFF">本月收到药品数量</td>
 							<td width="8%" align="center" bgcolor="#FFFFFF">本月发放药品数量</td>
-							<td width="8%" align="center" bgcolor="#FFFFFF">破损数量</td>
+							<td width="8%" align="center" bgcolor="#FFFFFF" style="display:none">破损数量</td>
 							<td width="10%" align="center" bgcolor="#FFFFFF">月末库存量</td>
 						</tr>
 
                         <?php
-																								$sql = "select * from `kfkcpd` where `dwmch`='$yhgldw'";
-																								if ($guanjiancisql != "") {
-																									$sql .= " and " . $guanjiancisql;
-																								}
-																								$sql .= " order by id DESC limit $page $pagesize ";
-																								
-																								$Query_ID = mysql_query ( $sql );
-																								while ( $Record = mysql_fetch_array ( $Query_ID ) ) {
-																									?>
+							$sql = "select * from `kfkcpd` where `dwmch`='$yhgldw'";
+							if ($guanjiancisql != "") {
+								$sql .= " and " . $guanjiancisql;
+							}
+							$sql .= " order by id DESC limit $page $pagesize ";
+								
+							//var_dump($sql);
+							$Query_ID = mysql_query ( $sql );
+							while ( $Record = mysql_fetch_array ( $Query_ID ) ) {
+						?>
 
                             <tr style="color: #1f4248; font-size: 12px;">
 							<!--td style="text-align: right;"></td-->
 							<td align="center" bgcolor="#FFFFFF"><?php echo $Record[1]; ?></td>
 							<!--td align="center" bgcolor="#FFFFFF"><?php echo date('y/m/d') . "-" . date('y/m/d'); ?></td-->
 							<td align="center" bgcolor="#FFFFFF"><?php echo $Record[2]; ?></td>
-							<td align="center" bgcolor="#FFFFFF"><?php
-																									$pdrsql = "select yhyl1 from `manager` where `id`='$Record[3]' ";
-																									$pdrQuery_ID = mysql_query ( $pdrsql );
-																									while ( $pdrRecord = mysql_fetch_array ( $pdrQuery_ID ) ) {
-																										echo $pdrRecord [0];
-																									}
-																									?></td>
+							<td align="center" bgcolor="#FFFFFF">
+							<?php
+								$pdrsql = "select yhyl1 from `manager` where `id`='$Record[3]' ";
+								$pdrQuery_ID = mysql_query ( $pdrsql );
+								while ( $pdrRecord = mysql_fetch_array ( $pdrQuery_ID ) ) {
+									echo $pdrRecord [0];
+								}
+								?></td>
                             <?php
-																									$mxsql = "select `ypph`,`qchkc`,`byrk`,`bychk`,`shjkc`,`zhtsd` from `kfkcpdmx` where `pdid`='" . $Record [0] . "'";
-																									
-																									$mxQuery_ID = mysql_query ( $mxsql );
-																									$mxi = 0;
-																									$mxi1 = 0;
-																									while ( $mxRecord = mysql_fetch_array ( $mxQuery_ID ) ) {
-																										if ($mxi > 0 && $mxi1 == 0 && $mxi - $mxi1 > 1) {
-																											echo "<tr style=\"color:#1f4248; font-size:12px;\">
-                                     <td align=\"center\" bgcolor=\"#FFFFFF\"></td>
-                                     <td align=\"center\" bgcolor=\"#FFFFFF\"></td>
-                                     <td align=\"center\" bgcolor=\"#FFFFFF\"></td>";
-																										}
-																										if ($mxRecord [1] == "0" && $mxRecord [2] == "0" && $mxRecord [3] == "0" && $mxRecord [4] == "0") {
-																											$mxi1 ++;
-																										} else {
-																											$ph = '';
-																											$phsql = "select `id`, `gg` from `kfrk` where `ph`='$mxRecord[0]'";
-																											$phquery = mysql_query ( $phsql );
-																											while ( $phRecord = mysql_fetch_array ( $phquery ) ) {
-																												$ph .= $phRecord [0] . ',';
-																												$gg = $phRecord [1];
-																											}
-																											$newph = rtrim ( $ph, "," );
-																											// $lyrctjsql = "select count(*) from `zyff` where `yfmch`='$yhgldw' and `ypph` in ($newph)";
-																											// $lyrctjquery = mysql_query($lyrctjsql);
-																											// while ($lyrctjRecord = mysql_fetch_array($lyrctjquery)) {
-																											// $lyrc = $lyrctjRecord[0];
-																											// }
-																											$firstDay = date ( "Y-m-01", strtotime ( $Record [2] ) ); // 当月的第一天
-																											$lastDay = date ( "Y-m-d", strtotime ( "$firstDay +1 month -1 day" ) ); // 当月的最后一天
+								$mxsql = "select `ypph`,`qchkc`,`byrk`,`bychk`,`shjkc`,`zhtsd` from `kfkcpdmx` where `pdid`='" . $Record [0] . "'";
+								//var_dump($mxsql);
+								$mxQuery_ID = mysql_query ( $mxsql );
+								$mxi = 0;
+								$mxi1 = 0;
+								while ( $mxRecord = mysql_fetch_array ( $mxQuery_ID ) ) {
+									if ($mxi > 0 && $mxi1 == 0 && $mxi - $mxi1 > 1) {
+										echo "<tr style=\"color:#1f4248; font-size:12px;\">
+                                     	<td align=\"center\" bgcolor=\"#FFFFFF\"></td>
+                                     	<td align=\"center\" bgcolor=\"#FFFFFF\"></td>
+                                     	<td align=\"center\" bgcolor=\"#FFFFFF\"></td>";
+									}
+									if ($mxRecord [1] == "0" && $mxRecord [2] == "0" && $mxRecord [3] == "0" && $mxRecord [4] == "0") {
+										$mxi1 ++;
+									} else {
+										$ph = '';
+										$phsql = "select `id`, `gg` from `kfrk` where `ph`='$mxRecord[0]'";
+										$phquery = mysql_query ( $phsql );
+										while ( $phRecord = mysql_fetch_array ( $phquery ) ) {
+											$ph .= $phRecord [0] . ',';
+											$gg = $phRecord [1];
+										}
+										$newph = rtrim ( $ph, "," );
+										// $lyrctjsql = "select count(*) from `zyff` where `yfmch`='$yhgldw' and `ypph` in ($newph)";
+										// $lyrctjquery = mysql_query($lyrctjsql);
+										// while ($lyrctjRecord = mysql_fetch_array($lyrctjquery)) {
+										// $lyrc = $lyrctjRecord[0];
+										// }
+										$firstDay = date ( "Y-m-01", strtotime ( $Record [2] ) ); // 当月的第一天
+										$lastDay = date ( "Y-m-d", strtotime ( "$firstDay +1 month -1 day" ) ); // 当月的最后一天
 																											
-																											$psypSql = "SELECT SUM(pshsh) FROM psyp WHERE yfmch='$dwmch' AND pihao='$newph' AND createDate >= '$firstDay' AND createDate <='$lastDay'";
-																											// var_dump($psypSql);
-																											$psypQueryId = mysql_query ( $psypSql );
-																											while ( $psypRecord = mysql_fetch_array ( $psypQueryId ) ) {
-																												$psypshl = $psypRecord [0];
-																											}
-																											if ($psypshl == "") {
-																												$psypshl = 0;
-																											}
-																											if (($mxi - $mxi1) == 1) {
-																												echo "<tr style=\"color:#1f4248; font-size:12px;\">
-                                        <td align=\"center\" bgcolor=\"#FFFFFF\"></td>
-                                        <td align=\"center\" bgcolor=\"#FFFFFF\"></td>
-                                        <td align=\"center\" bgcolor=\"#FFFFFF\"></td>";
-																											}
-																											?>
+										$psypSql = "SELECT SUM(pshsh) FROM psyp WHERE yfmch='$dwmch' AND pihao='$newph' AND createDate >= '$firstDay' AND createDate <='$lastDay'";
+										// var_dump($psypSql);
+										$psypQueryId = mysql_query ( $psypSql );
+										while ( $psypRecord = mysql_fetch_array ( $psypQueryId ) ) {
+											$psypshl = $psypRecord [0];
+										}
+										if ($psypshl == "") {
+											$psypshl = 0;
+										}
+										if (($mxi - $mxi1) == 1) {
+											echo "<tr style=\"color:#1f4248; font-size:12px;\">
+	                                        <td align=\"center\" bgcolor=\"#FFFFFF\"></td>
+	                                        <td align=\"center\" bgcolor=\"#FFFFFF\"></td>
+	                                        <td align=\"center\" bgcolor=\"#FFFFFF\"></td>";
+										}
+									?>
                                     <td align="center" bgcolor="#FFFFFF"><?php echo $mxRecord[0]."[".$gg."]"; ?></td>
 							<td align="center" bgcolor="#FFFFFF"><?php echo $mxRecord[1]; ?></td>
 							<td align="center" bgcolor="#FFFFFF"><?php echo $mxRecord[2]; ?></td>
-							<td align="center" bgcolor="#FFFFFF"><?php echo $mxRecord[3] ; ?></td>
-							<td align="center" bgcolor="#FFFFFF"><?php echo $psypshl; ?></td>
-							<td align="center" bgcolor="#FFFFFF"
-								<?php if($mxRecord[5] > 0){?> style="color: red;" <?php }?>>
-                                        <?php echo $mxRecord[4]; ?>
-                                    </td>
+							<td align="center" bgcolor="#FFFFFF"><?php echo $mxRecord[3] ; ?></td><!-- echo "xxxxx";  -->
+							<td align="center" bgcolor="#FFFFFF" style="display:none"><?php echo $psypshl; ?></td>
+							<td align="center" bgcolor="#FFFFFF" <?php if($mxRecord[5] > 0){?> style="color: red;" <?php }?>>
+                                 <?php echo $mxRecord[4]; ?>
+                            </td>
 						</tr>
-                                    <?php
-																											$hjqchshl += $mxRecord [1];
-																											$hjrkshl += $mxRecord [2];
-																											$hjchkshl += $mxRecord [3];
-																											$hjshjshl += $mxRecord [4];
-																											$hjpsypshl += $psypshl;
-																										}
-																										$mxi ++;
-																									}
-																									if ($mxi == $mxi1) {
-																										?>
+                           <?php
+									$hjqchshl += $mxRecord [1];
+									$hjrkshl += $mxRecord [2];
+									$hjchkshl += $mxRecord [3];
+									$hjshjshl += $mxRecord [4];
+									$hjpsypshl += $psypshl;
+								}
+								$mxi ++;
+							}
+								if ($mxi == $mxi1) {
+									?>
                                 <td align="center" bgcolor="#FFFFFF">无</td>
 						<td align="center" bgcolor="#FFFFFF">无</td>
 						<td align="center" bgcolor="#FFFFFF">无</td>
@@ -212,60 +213,54 @@ include ('spap_head.php');
 						<td align="center" bgcolor="#FFFFFF">无</td>
 						</tr>
                             <?php
-																									}
-																									if ($mxi != $mxi1) {
-																										echo "<tr style=\"color:#1f4248; font-size:12px;\">
-                                  <td align=\"center\" bgcolor=\"#FFFFFF\"></td>
-                                  <td align=\"center\" bgcolor=\"#FFFFFF\"></td>
-                                  <td align=\"center\" bgcolor=\"#FFFFFF\"></td>";
-																										?>
+								}
+								if ($mxi != $mxi1) {
+									echo "<tr style=\"color:#1f4248; font-size:12px;\">
+	                                  <td align=\"center\" bgcolor=\"#FFFFFF\"></td>
+	                                  <td align=\"center\" bgcolor=\"#FFFFFF\"></td>
+	                                  <td align=\"center\" bgcolor=\"#FFFFFF\" style=\"display:none\"></td>";
+							?>
                                 <td align="center" bgcolor="#FFFFFF">合计：</td>
-						<td align="center" bgcolor="#FFFFFF"><?php
-																										
-echo $hjqchshl;
-																										$hjqchshl = 0;
-																										?></td>
-						<td align="center" bgcolor="#FFFFFF"><?php
-																										
-echo $hjrkshl;
-																										$hjrkshl = 0;
-																										?></td>
-						<td align="center" bgcolor="#FFFFFF"><?php
-																										
-echo $hjchkshl;
-																										$hjchkshl = 0;
-																										?></td>
-						<td align="center" bgcolor="#FFFFFF"><?php
-																										
-echo $hjpsypshl;
-																										$hjpsypshl = 0;
-																										?></td>
-						<td align="center" bgcolor="#FFFFFF"><?php
-																										
-echo $hjshjshl;
-																										$hjshjshl = 0;
-																										?></td>
+						<td align="center" bgcolor="#FFFFFF">
+						<?php																										
+							echo $hjqchshl;
+							$hjqchshl = 0;
+						?></td>
+						<td align="center" bgcolor="#FFFFFF"><?php																										
+							echo $hjrkshl;
+							$hjrkshl = 0;
+						?></td>
+						<td align="center" bgcolor="#FFFFFF"><?php																										
+							echo $hjchkshl;
+							$hjchkshl = 0;
+							?></td>
+						<td align="center" bgcolor="#FFFFFF"><?php																										
+							echo $hjpsypshl;
+							$hjpsypshl = 0;
+						?></td>
+						<td align="center" bgcolor="#FFFFFF"><?php																										
+							echo $hjshjshl;
+							$hjshjshl = 0;
+						?></td>
 						</tr>
                             <?php
-																									}
-																								}
-																								?>
+								}
+							}
+						?>
                     </table>
 					<table width="100%" border="0" cellspacing="0" cellpadding="5"
 						class="top">
 						<tr>
 							<td>
                                 <?php
-																																include ('pagefy.php');
-																																?>
+									include ('pagefy.php');
+								?>
                             </td>
 						</tr>
 					</table>
 					<script type="text/javascript">
                         function guolv() {
-
                             var url = 'yshkcpdgl.php?kshrq=' + $('#KaishiRiqi').val() + '&jshrq=' + $('#JiezhiRiqi').val();
-
                             location.href = url;
                         }
 
