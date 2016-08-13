@@ -534,38 +534,38 @@ function yzsuotianhsw() {
     if(hsw == '') {
         alert('请填写索坦后四位');
     }
-    var json = '';
-    var count = '';
-    $.ajax({
-        url: '/i_shenqinginfo.php',
-        type: 'post',
-        async: false,
-        data: {ajax: 'ajax', hzhid: hsw},
-        dataType: 'json',
-        success: function(data) {
-            if(data == 0) {
-                alert('无此编码');
-                return ;
-            } else {
-                //患者基本信息
-                json = data.json;
-                //查询领药次数
-                count = data.count;
+//     var json = '';
+//     var count = '';
+//     $.ajax({
+//         url: '/i_shenqinginfo.php',
+//         type: 'post',
+//         async: false,
+//         data: {ajax: 'ajax', hzhid: hsw},
+//         dataType: 'json',
+//         success: function(data) {
+//             if(data == 0) {
+//                 alert('无此编码');
+//                 return ;
+//             } else {
+//                 //患者基本信息
+//                 json = data.json;
+//                 //查询领药次数
+//                 count = data.count;
 
-                //一级验证是非入组和RCC
-                //RCC通过后，进行二级验证是否为1+1+1，否的话是直接通过
-                //如果选是则进行三级验证是否领药次数超过四次，如果是则过，如果否则提示刚刚给你写的那个内容
-                if(json.shqbzh == 'RCC' && json.shqzht == '入组') {
-                    //json.jzhlx == '1+1+1'
-                    alert('您为RCC1+1+1患者,请与项目办热线进行联系');
-                } else {
-                    if(count.count < 4) {
-                        alert('您为RCC1+1+1患者，未完全进入全部捐赠状态，请与项目办热线进行联系');
-                    }
-                }
-            }
-        }
-    });
+//                 //一级验证是非入组和RCC
+//                 //RCC通过后，进行二级验证是否为1+1+1，否的话是直接通过
+//                 //如果选是则进行三级验证是否领药次数超过四次，如果是则过，如果否则提示刚刚给你写的那个内容
+//                 if(json.shqbzh == 'RCC' && json.shqzht == '入组') {
+//                     //json.jzhlx == '1+1+1'
+//                     alert('您为RCC1+1+1患者,请与项目办热线进行联系');
+//                 } else {
+//                     if(count.count < 4) {
+//                         alert('您为RCC1+1+1患者，未完全进入全部捐赠状态，请与项目办热线进行联系');
+//                     }
+//                 }
+//             }
+//         }
+//     });
 }
 
            
